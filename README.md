@@ -1,118 +1,86 @@
-# Book of abstracts for FEniCS Conference 2024
+# FEniCS Conference 2026 Book of Abstracts
 
-This repository contains the source code for generating the Book of Abstracts for the FEniCS conference 2024 (June 12-14) in Oslo.
+This repository is based on Simula's scripts for FEniCS 2024. This repository contains the scripts and MyST template used to turn the FEniCS 2026 abstract submission export into:
 
-Presenters that submit abstracts to the FEniCS conference 2024 do this through a Google form which in turn can be downloaded as a `.csv` file. Here we take this `.csv` file and generate one individual MarkDown file as a [MyST Scientific PDF](https://mystmd.org/guide/creating-pdf-documents). Next, we generate PDFs from these markdown files using a [custom template](https://mystmd.org/jtex/create-a-latex-template) that is found in the [`template`](template) folder.
+- one Markdown file per abstract in [`book/abstracts`](book/abstracts)
+- a generated landing page in [`book/README.md`](book/README.md)
+- one PDF per abstract via MyST
+- one merged PDF book of abstracts
 
-## Installation instructions
+## Installation
 
-You need to install
+You need:
 
-- Python (https://www.python.org/downloads/)
-- Node (https://nodejs.org/en/download)
-- Latex (https://www.latex-project.org/get/)
+- Python 3
+- Node.js
+- LaTeX
 
-Once this is installed you can install the dependencies by first creating a virtual environment
+Create and activate a virtual environment, then install the project dependencies:
 
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install .
 ```
-python3 -m venv venv
-```
 
-activate it
+If you are using a conda environment, activate it first and install into that same environment:
 
-```
-. venv/bin/activate
-```
-
-and install the dependencies
-
-```
+```bash
+conda activate base
 python -m pip install .
 ```
 
-## Generating fake data
+## Build The Full Book
 
-If you don't have the `.csv` file available you can generate a `.csv` with fake abstracts using the command
+From inside `fenics2026`, run:
 
-```
-python3 generate_fake_abstracts.py <file> <N>
-```
-
-e.g
-
-```
-python3 generate_fake_abstracts.py abstracts.csv 10
+```bash
+python3 build_book.py <SOURCEFILE>
 ```
 
-which will create 10 fake abstracts in the file `abstract.csv`. Note that the `csv` file has the following fieldnames
+This does three things:
 
-```
-"Username",
-"Abstract title",
-"Abstract text",
-"Name of authors (including presenter, comma-separated list)",
-"Affiliation of co-authors (including presenter, comma-separated list)",
-"Reference list"
-```
+1. Regenerates `book/abstracts/*.md`, `book/abstracts/manifest.json`, `book/README.md`, and `book/all_abstracts.md`
+2. Runs `myst build --pdf` inside `book`
+3. Merges the generated PDFs into `book/_build/exports/fenics2026-book-of-abstracts.pdf`
 
-## Converting `csv` file to MarkDown
+If you are running from conda, prefer:
 
-To convert the `.csv` file to individual markdown files you can run the command
-
-```
-python3 convert.py abstracts.csv
+```bash
+python build_book.py <SOURCEFILE>
 ```
 
-which will put each the abstracts in the folder `book/abstract` (you can also specify the output folder with the `-o` flag)
+## Run The Steps Manually
 
-## Online version of the book of abstract
+If you want to run the pipeline step by step:
 
-If you go into the `book` folder
-
-```
+```bash
+python3 convert.py <SOURCEFILE>
 cd book
-```
-
-and run the command
-
-```
-myst start
-```
-
-you should be able to go to `localhost:3000` to see the online version of the book.
-
-## Creating PDFs
-
-In the online version, it is also an option to download each abstract separately. In order to be able to download the abstracts as PDF we need to first generate the PDFs with MyST. To do this first go to the `book` folder
-
-```
-cd book
-```
-
-and run the command
-
-```
 myst build --pdf
-```
-
-This will create one pdf for each abstract
-
-### Merge all abstracts together
-
-One thing you might want to do is to download all abstracts in one go. We have created a script to merge all the pdfs together into one large pdf which can be downloaded from the landing page (i.e the README page). To merge all the pdfs together you can do
-
-```
+cd ..
 python3 merge-abstracts.py
 ```
 
-After retarting the `myst` server (`myst start`) you should now be able to also download the abstracts as PDFs
+## Notes
 
-## Deploy site
+- `convert.py` clears the existing `book/abstracts/*.md` files by default before regenerating the 2026 set.
+- Prefer the `.xlsx` export when you have it. It avoids CSV parsing entirely, although it cannot correct entries that were typed inconsistently in the original form.
+- Placeholder submissions with title/text like `NA` are skipped automatically.
+- `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated front-page order.
+- If you want a different merged PDF filename, pass `--output` to `build_book.py`.
+- `build_book.py` first tries the `myst` executable and then falls back to `python -m mystmd_py` in the current environment.
 
-Please checkout out the workflows in [`.github/workflows`](.github/workflows) folder to learn how this can be deployed to GitHub pages.
+Example:
 
-## Organizing committee
+```bash
+python3 build_book.py  <SOURCEFILE> --output book/_build/exports/book-of-abstracts-v1.pdf
+```
 
-- Jørgen Dokken
-- Henrik Finsberg
-- Marie Rognes
+## Fake Data
+
+To generate a fake CSV in the 2026 schema:
+
+```bash
+python3 generate_fake_abstracts.py fake-abstracts.csv 10
+```

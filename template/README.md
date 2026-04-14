@@ -1,12 +1,8 @@
-# FEniCS conf 2024
+# FEniCS Conference Abstract Template
 
-Template for book of abstracts for FEniCS 2024
+Template for the FEniCS book of abstracts
 
 ![](thumbnail.png)
-
-- Author: Henrik Finsberg (Simula Research Laboratory)
-- Author Website: https://scientificcomputing.github.io/fenics_conf2024
-- [Submission Guidelines](https://github.com/scientificcomputing/fenics_conf2024)
 
 ## Steps to creating your own template!
 

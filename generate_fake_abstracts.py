@@ -1,26 +1,31 @@
-from typing import Sequence
+from __future__ import annotations
+
 import argparse
-from pathlib import Path
-from faker import Faker
 import csv
+from pathlib import Path
+from typing import Sequence
+
+from faker import Faker
+
+SUBMISSION_TYPE_FIELD = (
+    "Is the submission relating to a poster, a software demonstration or a presentation?\n\n"
+    "Participants can demonstrate their FEniCS-based software to small groups using their laptops. "
+    "These “software demonstrations” take place at the same time as the poster session. One "
+    "participant can choose to submit a presentation or a poster and a software demonstration - "
+    "please submit the form twice."
+)
 
 
 def authors(fake: Faker, n: int) -> str:
-    authors = []
-    for i in range(n):
-        authors.append(fake.name())
-    return ", ".join(authors)
+    return ", ".join(fake.name() for _ in range(n))
 
 
 def affiliations(fake: Faker, n: int) -> str:
-    affiliations = []
-    for i in range(n):
-        affiliations.append(fake.company())
-    return ", ".join(affiliations)
+    return ", ".join(fake.company() for _ in range(n))
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="")
+    parser = argparse.ArgumentParser(description="Generate a fake 2026 abstract submission CSV.")
     parser.add_argument("path", type=Path)
     parser.add_argument("N", type=int, default=10)
     args = vars(parser.parse_args(argv))
@@ -31,31 +36,62 @@ def main(argv: Sequence[str] | None = None) -> int:
     path = Path(args["path"]).with_suffix(".csv")
 
     fieldnames = [
-        "Username",
-        "Abstract title",
-        "Abstract text",
+        "Timestamp",
+        "Email address",
+        "Name of presenter",
+        "Affiliation of presenter",
+        SUBMISSION_TYPE_FIELD,
+        "Are you a PhD candidate or a Postdoctoral researcher?",
+        "Do you need a signed letter of acceptance (for VISA or other purposes)?",
         "Name of authors (including presenter, comma-separated list)",
         "Affiliation of co-authors (including presenter, comma-separated list)",
+        "Abstract title",
+        "Abstract text",
         "Reference list",
+        "Do you agree to your presentation being recorded and for the recording to be made available on a video hosting platform after the conference?",
+        "Do you accept the terms and conditions?",
     ]
-    with path.open("w") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+    submission_types = ["Presentation", "Poster", "Software Demonstration"]
+
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
 
         for _ in range(args["N"]):
             num_authors = fake.random_int(1, 5)
-            empty_ref_list = fake.random_int(0, 1)
-            data = {
-                "Username": fake.email(),
-                "Abstract title": fake.sentence(),
-                "Abstract text": fake.text(),
-                "Name of authors (including presenter, comma-separated list)": authors(fake, num_authors),
-                "Affiliation of co-authors (including presenter, comma-separated list)": affiliations(
-                    fake, num_authors
-                ),
-                "Reference list": fake.text() if not empty_ref_list else "",
-            }
-            writer.writerow(data)
+            presenter_name = fake.name()
+            presenter_affiliation = fake.company()
+            coauthor_names = [presenter_name]
+            coauthor_names.extend(fake.name() for _ in range(num_authors - 1))
+            coauthor_affiliations = [presenter_affiliation]
+            coauthor_affiliations.extend(fake.company() for _ in range(num_authors - 1))
+
+            writer.writerow(
+                {
+                    "Timestamp": fake.iso8601(),
+                    "Email address": fake.email(),
+                    "Name of presenter": presenter_name,
+                    "Affiliation of presenter": presenter_affiliation,
+                    SUBMISSION_TYPE_FIELD: fake.random_element(submission_types),
+                    "Are you a PhD candidate or a Postdoctoral researcher?": fake.random_element(
+                        ["PhD candidate", "Postdoctoral researcher", "No"]
+                    ),
+                    "Do you need a signed letter of acceptance (for VISA or other purposes)?": fake.random_element(
+                        ["Yes", "No"]
+                    ),
+                    "Name of authors (including presenter, comma-separated list)": ", ".join(coauthor_names),
+                    "Affiliation of co-authors (including presenter, comma-separated list)": ", ".join(
+                        coauthor_affiliations
+                    ),
+                    "Abstract title": fake.sentence(nb_words=8).rstrip("."),
+                    "Abstract text": fake.paragraph(nb_sentences=8),
+                    "Reference list": fake.paragraph(nb_sentences=2) if fake.random_int(0, 1) else "",
+                    "Do you agree to your presentation being recorded and for the recording to be made available on a video hosting platform after the conference?": fake.random_element(
+                        ["Yes", "No"]
+                    ),
+                    "Do you accept the terms and conditions?": "Yes",
+                }
+            )
 
     return 0
 

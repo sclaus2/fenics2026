@@ -2,23 +2,22 @@
 version: 1
 project:
   id: 46e959ad-b96f-4822-bf1f-b1221c59b10c
-  # title:
+  title: FEniCS Conference 2026 Book of Abstracts
   # description:
   keywords: []
   authors: []
   # github:
   resources:
     - README.md
+    - all_abstracts.md
     - abstracts
   bibliography: []
   venue:
-    title: Simula Research Laboratory
+    title: University of Chicago in Paris
 site:
   template: book-theme
   options:
-    logo: assets/logo.png
+    logo: assets/fenics-logo.png
   actions:
     - title: FEniCS website
       url: https://fenicsproject.org
-    - title: Simula website
-      url: https://www.simula.no

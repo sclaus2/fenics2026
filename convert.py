@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import difflib
 import json
 import re
 import unicodedata
@@ -17,36 +18,30 @@ DEFAULT_BOOK_TITLE = "FEniCS Conference 2026 Book of Abstracts"
 DEFAULT_BOOK_SUBTITLE = "Generated from conference abstract submissions"
 DEFAULT_BOOK_AUTHOR = "FEniCS Conference 2026 Organizing Committee"
 PLACEHOLDER_VALUES = {"na", "n/a", "none", "null", "nan", "-"}
-NON_NAME_HINTS = (
-    "analysis",
-    "university",
-    "department",
-    "laboratory",
-    "lab",
-    "college",
-    "research",
-    "centre",
-    "center",
-    "institute",
-    "institut",
-    "school",
-    "faculty",
-    "hospital",
-    "scientific",
-    "computing",
-    "phd",
-    "postdoctoral",
-    "student",
-    "scientist",
-    "professor",
-    "meudon",
-    "france",
-    "norway",
-    "oslo",
-    "onera",
-    "simula",
-    "polytechnique",
+TEXT_REPLACEMENTS = str.maketrans(
+    {
+        "\u00a0": " ",
+        "\u2002": " ",
+        "\u2003": " ",
+        "\u2009": " ",
+        "\u200a": " ",
+        "\u202f": " ",
+        "\u2010": "-",
+        "\u2011": "-",
+        "\u2012": "-",
+        "\u2013": "-",
+        "\u2014": "-",
+        "\u2212": "-",
+        "\u2018": "'",
+        "\u2019": "'",
+        "\u201c": '"',
+        "\u201d": '"',
+        "\u2026": "...",
+        "\u2022": "*",
+        "\u2192": "->",
+    }
 )
+NAME_PREFIXES = ("dr", "dr.", "prof", "prof.", "professor")
 SUBMISSION_TYPE_FIELD = (
     "Is the submission relating to a poster, a software demonstration or a presentation?\n\n"
     "Participants can demonstrate their FEniCS-based software to small groups using their laptops. "
@@ -137,7 +132,8 @@ def quote_yaml(value: str) -> str:
 
 
 def normalise_text(value: str) -> str:
-    return value.replace("\r\n", "\n").strip()
+    cleaned = unicodedata.normalize("NFKC", value.replace("\r\n", "\n"))
+    return cleaned.translate(TEXT_REPLACEMENTS).strip()
 
 
 def is_placeholder(value: str) -> bool:
@@ -230,23 +226,30 @@ def extract_affiliation_markers(value: str) -> list[str]:
     return list(dict.fromkeys(markers))
 
 
+def has_affiliation_markers(value: str) -> bool:
+    return bool(extract_affiliation_markers(value) or re.search(r"\[[0-9,\s]+\]$", value))
+
+
 def clean_author_name(value: str) -> str:
     cleaned = re.sub(r"\^\{[^}]*\}", "", value)
     cleaned = re.sub(r"\^\([^)]*\)", "", cleaned)
     cleaned = re.sub(r"\(([0-9,\s]+)\)\)?$", "", cleaned)
     cleaned = re.sub(r"\[[0-9,\s]+\]$", "", cleaned)
-    return normalise_space(cleaned).strip("()")
+    cleaned = normalise_space(cleaned).strip("()")
+    parts = cleaned.split()
+    while parts and parts[0].casefold().rstrip(".") in NAME_PREFIXES:
+        parts.pop(0)
+    return " ".join(parts)
 
 
 def looks_like_person_name(value: str) -> bool:
-    lower = value.casefold()
-    if not value or any(hint in lower for hint in NON_NAME_HINTS):
+    if not value:
         return False
     if any(char.isdigit() for char in value):
         return False
 
     tokens = re.findall(r"[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ.'’-]*", value)
-    return 2 <= len(tokens) <= 6
+    return 1 <= len(tokens) <= 8
 
 
 def parse_author_entries(value: str) -> list[tuple[str, list[str]]]:
@@ -256,6 +259,68 @@ def parse_author_entries(value: str) -> list[tuple[str, list[str]]]:
         if looks_like_person_name(cleaned):
             entries.append((cleaned, extract_affiliation_markers(chunk)))
     return entries
+
+
+def name_tokens(value: str) -> list[str]:
+    normalised = unicodedata.normalize("NFKD", clean_author_name(value).casefold())
+    ascii_value = normalised.encode("ascii", "ignore").decode("ascii")
+    return re.findall(r"[a-z]+", ascii_value)
+
+
+def tokens_compatible(shorter: Sequence[str], longer: Sequence[str]) -> bool:
+    if not shorter:
+        return True
+    remaining = list(longer)
+    for token in shorter:
+        match_index = next(
+            (
+                index
+                for index, candidate in enumerate(remaining)
+                if candidate == token
+                or candidate.startswith(token)
+                or token.startswith(candidate)
+                or (len(token) == 1 and candidate.startswith(token))
+                or (len(candidate) == 1 and token.startswith(candidate))
+            ),
+            None,
+        )
+        if match_index is None:
+            return False
+        remaining = remaining[match_index + 1 :]
+    return True
+
+
+def same_person_name(left: str, right: str) -> bool:
+    left_tokens = name_tokens(left)
+    right_tokens = name_tokens(right)
+    if not left_tokens or not right_tokens:
+        return False
+    if left_tokens == right_tokens:
+        return True
+    if left_tokens[-1] != right_tokens[-1]:
+        return False
+    if left_tokens[0][0] != right_tokens[0][0]:
+        return False
+
+    left_middle = left_tokens[:-1]
+    right_middle = right_tokens[:-1]
+    shorter, longer = sorted((left_middle, right_middle), key=len)
+    return tokens_compatible(shorter, longer)
+
+
+def presenter_matches_author(presenter: str, author: str) -> bool:
+    if same_person_name(presenter, author):
+        return True
+
+    presenter_tokens = name_tokens(presenter)
+    author_tokens = name_tokens(author)
+    if not presenter_tokens or not author_tokens:
+        return False
+    if presenter_tokens[0][0] != author_tokens[0][0]:
+        return False
+
+    shorter, longer = sorted((presenter_tokens, author_tokens), key=len)
+    return tokens_compatible(shorter, longer)
 
 
 def clean_affiliation_text(value: str) -> str:
@@ -292,47 +357,114 @@ def strip_leading_author_list(value: str) -> str:
 
 
 def parse_extra_author_entries_from_affiliations(value: str) -> list[tuple[str, list[str]]]:
-    parts = split_outside_brackets(value, ",")
-    if not parts:
+    if not value:
         return []
-    return parse_author_entries(parts[0])
+
+    match = re.search(r"(?:(?<=^)|(?<=\n)|(?<=,)\s*)\d+[\.)]\s*", value)
+    candidate = value[: match.start()] if match else value
+    if not has_affiliation_markers(candidate):
+        return []
+
+    return parse_author_entries(candidate)
+
+
+def dedupe_preserve_order(values: Sequence[str]) -> list[str]:
+    return list(dict.fromkeys(values))
+
+
+def canonicalise_affiliation(value: str) -> str:
+    normalised = unicodedata.normalize("NFKD", normalise_space(value).casefold())
+    ascii_value = normalised.encode("ascii", "ignore").decode("ascii")
+    ascii_value = re.sub(r"\bdept\b", "department", ascii_value)
+    ascii_value = re.sub(r"\buniv\b", "university", ascii_value)
+    ascii_value = re.sub(r"[^a-z0-9]+", "", ascii_value)
+    return ascii_value
+
+
+def same_affiliation(left: str, right: str) -> bool:
+    left_key = canonicalise_affiliation(left)
+    right_key = canonicalise_affiliation(right)
+    if not left_key or not right_key:
+        return False
+    if left_key == right_key:
+        return True
+
+    similarity = difflib.SequenceMatcher(a=left_key, b=right_key).ratio()
+    length_gap = abs(len(left_key) - len(right_key))
+    return similarity >= 0.985 and length_gap <= 3
+
+
+def dedupe_affiliations(values: Sequence[str]) -> list[str]:
+    unique: list[str] = []
+    for value in values:
+        if not value:
+            continue
+        if any(same_affiliation(value, existing) for existing in unique):
+            continue
+        unique.append(value)
+    return unique
+
+
+def strip_references_heading(value: str) -> str:
+    lines = value.splitlines()
+    while lines and not lines[0].strip():
+        lines.pop(0)
+    if lines and normalise_space(lines[0]).casefold().rstrip(":") == "references":
+        lines.pop(0)
+    return "\n".join(lines).strip()
+
+
+def sanitise_references_text(value: str) -> str:
+    text = strip_references_heading(value)
+    text = re.sub(
+        r"https?://(?:dx\.)?doi\.org/([^\s)]+)",
+        lambda match: f"DOI: {match.group(1)}",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
+        r"\bdoi:\s*(10\.[^\s)]+)",
+        lambda match: f"DOI: {match.group(1)}",
+        text,
+        flags=re.IGNORECASE,
+    )
+    return text
 
 
 def build_authors(
     presenter_name: str,
-    presenter_affiliation: str,
     email: str,
     raw_authors: str,
     raw_affiliations: str,
 ) -> list["Author"]:
     presenter_name = clean_author_name(presenter_name)
     author_entries = parse_author_entries(raw_authors)
-    extra_entries = parse_extra_author_entries_from_affiliations(raw_affiliations)
 
     ordered_entries: list[tuple[str, list[str]]] = []
-    seen_names: set[str] = set()
+    presenter_index: int | None = None
 
-    if presenter_name:
-        ordered_entries.append((presenter_name, []))
-        seen_names.add(presenter_name.casefold())
-
-    for name, markers in [*author_entries, *extra_entries]:
-        key = name.casefold()
-        if presenter_name and len(presenter_name.split()) == 1 and key.startswith(f"{presenter_name.casefold()} "):
-            ordered_entries[0] = (name, markers)
-            seen_names.discard(presenter_name.casefold())
-            seen_names.add(key)
-            presenter_name = name
+    for name, markers in author_entries:
+        existing_index = next(
+            (index for index, (existing_name, _) in enumerate(ordered_entries) if same_person_name(existing_name, name)),
+            None,
+        )
+        if existing_index is not None:
+            if not ordered_entries[existing_index][1] and markers:
+                ordered_entries[existing_index] = (ordered_entries[existing_index][0], markers)
+            if presenter_name and presenter_matches_author(presenter_name, name):
+                presenter_index = existing_index
             continue
-        if key not in seen_names:
-            ordered_entries.append((name, markers))
-            seen_names.add(key)
+
+        ordered_entries.append((name, markers))
+        if presenter_name and presenter_matches_author(presenter_name, name):
+            presenter_index = len(ordered_entries) - 1
 
     if not ordered_entries and presenter_name:
-        ordered_entries.append((presenter_name, []))
+        ordered_entries.insert(0, (presenter_name, []))
+        presenter_index = 0
 
     numbered_affiliations = parse_numbered_affiliations(raw_affiliations)
-    cleaned_affiliation_field = clean_affiliation_text(strip_leading_author_list(raw_affiliations))
+    cleaned_affiliation_field = clean_affiliation_text(raw_affiliations)
     simple_affiliations = [
         clean_affiliation_text(part)
         for part in split_outside_brackets(cleaned_affiliation_field, ",")
@@ -341,25 +473,24 @@ def build_authors(
 
     authors: list[Author] = []
     for index, (name, markers) in enumerate(ordered_entries):
-        affiliation = ""
+        affiliations: list[str] = []
         if markers and numbered_affiliations:
-            affiliation = "; ".join(
-                dict.fromkeys(numbered_affiliations[marker] for marker in markers if marker in numbered_affiliations)
+            affiliations = dedupe_affiliations(
+                [numbered_affiliations[marker] for marker in markers if marker in numbered_affiliations]
             )
         elif simple_affiliations and len(simple_affiliations) == len(ordered_entries):
-            affiliation = simple_affiliations[index]
-        elif name.casefold() == presenter_name.casefold() and presenter_affiliation:
-            affiliation = presenter_affiliation
+            affiliations = [simple_affiliations[index]]
         elif cleaned_affiliation_field:
-            affiliation = cleaned_affiliation_field
+            affiliations = [cleaned_affiliation_field]
         else:
-            affiliation = presenter_affiliation or "Affiliation unavailable"
+            affiliations = ["Affiliation unavailable"]
 
         authors.append(
             Author(
                 name=name,
-                affiliation=affiliation or "Affiliation unavailable",
-                email=email if index == 0 else "",
+                affiliations=affiliations or ["Affiliation unavailable"],
+                email=email if presenter_index == index else "",
+                name_is_literal=True,
             )
         )
 
@@ -369,15 +500,19 @@ def build_authors(
 @dataclass
 class Author:
     name: str
-    affiliation: str
+    affiliations: list[str]
     email: str = ""
+    name_is_literal: bool = True
+
+    @property
+    def affiliation(self) -> str:
+        return "; ".join(self.affiliations)
 
     def to_myst(self) -> str:
-        lines = [
-            f"- name: {quote_yaml(self.name)}",
-            "  affiliations:",
-            f"    - {quote_yaml(self.affiliation)}",
-        ]
+        lines = ["- name:", f"    literal: {quote_yaml(self.name)}"]
+        lines.append("  affiliations:")
+        for affiliation in self.affiliations:
+            lines.append(f"    - {quote_yaml(affiliation)}")
         if self.email:
             lines.append(f"  email: {quote_yaml(self.email)}")
         return "\n".join(lines)
@@ -409,7 +544,7 @@ class Submission:
 
         references = ""
         if self.references:
-            ref_text = "\n\n".join(part for part in self.references.split("\n") if part.strip())
+            ref_text = "\n\n".join(part for part in sanitise_references_text(self.references).split("\n") if part.strip())
             references = f"\n# References\n{ref_text}\n"
 
         return ABSTRACT_TEMPLATE.format(
@@ -431,20 +566,10 @@ def build_submission(row: dict[str, str], used_slugs: set[str]) -> Submission:
     references = find_value(row, "references")
     authors = build_authors(
         presenter_name=presenter,
-        presenter_affiliation=presenter_affiliation,
         email=email,
         raw_authors=find_value(row, "authors"),
         raw_affiliations=find_value(row, "affiliations"),
     )
-    presenter_name = presenter or (authors[0].name if authors else "")
-    if authors and presenter_name:
-        short_presenter = clean_author_name(presenter_name)
-        lead_author = clean_author_name(authors[0].name)
-        if len(short_presenter.split()) < len(lead_author.split()) and lead_author.casefold().startswith(
-            short_presenter.casefold()
-        ):
-            presenter_name = authors[0].name
-    presenter_affiliation = presenter_affiliation or (authors[0].affiliation if authors else "")
 
     slug_base = slugify(title)
     slug = slug_base
@@ -457,7 +582,7 @@ def build_submission(row: dict[str, str], used_slugs: set[str]) -> Submission:
     return Submission(
         slug=slug,
         title=title,
-        presenter=presenter_name,
+        presenter=presenter,
         presenter_affiliation=presenter_affiliation,
         submission_type=submission_type,
         authors=authors,

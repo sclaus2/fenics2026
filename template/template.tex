@@ -25,16 +25,13 @@ pdfkeywords={[-doc.tags-]}
 \title{[-doc.title-]}
 
 \author{[# for author in doc.authors -#]
-\bfseries [-author.name-]\mdseries\\
-[#- if author.affiliations #]
-[# for affiliation in author.affiliations #]
-[-affiliation.value.name-][# if not loop.last #], [# endif #]
-[# endfor #]\\
-[#- endif -#]
-[#- if not loop.last -#]
-\AND
-[#- endif -#]
+[#- if author.email -#]\textbf{[-author.name-]}[#- else -#][-author.name-][#- endif -#][# if author.affiliations #]\,[[-- author.affiliations|join(",", "index") --]][# endif #][# if not loop.last #], [# endif #]
 [#- endfor -#]
+[# if doc.affiliations #]\\[0.5em]
+[# for affiliation in doc.affiliations #]
+\mbox{[[-affiliation.index-]]} [-affiliation.value.name-]\\
+[# endfor #]
+[# endif #]
 }
 
 

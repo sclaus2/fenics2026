@@ -6,7 +6,7 @@ Template for the FEniCS book of abstracts
 
 ## Steps to creating your own template!
 
-- [x] 🆕 Create this repository. Nailed it. 🚀
+- [ ] 🆕 Create this repository. Nailed it. 🚀
 - [ ] 📑 Replace the `template.tex` with your existing LaTeX template/article
 - [ ] 👯‍♀️ Copy in any other style, definitions or images necessary for the template
 - [ ] 👩‍🔬 Add the files necessary into `files` list in the `template.yml` ([documentation](https://myst-tools.org/docs/mystjs/jtex/template-yml))

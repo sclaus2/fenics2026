@@ -15,20 +15,12 @@ You need:
 - Node.js
 - LaTeX
 
-Create and activate a virtual environment, then install the project dependencies:
+Install the project dependencies:
 
 ```bash
-python3 -m venv .venv
-. .venv/bin/activate
 python3 -m pip install .
 ```
 
-If you are using a conda environment, activate it first and install into that same environment:
-
-```bash
-conda activate base
-python -m pip install .
-```
 
 ## Build The Full Book
 
@@ -43,12 +35,6 @@ This does three things:
 1. Regenerates `book/abstracts/*.md`, `book/abstracts/manifest.json`, `book/README.md`, and `book/all_abstracts.md`
 2. Runs `myst build --pdf` inside `book`
 3. Merges the generated PDFs into `book/_build/exports/fenics2026-book-of-abstracts.pdf`
-
-If you are running from conda, prefer:
-
-```bash
-python build_book.py <SOURCEFILE>
-```
 
 ## Run The Steps Manually
 
@@ -65,7 +51,6 @@ python3 merge-abstracts.py
 ## Notes
 
 - `convert.py` clears the existing `book/abstracts/*.md` files by default before regenerating the 2026 set.
-- Prefer the `.xlsx` export when you have it. It avoids CSV parsing entirely, although it cannot correct entries that were typed inconsistently in the original form.
 - Placeholder submissions with title/text like `NA` are skipped automatically.
 - `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated front-page order.
 - If you want a different merged PDF filename, pass `--output` to `build_book.py`.
@@ -75,12 +60,4 @@ Example:
 
 ```bash
 python3 build_book.py  <SOURCEFILE> --output book/_build/exports/book-of-abstracts-v1.pdf
-```
-
-## Fake Data
-
-To generate a fake CSV in the 2026 schema:
-
-```bash
-python3 generate_fake_abstracts.py fake-abstracts.csv 10
 ```

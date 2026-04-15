@@ -68,6 +68,10 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     convert_script = here / "convert.py"
     merge_script = here / "merge-abstracts.py"
+    build_dir = args.book_dir / "_build"
+
+    if build_dir.exists():
+        shutil.rmtree(build_dir)
 
     run_command([sys.executable, str(convert_script), str(args.path), "--book-dir", str(args.book_dir)], cwd=here)
     run_command([*myst_command, "build", "--pdf"], cwd=args.book_dir)

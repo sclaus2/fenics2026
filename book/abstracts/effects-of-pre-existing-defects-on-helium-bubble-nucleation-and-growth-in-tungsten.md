@@ -2,22 +2,19 @@
 title: 'Effects of Pre-existing Defects on Helium Bubble Nucleation and Growth in Tungsten'
 authors:
   - name:
-      literal: 'E. Frikha a'
+      literal: 'E. Frikha'
     affiliations:
-      - 'a Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France b Aix-Marseille University, CNRS, CINaM, Centre Interdisciplinaire de Nanoscience de Marseille, UMR 7325, F-13288 Marseille, France c Department of Mechanical Engineering, University of Michigan, Ann Arbor, 48109, Michigan, USA'
+      - 'Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France'
     email: 'emna.frikha@lspm.cnrs.fr'
   - name:
-      literal: 'T. Swinburne b'
+      literal: 'T. Swinburne'
     affiliations:
-      - 'a Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France b Aix-Marseille University, CNRS, CINaM, Centre Interdisciplinaire de Nanoscience de Marseille, UMR 7325, F-13288 Marseille, France c Department of Mechanical Engineering, University of Michigan, Ann Arbor, 48109, Michigan, USA'
+      - 'Aix-Marseille University, CNRS, CINaM, Centre Interdisciplinaire de Nanoscience de Marseille, UMR 7325, F-13288 Marseille, France'
+      - 'Department of Mechanical Engineering, University of Michigan, Ann Arbor, 48109, Michigan, USA'
   - name:
-      literal: 'c'
+      literal: 'J. Mougenot'
     affiliations:
-      - 'a Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France b Aix-Marseille University, CNRS, CINaM, Centre Interdisciplinaire de Nanoscience de Marseille, UMR 7325, F-13288 Marseille, France c Department of Mechanical Engineering, University of Michigan, Ann Arbor, 48109, Michigan, USA'
-  - name:
-      literal: 'J. Mougenot a'
-    affiliations:
-      - 'a Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France b Aix-Marseille University, CNRS, CINaM, Centre Interdisciplinaire de Nanoscience de Marseille, UMR 7325, F-13288 Marseille, France c Department of Mechanical Engineering, University of Michigan, Ann Arbor, 48109, Michigan, USA'
+      - 'Sorbonne Paris Nord University, Laboratory of Process and Materials Sciences, LSPM, CNRS, UPR 3407, F-93430, Villetaneuse, France'
 license: CC-BY-4.0
 exports:
   - format: pdf
@@ -25,7 +22,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Emna Frikha (Sorbonne University Paris Nord ( LSPM))
 

@@ -4,7 +4,7 @@ authors:
   - name:
       literal: 'Samyak Darshan C B'
     affiliations:
-      - 'Affiliation unavailable'
+      - 'Baker Hughes'
     email: 'samyak.darshan1998@gmail.com'
 license: CC-BY-4.0
 exports:
@@ -13,7 +13,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Samyak Darshan C B (Baker Hughes)
 

@@ -29,7 +29,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Théo Bermond (Univ. Grenoble Alpes, CEA, Leti, F-38000 Grenoble, France)
 

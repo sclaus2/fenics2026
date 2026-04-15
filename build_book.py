@@ -53,6 +53,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         default="myst",
         help="MyST CLI command to use. Defaults to `myst`.",
     )
+    parser.add_argument(
+        "--final-mode",
+        choices=("merge", "single"),
+        default="merge",
+        help="Build the final book by merging per-abstract PDFs, or use the optional single combined document.",
+    )
     args = parser.parse_args(argv)
 
     if not args.path.is_file():
@@ -75,19 +81,29 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     run_command([sys.executable, str(convert_script), str(args.path), "--book-dir", str(args.book_dir)], cwd=here)
     run_command([*myst_command, "build", "--pdf"], cwd=args.book_dir)
-    run_command(
-        [
-            sys.executable,
-            str(merge_script),
-            "--input",
-            str(args.book_dir / "_build" / "exports"),
-            "--abstract-dir",
-            str(args.book_dir / "abstracts"),
-            "--output",
-            str(args.output),
-        ],
-        cwd=here,
-    )
+
+    if args.final_mode == "single":
+        single_pdf = args.book_dir / "_build" / "exports" / "all-abstracts.pdf"
+        if not single_pdf.is_file():
+            print(f"Missing combined PDF: {single_pdf}")
+            return 1
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(single_pdf, args.output)
+        print(f"Saved to: {args.output}")
+    else:
+        run_command(
+            [
+                sys.executable,
+                str(merge_script),
+                "--input",
+                str(args.book_dir / "_build" / "exports"),
+                "--abstract-dir",
+                str(args.book_dir / "abstracts"),
+                "--output",
+                str(args.output),
+            ],
+            cwd=here,
+        )
     return 0
 
 

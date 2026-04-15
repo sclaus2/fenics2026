@@ -4,44 +4,44 @@ authors:
   - name:
       literal: 'Sophie J. Knechtel'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
     email: 's.knechtel@tu-berlin.de'
   - name:
       literal: 'Simon Demange'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Lukas M. Fuchs'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Xiuyang Song'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Jens S. Müller'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Alexandre Villié'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Anant R. Talisikar'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Marina Matthaiou'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Kilian Oberleithner'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
   - name:
       literal: 'Thomas L. Kaiser'
     affiliations:
-      - 'Technische Universität Berlin (all co-authors)'
+      - 'Technische Universität Berlin'
 license: CC-BY-4.0
 exports:
   - format: pdf
@@ -49,7 +49,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Sophie Knechtel (Technische Universität Berlin)
 

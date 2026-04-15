@@ -1,5 +1,5 @@
 ---
-title: 'Automated generation of MITC shell elements in code_aster via FEniCSx symbolic engines'
+title: 'Automated generation of MITC shell elements in code\_aster via FEniCSx symbolic engines'
 authors:
   - name:
       literal: 'A. Bouaziz'

@@ -13,7 +13,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Antonio Baiano Svizzero (Undabit)
 

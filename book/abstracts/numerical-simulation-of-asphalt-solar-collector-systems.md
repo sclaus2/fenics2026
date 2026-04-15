@@ -17,7 +17,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Lucia Escudero Sartages (Centre de Recerca Matematica, Spain)
 

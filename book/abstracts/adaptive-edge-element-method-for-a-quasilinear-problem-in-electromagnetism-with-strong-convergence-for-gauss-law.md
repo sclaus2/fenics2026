@@ -21,7 +21,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Sanyang Liu (The University of Hong Kong)
 

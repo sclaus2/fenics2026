@@ -4,12 +4,12 @@ authors:
   - name:
       literal: 'Salzman Alexis'
     affiliations:
-      - 'Nantes université - Ecole centrale de Nantes - GeM Institute - UMR CNRS 6180 - 1 rue de la Noë 44321 Nantes - France'
+      - 'Nantes université, Ecole centrale de Nantes, GeM Institute UMR CNRS 6180, 1 rue de la Noë 44321 Nantes, France'
     email: 'alexis.salzman@ec-nantes.fr'
   - name:
       literal: 'Stainier Laurent'
     affiliations:
-      - 'Nantes université - Ecole centrale de Nantes - GeM Institute - UMR CNRS 6180 - 1 rue de la Noë 44321 Nantes - France'
+      - 'Nantes université, Ecole centrale de Nantes, GeM Institute UMR CNRS 6180, 1 rue de la Noë 44321 Nantes, France'
 license: CC-BY-4.0
 exports:
   - format: pdf

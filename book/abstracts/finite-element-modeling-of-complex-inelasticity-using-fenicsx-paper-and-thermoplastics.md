@@ -4,19 +4,19 @@ authors:
   - name:
       literal: 'Nadir Kopic-Osmanovic'
     affiliations:
-      - 'same as corresponding author'
+      - 'Computational Applied Mechanics, University of Wuppertal, Pauluskirchstraße 7, 42285 Wuppertal, Germany'
   - name:
       literal: 'Tiansheng Liu'
     affiliations:
-      - 'same as corresponding author'
+      - 'Computational Applied Mechanics, University of Wuppertal, Pauluskirchstraße 7, 42285 Wuppertal, Germany'
   - name:
       literal: 'Jaan-Willem Simon'
     affiliations:
-      - 'same as corresponding author'
+      - 'Computational Applied Mechanics, University of Wuppertal, Pauluskirchstraße 7, 42285 Wuppertal, Germany'
   - name:
       literal: 'Johannes Neumann'
     affiliations:
-      - 'same as corresponding author'
+      - 'Computational Applied Mechanics, University of Wuppertal, Pauluskirchstraße 7, 42285 Wuppertal, Germany'
     email: 'johannes.neumann@uni-wuppertal.de'
 license: CC-BY-4.0
 exports:

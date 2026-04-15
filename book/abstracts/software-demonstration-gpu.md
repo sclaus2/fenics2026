@@ -21,7 +21,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Chris Richardson (University of Cambridge)
 

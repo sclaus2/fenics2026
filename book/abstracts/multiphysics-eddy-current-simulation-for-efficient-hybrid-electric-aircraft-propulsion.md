@@ -4,12 +4,12 @@ authors:
   - name:
       literal: 'Arshad Fasiludeen'
     affiliations:
-      - 'Arshad Fasiludeen'
+      - 'University of Cambridge'
     email: 'af819@cam.ac.uk'
   - name:
       literal: 'Garth Wells'
     affiliations:
-      - 'Garth Wells'
+      - 'University of Cambridge'
 license: CC-BY-4.0
 exports:
   - format: pdf

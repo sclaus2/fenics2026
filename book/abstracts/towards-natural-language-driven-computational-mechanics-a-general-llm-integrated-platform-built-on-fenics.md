@@ -2,7 +2,7 @@
 title: 'Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS'
 authors:
   - name:
-      literal: 'Guangjin Mou (presenter'
+      literal: 'Guangjin Mou'
     affiliations:
       - 'Hong Kong University of Science and Technology'
     email: 'mouguangjin@ust.hk'
@@ -21,7 +21,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Guangjin Mou (Postdoctoral researcher in HKUST)
 

@@ -21,7 +21,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Andreas Zilian (University of Luxembourg)
 

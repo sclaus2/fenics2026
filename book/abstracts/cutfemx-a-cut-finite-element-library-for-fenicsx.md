@@ -4,7 +4,7 @@ authors:
   - name:
       literal: 'Susanne Claus'
     affiliations:
-      - 'ONERA'
+      - 'DTIS, ONERA, Universite Paris-Saclay, 91120 Palaiseau, France'
     email: 'susanne.claus@onera.fr'
 license: CC-BY-4.0
 exports:

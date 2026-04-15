@@ -29,7 +29,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
 **Presenter:** Andrey Latyshev (University of Luxembourg, Institut Jean Le Rond d'Alembert, Sorbonne Université)
 

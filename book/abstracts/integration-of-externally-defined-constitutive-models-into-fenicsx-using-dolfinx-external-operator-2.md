@@ -29,7 +29,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Andrey Latyshev (University of Luxembourg, Institut Jean Le Rond d'Alembert, Sorbonne Université)
 

@@ -13,9 +13,9 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Software Demonstration
 
-**Presenter:** Hamza (Indenpendent)
+**Presenter:** Hamza ELMA (Indenpendent)
 
 The increasing complexity of numerical simulations in computational mechanics calls for more structured and efficient computational workflows. Traditional notebook-based approaches remain largely linear, making iterative tasks such as mesh refinement studies and parameter sweeps computationally expensive and difficult to manage.
 

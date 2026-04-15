@@ -4,28 +4,28 @@ authors:
   - name:
       literal: 'Daria Mesbah'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'Mews Labs'
     email: 'daria.mesbah@mews-labs.com'
   - name:
       literal: 'Elise Clavel'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'Mews Labs'
   - name:
       literal: 'John A. Redford'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'Mews Labs'
   - name:
       literal: 'Dorian Collot'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'Mews Labs'
   - name:
       literal: 'Daniel Chauveheid'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'Mews Labs'
   - name:
       literal: 'Julien Said'
     affiliations:
-      - '(1) Mews Labs, (2) RTE'
+      - 'RTE'
 license: CC-BY-4.0
 exports:
   - format: pdf

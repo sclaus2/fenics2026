@@ -112,7 +112,7 @@ README_TEMPLATE = dedent(
 ALL_ABSTRACTS_TEMPLATE = dedent(
     """\
     ---
-    title: 'All abstracts'
+    title: {book_title_yaml}
     authors:
       - name: {book_author}
     license: CC-BY-4.0
@@ -121,8 +121,17 @@ ALL_ABSTRACTS_TEMPLATE = dedent(
         template: ../template
     ---
 
-    This page is a placeholder for the merged PDF build.
-    Run `python3 merge-abstracts.py` after `myst build --pdf` to create the combined file.
+    # {book_title}
+
+    {book_subtitle}
+
+    Total abstracts: **{num_abstracts}**
+
+    {sections}
+
+    # Abstracts
+
+    {abstracts}
     """
 )
 
@@ -202,10 +211,34 @@ def escape_table(value: str) -> str:
     return value.replace("|", "\\|")
 
 
+def normalise_header(value: str) -> str:
+    normalised = unicodedata.normalize("NFKC", value.replace("\r\n", "\n").replace("\r", "\n"))
+    collapsed = re.sub(r"\s+", " ", normalised).strip()
+    return collapsed.casefold()
+
+
 def find_value(row: dict[str, str], field: str, default: str = "") -> str:
+    normalised_row = {normalise_header(key): value for key, value in row.items()}
     for alias in FIELD_ALIASES[field]:
         if alias in row and row[alias].strip():
             value = normalise_text(row[alias])
+            if is_placeholder(value):
+                return default
+            return value
+        normalised_alias = normalise_header(alias)
+        if normalised_alias in normalised_row and str(normalised_row[normalised_alias]).strip():
+            value = normalise_text(str(normalised_row[normalised_alias]))
+            if is_placeholder(value):
+                return default
+            return value
+        truncated_matches = [
+            key
+            for key in normalised_row
+            if len(key) >= 32 and (normalised_alias.startswith(key) or key.startswith(normalised_alias))
+        ]
+        if truncated_matches:
+            best_key = max(truncated_matches, key=len)
+            value = normalise_text(str(normalised_row[best_key]))
             if is_placeholder(value):
                 return default
             return value
@@ -532,6 +565,17 @@ class Submission:
     def to_markdown(self) -> str:
         authors_block = "authors:\n" + "\n".join(f"  {line}" for author in self.authors for line in author.to_myst().splitlines())
 
+        body = self.to_body_markdown()
+
+        return ABSTRACT_TEMPLATE.format(
+            title=quote_yaml(self.title),
+            authors=authors_block,
+            metadata=body["metadata"],
+            text=body["text"],
+            references=body["references"],
+        )
+
+    def to_body_markdown(self) -> dict[str, str]:
         metadata_lines = []
         if self.submission_type:
             metadata_lines.append(f"**Submission type:** {self.submission_type}")
@@ -547,13 +591,11 @@ class Submission:
             ref_text = "\n\n".join(part for part in sanitise_references_text(self.references).split("\n") if part.strip())
             references = f"\n# References\n{ref_text}\n"
 
-        return ABSTRACT_TEMPLATE.format(
-            title=quote_yaml(self.title),
-            authors=authors_block,
-            metadata=metadata,
-            text=self.text,
-            references=references,
-        )
+        return {
+            "metadata": metadata,
+            "text": self.text,
+            "references": references,
+        }
 
 
 def build_submission(row: dict[str, str], used_slugs: set[str]) -> Submission:
@@ -628,6 +670,60 @@ def render_sections(submissions: list[Submission]) -> str:
     return "\n\n".join(sections)
 
 
+def render_combined_sections(submissions: list[Submission]) -> str:
+    grouped: defaultdict[str, list[Submission]] = defaultdict(list)
+    for submission in submissions:
+        grouped[submission.submission_type].append(submission)
+
+    sections = []
+    ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
+    for submission_type in ordered_types:
+        items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
+        section_title = f"{submission_type}s"
+        if submission_type == "Software Demonstration":
+            section_title = "Software Demonstration Session"
+        lines = [f"## {section_title} ({len(items)})"]
+        if submission_type == "Software Demonstration":
+            lines.extend(["", "These abstracts belong to the live software demonstration session."])
+        lines.extend(["", "| Title | Presenter |", "| :--- | :--- |"])
+        for item in items:
+            lines.append(f"| [{escape_table(item.title)}](#abstract-{item.slug}) | {escape_table(item.presenter)} |")
+        sections.append("\n".join(lines))
+    return "\n\n".join(sections)
+
+
+def render_combined_abstracts(submissions: list[Submission]) -> str:
+    grouped: defaultdict[str, list[Submission]] = defaultdict(list)
+    for submission in submissions:
+        grouped[submission.submission_type].append(submission)
+
+    sections = []
+    ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
+    for submission_type in ordered_types:
+        items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
+        section_title = f"{submission_type}s"
+        if submission_type == "Software Demonstration":
+            section_title = "Software Demonstration Session"
+        lines = [f"## {section_title}"]
+        for item in items:
+            body = item.to_body_markdown()
+            references = body["references"].replace("\n# References\n", "\n#### References\n")
+            lines.extend(
+                [
+                    "",
+                    f"(abstract-{item.slug})=",
+                    f"### {item.title}",
+                    "",
+                    body["metadata"],
+                    "",
+                    body["text"],
+                    references,
+                ]
+            )
+        sections.append("\n".join(lines))
+    return "\n\n".join(sections)
+
+
 def write_book_pages(
     submissions: list[Submission],
     book_dir: Path,
@@ -649,7 +745,15 @@ def write_book_pages(
         encoding="utf-8",
     )
     (book_dir / "all_abstracts.md").write_text(
-        ALL_ABSTRACTS_TEMPLATE.format(book_author=quote_yaml(book_author)),
+        ALL_ABSTRACTS_TEMPLATE.format(
+            book_title_yaml=quote_yaml(book_title),
+            book_title=book_title,
+            book_subtitle=book_subtitle,
+            book_author=quote_yaml(book_author),
+            num_abstracts=len(submissions),
+            sections=render_combined_sections(submissions),
+            abstracts=render_combined_abstracts(submissions),
+        ),
         encoding="utf-8",
     )
 

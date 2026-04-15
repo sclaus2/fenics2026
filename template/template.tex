@@ -6,6 +6,8 @@
 \let\@seccntformat\@gobble
 \makeatother
 
+\usepackage{afterpage}
+
 [-IMPORTS-]
 
 % colors for hyperlinks
@@ -21,15 +23,26 @@ pdfkeywords={[-doc.tags-]}
 % You should have an imports section
 [- IMPORTS -]
 
+\fancypagestyle{frontmattersecondpage}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \rhead{\scshape \footnotesize \headeright}
+  \chead{\shorttitle}
+}
+
 
 \title{[-doc.title-]}
 
 \author{[# for author in doc.authors -#]
-[#- if author.email -#]\textbf{[-author.name-]}[#- else -#][-author.name-][#- endif -#][# if author.affiliations #]\,[[-- author.affiliations|join(",", "index") --]][# endif #][# if not loop.last #], [# endif #]
+[#- if author.email -#]\textbf{[-author.name-]}[#- else -#][-author.name-][#- endif -#][# if doc.affiliations.length > 1 and author.affiliations #]\,[[-- author.affiliations|join(",", "index") --]][# endif #][# if not loop.last #], [# endif #]
 [#- endfor -#]
 [# if doc.affiliations #]\\[0.5em]
 [# for affiliation in doc.affiliations #]
+[# if doc.affiliations.length == 1 #]
+[-affiliation.value.name-]\\
+[# else #]
 \mbox{[[-affiliation.index-]]} [-affiliation.value.name-]\\
+[# endif #]
 [# endfor #]
 [# endif #]
 }
@@ -40,6 +53,9 @@ pdfkeywords={[-doc.tags-]}
 
 \begin{document}
 \maketitle
+[# if doc.title == "FEniCS Conference 2026 Book of Abstracts" #]
+\afterpage{\thispagestyle{frontmattersecondpage}}
+[# endif #]
 
 [-CONTENT-]
 

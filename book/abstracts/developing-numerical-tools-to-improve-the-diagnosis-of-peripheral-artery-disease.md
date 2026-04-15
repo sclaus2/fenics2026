@@ -29,7 +29,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Luke J Barratt (University of Leeds)
 

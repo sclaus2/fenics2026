@@ -24,9 +24,9 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
-**Presenter:** Harish Mallesham Nagula (Dr)
+**Presenter:** Harish Mallesham Nagula (Institute of Chemical Technology Mumbai IndianOil Odisha Campus, Bhubaneswar, Odisha, 751013, India.)
 
 This article presents a MATLAB software package for solving a three-dimensional (3D) second-order elliptic problem with mixed boundary conditions using the primal hybrid finite element method (FEM). First, we introduce a novel fast 3D uniform finite element mesh refinement technique implemented in MATLAB and establish the Nodes-to-Edge and Faces-to-Tetrahedron connectivity through an efficient and systematic approach. We then describe an efficient MATLAB assembly procedure for the 3D lowest-order primal hybrid finite element matrices. Furthermore, we develop a vectorized Schur complement solver, where the computational improvement over MATLAB's default direct solver (mldivide) arises from reducing the original block system to a substantially smaller Schur complement system. The run-time performance of the software is demonstrated through numerical experiments.
 

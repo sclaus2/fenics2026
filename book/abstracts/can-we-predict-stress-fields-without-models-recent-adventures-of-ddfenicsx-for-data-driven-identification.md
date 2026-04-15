@@ -2,7 +2,7 @@
 title: 'Can we predict stress fields without models? Recent adventures of ddfenicsx for Data-driven Identification'
 authors:
   - name:
-      literal: 'Felipe ROCHA'
+      literal: 'Felipe Rocha'
     affiliations:
       - 'Université Paris-Est Créteil'
     email: 'felipe.figueredo-rocha@u-pec.fr'
@@ -15,7 +15,7 @@ exports:
 
 **Submission type:** Presentation
 
-**Presenter:** Felipe ROCHA (MSME - Université Paris-Est Créteil)
+**Presenter:** Felipe Rocha (MSME - Université Paris-Est Créteil)
 
 Conservation laws are fundamental to physical modelling in electromagnetism, solid mechanics, and fluid dynamics. While the associated PDEs are universal, they require constitutive models -- relating flux-gradient pairs (e.g., stress-strain) -- to close the system. However, such models are not unique and often introduce assumptions that may bias predictions.
 Data-Driven Computational Mechanics (DDCM) [1] offers a paradigm shift: instead of assuming a constitutive law, it directly integrates discrete material data into the solution process. By reformulating the classical PDE problem as a mixed-integer minimisation, DDCM identifies mechanical states that satisfy equilibrium and kinematic compatibility while remaining closest to a dataset of stress-strain pairs. By operating directly on raw data, DDCM provides an alternative modeling route to both classical constitutive modeling and ML-based surrogates [2]. One interesting application of this approach lies in the intersection of experimental and computational mechanics, allowing stress field identification without explicit postulating a parametric constitutive model, the so-called Data-Driven Identification (DDI) method [3]. 

@@ -2,16 +2,16 @@
 title: 'From FEniCSx Snapshots to Graph Neural Network Surrogates: A Workflow for Mesoscale Thermal Modelling of L-PBF'
 authors:
   - name:
-      literal: 'Quentin SCHMID'
+      literal: 'Quentin Schmid'
     affiliations:
       - 'RMIT Europe'
     email: 'quentin.schmid@rmit.edu.au'
   - name:
-      literal: 'Andrey MOLOTNIKOV'
+      literal: 'Andrey Molotnikov'
     affiliations:
       - 'RMIT Center for Additive Manufacturing'
   - name:
-      literal: 'Maciej MAZUR'
+      literal: 'Maciej Mazur'
     affiliations:
       - 'RMIT Center for Additive Manufacturing'
 license: CC-BY-4.0
@@ -23,7 +23,7 @@ exports:
 
 **Submission type:** Presentation
 
-**Presenter:** Quentin SCHMID (RMIT Europe)
+**Presenter:** Quentin Schmid (RMIT Europe)
 
 Laser Powder Bed Fusion (L-PBF) involves highly localised, transient heat transfer with non-linear material behaviour and phase change, making high-fidelity simulations expensive when exploring many process parameters. This work builds a flexible thermal solver workflow in FEniCSx and uses it as a data source for a graph-based surrogate, with a strong focus on implementation details.
 

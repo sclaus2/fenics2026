@@ -7,6 +7,7 @@
 \makeatother
 
 \usepackage{afterpage}
+\usepackage{longtable}
 
 [-IMPORTS-]
 
@@ -34,14 +35,14 @@ pdfkeywords={[-doc.tags-]}
 \title{[-doc.title-]}
 
 \author{[# for author in doc.authors -#]
-[#- if author.email -#]\textbf{[-author.name-]}[#- else -#][-author.name-][#- endif -#][# if doc.affiliations.length > 1 and author.affiliations #]\,[[-- author.affiliations|join(",", "index") --]][# endif #][# if not loop.last #], [# endif #]
+[#- if author.email -#]\textbf{[-author.name-]}[#- else -#][-author.name-][#- endif -#][# if doc.affiliations.length > 1 and author.affiliations #]\textsuperscript{[-author.affiliations|join(",", "index") --]}[# endif #][# if not loop.last #], [# endif #]
 [#- endfor -#]
 [# if doc.affiliations #]\\[0.5em]
 [# for affiliation in doc.affiliations #]
 [# if doc.affiliations.length == 1 #]
 [-affiliation.value.name-]\\
 [# else #]
-\mbox{[[-affiliation.index-]]} [-affiliation.value.name-]\\
+\textsuperscript{[-affiliation.index-]} [-affiliation.value.name-]\\
 [# endif #]
 [# endfor #]
 [# endif #]
@@ -55,6 +56,8 @@ pdfkeywords={[-doc.tags-]}
 \maketitle
 [# if doc.title == "FEniCS Conference 2026 Book of Abstracts" #]
 \afterpage{\thispagestyle{frontmattersecondpage}}
+[# else #]
+\afterpage{\thispagestyle{empty}}
 [# endif #]
 
 [-CONTENT-]

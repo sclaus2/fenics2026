@@ -2,7 +2,7 @@
 title: 'Graph-Based Execution Framework for Finite Element Simulation and Optimization in FEniCSx'
 authors:
   - name:
-      literal: 'Hamza ELMA'
+      literal: 'Hamza Elma'
     affiliations:
       - 'Hamza ELMA'
     email: 'elmahamza64@gmail.com'
@@ -15,7 +15,7 @@ exports:
 
 **Submission type:** Software Demonstration
 
-**Presenter:** Hamza ELMA (Indenpendent)
+**Presenter:** Hamza Elma (Indenpendent)
 
 The increasing complexity of numerical simulations in computational mechanics calls for more structured and efficient computational workflows. Traditional notebook-based approaches remain largely linear, making iterative tasks such as mesh refinement studies and parameter sweeps computationally expensive and difficult to manage.
 

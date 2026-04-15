@@ -14,99 +14,127 @@ Generated from conference abstract submissions
 
 Total abstracts: **77**
 
-## Presentations (53)
+```{raw} latex
+\section*{Presentations (53)}
 
-| Title | Presenter |
-| :--- | :--- |
-| [A FEniCS Framework for Electro-Chemo-Mechanical Modeling  of Anodeless Solid-State Batteries](#abstract-a-fenics-framework-for-electro-chemo-mechanical-modeling-of-anodeless-solid-state-batteries) | Filippo Agnelli |
-| [A Finite-Element Method for Fluctuating Navier--Stokes Equations](#abstract-a-finite-element-method-for-fluctuating-navier-stokes-equations) | Dimitrios Gourzoulidis |
-| [A fully monolithic formulation for multiphase fluid-structure interaction](#abstract-a-fully-monolithic-formulation-for-multiphase-fluid-structure-interaction) | Marc Hirschvogel |
-| [Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads](#abstract-adjoint-accelerated-inverse-modelling-of-acoustic-cross-talk-in-piezoelectric-inkjet-printheads) | Javier Lorente-Macías |
-| [An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc](#abstract-an-implementation-of-the-distributed-two-scales-method-for-linear-elasticity-problems-based-on-fenicsx-and-petsc) | Salzman Alexis |
-| [An Open-Source FEniCSx-Based Platform for Industrial Vibroacoustic Simulation](#abstract-an-open-source-fenicsx-based-platform-for-industrial-vibroacoustic-simulation) | Antonio Baiano Svizzero |
-| [Automated generation of MITC shell elements in code\_aster via FEniCSx symbolic engines](#abstract-automated-generation-of-mitc-shell-elements-in-code-aster-via-fenicsx-symbolic-engines) | Joaquin Cornejo |
-| [Building a FEniCSx Ecosystem for Biomedical Research](#abstract-building-a-fenicsx-ecosystem-for-biomedical-research) | Henrik Finsberg |
-| [Can we predict stress fields without models? Recent adventures of ddfenicsx for Data-driven Identification](#abstract-can-we-predict-stress-fields-without-models-recent-adventures-of-ddfenicsx-for-data-driven-identification) | Felipe ROCHA |
-| [Computational Shakedown Analysis with FEniCSx: Conic Optimization for Large-Scale FEM](#abstract-computational-shakedown-analysis-with-fenicsx-conic-optimization-for-large-scale-fem) | Lavakumar Veludandi |
-| [Contact modeling using the Third Medium Contact (TMC) method: toward the application of a femoral stem insertion inside a bone cavity](#abstract-contact-modeling-using-the-third-medium-contact-tmc-method-toward-the-application-of-a-femoral-stem-insertion-inside-a-bone-cavity) | Pierre Bichon |
-| [Convergence Study on Polycrystalline Materials](#abstract-convergence-study-on-polycrystalline-materials) | Donald Boyce |
-| [CutFEMx: A Cut Finite Element Library for FEniCSx](#abstract-cutfemx-a-cut-finite-element-library-for-fenicsx) | Susanne Claus |
-| [Data-integrated simulations of solute transport in the rodent brain using Fenicsx](#abstract-data-integrated-simulations-of-solute-transport-in-the-rodent-brain-using-fenicsx) | Andreas Solheim |
-| [Distributing FEniCS with the EasyBuild/EESSI ecosystem: how to prepare a software package for distribution in HPC systems](#abstract-distributing-fenics-with-the-easybuild-eessi-ecosystem-how-to-prepare-a-software-package-for-distribution-in-hpc-systems) | Georgios Kafanas |
-| [Electromagnetic Waveguide Input/Output Boundary Condition using SciFEM and FEniCSx](#abstract-electromagnetic-waveguide-input-output-boundary-condition-using-scifem-and-fenicsx) | G. William Slade |
-| [Engineering Workflows for Finite Element Analysis Using FEniCSx](#abstract-engineering-workflows-for-finite-element-analysis-using-fenicsx) | Bora Acur |
-| [Evolving FEniCS: The Extension Ecosystem at Simula Scientific Computing](#abstract-evolving-fenics-the-extension-ecosystem-at-simula-scientific-computing) | Jørgen S. Dokken |
-| [Fast Finite Element Kernels for Modern Computing Architectures](#abstract-fast-finite-element-kernels-for-modern-computing-architectures) | Joseph Dean |
-| [FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications](#abstract-felics-a-versatile-linearized-flow-solver-for-multi-physics-applications) | Sophie Julie Knechtel |
-| [femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure](#abstract-femohl-a-fenicsx-based-framework-for-structural-integrity-and-resilience-assessment-of-overhead-power-transmission-infrastructure) | Daria Mesbah |
-| [FEniCS Post-processing with ParaView](#abstract-fenics-post-processing-with-paraview) | Louis Gombert |
-| [FEniCSx in Metal Additive Manufacturing](#abstract-fenicsx-in-metal-additive-manufacturing) | Anton Evdokimov |
-| [FESTIM v2.0: Upgraded framework for multi-species hydrogen transport](#abstract-festim-v2-0-upgraded-framework-for-multi-species-hydrogen-transport) | Remi Delaporte-Mathurin |
-| [Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx](#abstract-finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx-2) | Théo Bermond |
-| [Finite-Element Modeling of Complex Inelasticity Using FEniCSx: Paper and Thermoplastics](#abstract-finite-element-modeling-of-complex-inelasticity-using-fenicsx-paper-and-thermoplastics) | Johannes Neumann |
-| [Finite-Pressure Anisotropic Hyperelasticity in FEniCSx: A Phenomenological Approach for Shock Physics](#abstract-finite-pressure-anisotropic-hyperelasticity-in-fenicsx-a-phenomenological-approach-for-shock-physics) | Paul Bouteiller |
-| [Flexibility Method for Contact Mechanics in FEniCSx. Finite Element Construction and Hierarchical Compression of Compliance Operators.](#abstract-flexibility-method-for-contact-mechanics-in-fenicsx-finite-element-construction-and-hierarchical-compression-of-compliance-operators) | Yahya Boye |
-| [Flow distortion generation using topology optimization](#abstract-flow-distortion-generation-using-topology-optimization-2) | Langlet Nathan |
-| [From FEniCSx Snapshots to Graph Neural Network Surrogates: A Workflow for Mesoscale Thermal Modelling of L-PBF](#abstract-from-fenicsx-snapshots-to-graph-neural-network-surrogates-a-workflow-for-mesoscale-thermal-modelling-of-l-pbf) | Quentin SCHMID |
-| [Generalized Stokes problem with pressure Dirichlet boundary conditions for heat transport](#abstract-generalized-stokes-problem-with-pressure-dirichlet-boundary-conditions-for-heat-transport) | Xavier Cartoixà |
-| [High-performance solid mechanics simulations in FEniCSx](#abstract-high-performance-solid-mechanics-simulations-in-fenicsx) | Musa Choudhury |
-| [Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes](#abstract-implementation-of-the-tiniest-tensor-de-rham-subcomplex-on-3d-hybrid-meshes) | Johnny Vogels |
-| [In-silico drug delivery in the human brain](#abstract-in-silico-drug-delivery-in-the-human-brain) | Cécile Daversin Catty |
-| [Inferring Human Intracranial CSF Absorption Sites via Inverse Modelling of Protein Transport](#abstract-inferring-human-intracranial-csf-absorption-sites-via-inverse-modelling-of-protein-transport) | Marius Causemann |
-| [L-PBF Processes via FEniCS: A Finite Element Framework for  Heat Modelling  and Accelerated Predictive Workflows](#abstract-l-pbf-processes-via-fenics-a-finite-element-framework-for-heat-modelling-and-accelerated-predictive-workflows) | José Ángel Bejarano Vázquez |
-| [Large scale random vibration analysis using FEniCS](#abstract-large-scale-random-vibration-analysis-using-fenics) | Dr. Shubham Saurabh |
-| [Material model discovery with FEMU in FEniCSx](#abstract-material-model-discovery-with-femu-in-fenicsx) | Saeid Ghouli |
-| [Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM](#abstract-multi-physics-modelling-of-nuclear-fusion-reactor-components-using-festim) | James Dark |
-| [Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion](#abstract-multiphysics-eddy-current-simulation-for-efficient-hybrid-electric-aircraft-propulsion) | Arshad Fasiludeen |
-| [Nonlinear Inversion Framework - Magnetic Resonance Elastography (MRE)](#abstract-nonlinear-inversion-framework-magnetic-resonance-elastography-mre) | Henrik Palme |
-| [Numerical Analysis of a Coupled 3D-1D Transport Problem](#abstract-numerical-analysis-of-a-coupled-3d-1d-transport-problem) | Uzochi Gideon |
-| [Numerical investigation of urban heat island within variable porous urban domain](#abstract-numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain-2) | Luis Gerardo Gutierrez Ibarra |
-| [Numerical quality factor statistics of multilayered superconducting radio-frequency cavity](#abstract-numerical-quality-factor-statistics-of-multilayered-superconducting-radio-frequency-cavity) | Aaron Gobeyn |
-| [PhiFEM : a immersed boundary finite element method for geometries defined by a level-set](#abstract-phifem-a-immersed-boundary-finite-element-method-for-geometries-defined-by-a-level-set) | Michel Duprez |
-| [POROMECHANICS TO INVESTIGATE THE IMPACT OF MECHANICAL LOADING ON HUMAN SKIN MICRO-CIRCULATION](#abstract-poromechanics-to-investigate-the-impact-of-mechanical-loading-on-human-skin-micro-circulation) | Thomas Lavigne |
-| [Running after rounding errors: a posteriori error bounds of finite element kernels](#abstract-running-after-rounding-errors-a-posteriori-error-bounds-of-finite-element-kernels) | Michal Habera |
-| [Shape optimization using PhiFEM](#abstract-shape-optimization-using-phifem) | Raphaël Bulle |
-| [The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program](#abstract-the-digital-math-framework-as-a-robust-and-general-scientific-basis-for-society-advancements-in-the-adaptive-euler-breakthrough-for-aerodynamics-and-digimat-educational-program) | Johan Jansson |
-| [Thermoviscous Acoustic Modeling of Helmholtz-Resonator-Based Metamaterials with FEniCSx](#abstract-thermoviscous-acoustic-modeling-of-helmholtz-resonator-based-metamaterials-with-fenicsx) | Elio Di Giulio |
-| [Towards fully programmable inflatable panels](#abstract-towards-fully-programmable-inflatable-panels) | Ofir Mirkin |
-| [Variational Solvers for Irreversible Evolutionary Systems: Orchestration](#abstract-variational-solvers-for-irreversible-evolutionary-systems-orchestration) | Andrés A León Baldelli |
-| [Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation](#abstract-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation) | Giovanni Zullo |
+\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endfirsthead
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endhead
+\hyperref[abstract-a-fenics-framework-for-electro-chemo-mechanical-modeling-of-anodeless-solid-state-batteries]{A FEniCS Framework for Electro-Chemo-Mechanical Modeling  of Anodeless Solid-State Batteries} & Filippo Agnelli \\
+\hyperref[abstract-a-finite-element-method-for-fluctuating-navier-stokes-equations]{A Finite-Element Method for Fluctuating Navier--Stokes Equations} & Dimitrios Gourzoulidis \\
+\hyperref[abstract-a-fully-monolithic-formulation-for-multiphase-fluid-structure-interaction]{A fully monolithic formulation for multiphase fluid-structure interaction} & Marc Hirschvogel \\
+\hyperref[abstract-adjoint-accelerated-inverse-modelling-of-acoustic-cross-talk-in-piezoelectric-inkjet-printheads]{Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads} & Javier Lorente-Macías \\
+\hyperref[abstract-an-implementation-of-the-distributed-two-scales-method-for-linear-elasticity-problems-based-on-fenicsx-and-petsc]{An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc} & Salzman Alexis \\
+\hyperref[abstract-an-open-source-fenicsx-based-platform-for-industrial-vibroacoustic-simulation]{An Open-Source FEniCSx-Based Platform for Industrial Vibroacoustic Simulation} & Antonio Baiano Svizzero \\
+\hyperref[abstract-automated-generation-of-mitc-shell-elements-in-code-aster-via-fenicsx-symbolic-engines]{Automated generation of MITC shell elements in code\textbackslash{}\_aster via FEniCSx symbolic engines} & Joaquin Cornejo \\
+\hyperref[abstract-building-a-fenicsx-ecosystem-for-biomedical-research]{Building a FEniCSx Ecosystem for Biomedical Research} & Henrik Finsberg \\
+\hyperref[abstract-can-we-predict-stress-fields-without-models-recent-adventures-of-ddfenicsx-for-data-driven-identification]{Can we predict stress fields without models? Recent adventures of ddfenicsx for Data-driven Identification} & Felipe Rocha \\
+\hyperref[abstract-computational-shakedown-analysis-with-fenicsx-conic-optimization-for-large-scale-fem]{Computational Shakedown Analysis with FEniCSx: Conic Optimization for Large-Scale FEM} & Lavakumar Veludandi \\
+\hyperref[abstract-contact-modeling-using-the-third-medium-contact-tmc-method-toward-the-application-of-a-femoral-stem-insertion-inside-a-bone-cavity]{Contact modeling using the Third Medium Contact (TMC) method: toward the application of a femoral stem insertion inside a bone cavity} & Pierre Bichon \\
+\hyperref[abstract-convergence-study-on-polycrystalline-materials]{Convergence Study on Polycrystalline Materials} & Donald Boyce \\
+\hyperref[abstract-cutfemx-a-cut-finite-element-library-for-fenicsx]{CutFEMx: A Cut Finite Element Library for FEniCSx} & Susanne Claus \\
+\hyperref[abstract-data-integrated-simulations-of-solute-transport-in-the-rodent-brain-using-fenicsx]{Data-integrated simulations of solute transport in the rodent brain using Fenicsx} & Andreas Solheim \\
+\hyperref[abstract-distributing-fenics-with-the-easybuild-eessi-ecosystem-how-to-prepare-a-software-package-for-distribution-in-hpc-systems]{Distributing FEniCS with the EasyBuild/EESSI ecosystem: how to prepare a software package for distribution in HPC systems} & Georgios Kafanas \\
+\hyperref[abstract-electromagnetic-waveguide-input-output-boundary-condition-using-scifem-and-fenicsx]{Electromagnetic Waveguide Input/Output Boundary Condition using SciFEM and FEniCSx} & G. William Slade \\
+\hyperref[abstract-engineering-workflows-for-finite-element-analysis-using-fenicsx]{Engineering Workflows for Finite Element Analysis Using FEniCSx} & Bora Acur \\
+\hyperref[abstract-evolving-fenics-the-extension-ecosystem-at-simula-scientific-computing]{Evolving FEniCS: The Extension Ecosystem at Simula Scientific Computing} & Jørgen S. Dokken \\
+\hyperref[abstract-fast-finite-element-kernels-for-modern-computing-architectures]{Fast Finite Element Kernels for Modern Computing Architectures} & Joseph Dean \\
+\hyperref[abstract-felics-a-versatile-linearized-flow-solver-for-multi-physics-applications]{FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications} & Sophie Julie Knechtel \\
+\hyperref[abstract-femohl-a-fenicsx-based-framework-for-structural-integrity-and-resilience-assessment-of-overhead-power-transmission-infrastructure]{femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure} & Daria Mesbah \\
+\hyperref[abstract-fenics-post-processing-with-paraview]{FEniCS Post-processing with ParaView} & Louis Gombert \\
+\hyperref[abstract-fenicsx-in-metal-additive-manufacturing]{FEniCSx in Metal Additive Manufacturing} & Anton Evdokimov \\
+\hyperref[abstract-festim-v2-0-upgraded-framework-for-multi-species-hydrogen-transport]{FESTIM v2.0: Upgraded framework for multi-species hydrogen transport} & Remi Delaporte-Mathurin \\
+\hyperref[abstract-finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx-2]{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
+\hyperref[abstract-finite-element-modeling-of-complex-inelasticity-using-fenicsx-paper-and-thermoplastics]{Finite-Element Modeling of Complex Inelasticity Using FEniCSx: Paper and Thermoplastics} & Johannes Neumann \\
+\hyperref[abstract-finite-pressure-anisotropic-hyperelasticity-in-fenicsx-a-phenomenological-approach-for-shock-physics]{Finite-Pressure Anisotropic Hyperelasticity in FEniCSx: A Phenomenological Approach for Shock Physics} & Paul Bouteiller \\
+\hyperref[abstract-flexibility-method-for-contact-mechanics-in-fenicsx-finite-element-construction-and-hierarchical-compression-of-compliance-operators]{Flexibility Method for Contact Mechanics in FEniCSx. Finite Element Construction and Hierarchical Compression of Compliance Operators.} & Yahya Boye \\
+\hyperref[abstract-flow-distortion-generation-using-topology-optimization-2]{Flow distortion generation using topology optimization} & Langlet Nathan \\
+\hyperref[abstract-from-fenicsx-snapshots-to-graph-neural-network-surrogates-a-workflow-for-mesoscale-thermal-modelling-of-l-pbf]{From FEniCSx Snapshots to Graph Neural Network Surrogates: A Workflow for Mesoscale Thermal Modelling of L-PBF} & Quentin Schmid \\
+\hyperref[abstract-generalized-stokes-problem-with-pressure-dirichlet-boundary-conditions-for-heat-transport]{Generalized Stokes problem with pressure Dirichlet boundary conditions for heat transport} & Xavier Cartoixà \\
+\hyperref[abstract-high-performance-solid-mechanics-simulations-in-fenicsx]{High-performance solid mechanics simulations in FEniCSx} & Musa Choudhury \\
+\hyperref[abstract-implementation-of-the-tiniest-tensor-de-rham-subcomplex-on-3d-hybrid-meshes]{Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes} & Johnny Vogels \\
+\hyperref[abstract-in-silico-drug-delivery-in-the-human-brain]{In-silico drug delivery in the human brain} & Cécile Daversin Catty \\
+\hyperref[abstract-inferring-human-intracranial-csf-absorption-sites-via-inverse-modelling-of-protein-transport]{Inferring Human Intracranial CSF Absorption Sites via Inverse Modelling of Protein Transport} & Marius Causemann \\
+\hyperref[abstract-l-pbf-processes-via-fenics-a-finite-element-framework-for-heat-modelling-and-accelerated-predictive-workflows]{L-PBF Processes via FEniCS: A Finite Element Framework for  Heat Modelling  and Accelerated Predictive Workflows} & José Ángel Bejarano Vázquez \\
+\hyperref[abstract-large-scale-random-vibration-analysis-using-fenics]{Large scale random vibration analysis using FEniCS} & Dr. Shubham Saurabh \\
+\hyperref[abstract-material-model-discovery-with-femu-in-fenicsx]{Material model discovery with FEMU in FEniCSx} & Saeid Ghouli \\
+\hyperref[abstract-multi-physics-modelling-of-nuclear-fusion-reactor-components-using-festim]{Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM} & James Dark \\
+\hyperref[abstract-multiphysics-eddy-current-simulation-for-efficient-hybrid-electric-aircraft-propulsion]{Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion} & Arshad Fasiludeen \\
+\hyperref[abstract-nonlinear-inversion-framework-magnetic-resonance-elastography-mre]{Nonlinear Inversion Framework - Magnetic Resonance Elastography (MRE)} & Henrik Palme \\
+\hyperref[abstract-numerical-analysis-of-a-coupled-3d-1d-transport-problem]{Numerical Analysis of a Coupled 3D-1D Transport Problem} & Uzochi Gideon \\
+\hyperref[abstract-numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain-2]{Numerical investigation of urban heat island within variable porous urban domain} & Luis Gerardo Gutierrez Ibarra \\
+\hyperref[abstract-numerical-quality-factor-statistics-of-multilayered-superconducting-radio-frequency-cavity]{Numerical quality factor statistics of multilayered superconducting radio-frequency cavity} & Aaron Gobeyn \\
+\hyperref[abstract-phifem-a-immersed-boundary-finite-element-method-for-geometries-defined-by-a-level-set]{PhiFEM : a immersed boundary finite element method for geometries defined by a level-set} & Michel Duprez \\
+\hyperref[abstract-poromechanics-to-investigate-the-impact-of-mechanical-loading-on-human-skin-micro-circulation]{POROMECHANICS TO INVESTIGATE THE IMPACT OF MECHANICAL LOADING ON HUMAN SKIN MICRO-CIRCULATION} & Thomas Lavigne \\
+\hyperref[abstract-running-after-rounding-errors-a-posteriori-error-bounds-of-finite-element-kernels]{Running after rounding errors: a posteriori error bounds of finite element kernels} & Michal Habera \\
+\hyperref[abstract-shape-optimization-using-phifem]{Shape optimization using PhiFEM} & Raphaël Bulle \\
+\hyperref[abstract-the-digital-math-framework-as-a-robust-and-general-scientific-basis-for-society-advancements-in-the-adaptive-euler-breakthrough-for-aerodynamics-and-digimat-educational-program]{The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program} & Johan Jansson \\
+\hyperref[abstract-thermoviscous-acoustic-modeling-of-helmholtz-resonator-based-metamaterials-with-fenicsx]{Thermoviscous Acoustic Modeling of Helmholtz-Resonator-Based Metamaterials with FEniCSx} & Elio Di Giulio \\
+\hyperref[abstract-towards-fully-programmable-inflatable-panels]{Towards fully programmable inflatable panels} & Ofir Mirkin \\
+\hyperref[abstract-variational-solvers-for-irreversible-evolutionary-systems-orchestration]{Variational Solvers for Irreversible Evolutionary Systems: Orchestration} & Andrés A León Baldelli \\
+\hyperref[abstract-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation]{Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation} & Giovanni Zullo \\
+\end{longtable}
+```
 
-## Posters (11)
+```{raw} latex
+\clearpage
 
-| Title | Presenter |
-| :--- | :--- |
-| [Adaptive edge element method for a quasilinear problem in electromagnetism with strong convergence for Gauss' law](#abstract-adaptive-edge-element-method-for-a-quasilinear-problem-in-electromagnetism-with-strong-convergence-for-gauss-law) | Sanyang Liu |
-| [Developing numerical tools to improve the diagnosis of peripheral artery disease](#abstract-developing-numerical-tools-to-improve-the-diagnosis-of-peripheral-artery-disease) | Luke J Barratt |
-| [Effects of Pre-existing Defects on Helium Bubble Nucleation and Growth in Tungsten](#abstract-effects-of-pre-existing-defects-on-helium-bubble-nucleation-and-growth-in-tungsten) | Emna Frikha |
-| [Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx](#abstract-finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx) | Théo Bermond |
-| [Flow distortion generation using topology optimization](#abstract-flow-distortion-generation-using-topology-optimization) | Langlet Nathan |
-| [GPU kernels in DOLFINx](#abstract-gpu-kernels-in-dolfinx) | Chris Richardson |
-| [IMPACT - Modelling and optimisation of endless composite filament wound armour plates](#abstract-impact-modelling-and-optimisation-of-endless-composite-filament-wound-armour-plates) | Paul T. Kühner |
-| [Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator](#abstract-integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2) | Andrey Latyshev |
-| [Numerical simulation of asphalt solar collector systems](#abstract-numerical-simulation-of-asphalt-solar-collector-systems) | Lucia Escudero Sartages |
-| [Vectorized 3D mesh refinement and implementation of primal hybrid FEM in MATLAB](#abstract-vectorized-3d-mesh-refinement-and-implementation-of-primal-hybrid-fem-in-matlab) | Harish Mallesham Nagula |
-| [What's new in dolfiny - high-level convenience wrappers for DOLFINx](#abstract-what-s-new-in-dolfiny-high-level-convenience-wrappers-for-dolfinx) | Andreas Zilian |
+\section*{Posters (11)}
 
-## Software Demonstration Session (13)
+\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endfirsthead
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endhead
+\hyperref[abstract-adaptive-edge-element-method-for-a-quasilinear-problem-in-electromagnetism-with-strong-convergence-for-gauss-law]{Adaptive edge element method for a quasilinear problem in electromagnetism with strong convergence for Gauss' law} & Sanyang Liu \\
+\hyperref[abstract-developing-numerical-tools-to-improve-the-diagnosis-of-peripheral-artery-disease]{Developing numerical tools to improve the diagnosis of peripheral artery disease} & Luke J Barratt \\
+\hyperref[abstract-effects-of-pre-existing-defects-on-helium-bubble-nucleation-and-growth-in-tungsten]{Effects of Pre-existing Defects on Helium Bubble Nucleation and Growth in Tungsten} & Emna Frikha \\
+\hyperref[abstract-finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx]{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
+\hyperref[abstract-flow-distortion-generation-using-topology-optimization]{Flow distortion generation using topology optimization} & Langlet Nathan \\
+\hyperref[abstract-gpu-kernels-in-dolfinx]{GPU kernels in DOLFINx} & Chris Richardson \\
+\hyperref[abstract-impact-modelling-and-optimisation-of-endless-composite-filament-wound-armour-plates]{IMPACT - Modelling and optimisation of endless composite filament wound armour plates} & Paul T. Kühner \\
+\hyperref[abstract-integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2]{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
+\hyperref[abstract-numerical-simulation-of-asphalt-solar-collector-systems]{Numerical simulation of asphalt solar collector systems} & Lucia Escudero Sartages \\
+\hyperref[abstract-vectorized-3d-mesh-refinement-and-implementation-of-primal-hybrid-fem-in-matlab]{Vectorized 3D mesh refinement and implementation of primal hybrid FEM in MATLAB} & Harish Mallesham Nagula \\
+\hyperref[abstract-what-s-new-in-dolfiny-high-level-convenience-wrappers-for-dolfinx]{What's new in dolfiny - high-level convenience wrappers for DOLFINx} & Andreas Zilian \\
+\end{longtable}
+```
 
-These abstracts belong to the live software demonstration session.
+```{raw} latex
+\clearpage
 
-| Title | Presenter |
-| :--- | :--- |
-| [CutFEMx: a cut finite element library for FEniCSx](#abstract-cutfemx-a-cut-finite-element-library-for-fenicsx-2) | Susanne Claus |
-| [Elastodynamic Finite Element Simulation of Ultrasonic Wave Interaction with Structural Defects](#abstract-elastodynamic-finite-element-simulation-of-ultrasonic-wave-interaction-with-structural-defects) | Samyak Darshan C B |
-| [FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications](#abstract-felics-a-versatile-linearized-flow-solver-for-multi-physics-applications-2) | Sophie Knechtel |
-| [FEniCS post-processing with ParaView - Demonstration](#abstract-fenics-post-processing-with-paraview-demonstration) | Louis Gombert |
-| [FEniCSx in Metal Additive Manufacturing](#abstract-fenicsx-in-metal-additive-manufacturing-2) | Anton Evdokimov |
-| [From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx](#abstract-from-micro-to-macro-unsupervised-fe2-acceleration-using-ddfenicsx-and-micmacsfenicsx) | Felipe ROCHA |
-| [Graph-Based Execution Framework for Finite Element Simulation and Optimization in FEniCSx](#abstract-graph-based-execution-framework-for-finite-element-simulation-and-optimization-in-fenicsx) | Hamza ELMA |
-| [Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator](#abstract-integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator) | Andrey Latyshev |
-| [Live Demonstration of an Open-Source Vibroacoustic GUI Built on FEniCSx](#abstract-live-demonstration-of-an-open-source-vibroacoustic-gui-built-on-fenicsx) | Antonio Baiano Svizzero |
-| [Live Demonstration of Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation](#abstract-live-demonstration-of-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation) | Giovanni Zullo |
-| [Numerical investigation of urban heat island within variable porous urban domain](#abstract-numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain) | Luis Gerardo Gutierrez Ibarra |
-| [Software demonstration (GPU)](#abstract-software-demonstration-gpu) | Chris Richardson |
-| [Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS](#abstract-towards-natural-language-driven-computational-mechanics-a-general-llm-integrated-platform-built-on-fenics) | Guangjin Mou |
+\section*{Software Demonstration Session (13)}
+
+\noindent These abstracts belong to the live software demonstration session.\par
+
+\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endfirsthead
+\textbf{Title} & \textbf{Presenter} \\
+\hline
+\endhead
+\hyperref[abstract-cutfemx-a-cut-finite-element-library-for-fenicsx-2]{CutFEMx: a cut finite element library for FEniCSx} & Susanne Claus \\
+\hyperref[abstract-elastodynamic-finite-element-simulation-of-ultrasonic-wave-interaction-with-structural-defects]{Elastodynamic Finite Element Simulation of Ultrasonic Wave Interaction with Structural Defects} & Samyak Darshan C B \\
+\hyperref[abstract-felics-a-versatile-linearized-flow-solver-for-multi-physics-applications-2]{FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications} & Sophie Knechtel \\
+\hyperref[abstract-fenics-post-processing-with-paraview-demonstration]{FEniCS post-processing with ParaView - Demonstration} & Louis Gombert \\
+\hyperref[abstract-fenicsx-in-metal-additive-manufacturing-2]{FEniCSx in Metal Additive Manufacturing} & Anton Evdokimov \\
+\hyperref[abstract-from-micro-to-macro-unsupervised-fe2-acceleration-using-ddfenicsx-and-micmacsfenicsx]{From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx} & Felipe Rocha \\
+\hyperref[abstract-graph-based-execution-framework-for-finite-element-simulation-and-optimization-in-fenicsx]{Graph-Based Execution Framework for Finite Element Simulation and Optimization in FEniCSx} & Hamza Elma \\
+\hyperref[abstract-integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator]{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
+\hyperref[abstract-live-demonstration-of-an-open-source-vibroacoustic-gui-built-on-fenicsx]{Live Demonstration of an Open-Source Vibroacoustic GUI Built on FEniCSx} & Antonio Baiano Svizzero \\
+\hyperref[abstract-live-demonstration-of-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation]{Live Demonstration of Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation} & Giovanni Zullo \\
+\hyperref[abstract-numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain]{Numerical investigation of urban heat island within variable porous urban domain} & Luis Gerardo Gutierrez Ibarra \\
+\hyperref[abstract-software-demonstration-gpu]{Software demonstration (GPU)} & Chris Richardson \\
+\hyperref[abstract-towards-natural-language-driven-computational-mechanics-a-general-llm-integrated-platform-built-on-fenics]{Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS} & Guangjin Mou \\
+\end{longtable}
+```
 
 # Abstracts
 
@@ -262,7 +290,7 @@ Finally, we share critical lessons learned from developing and maintaining this 
 
 **Submission type:** Presentation
 
-**Presenter:** Felipe ROCHA (MSME - Université Paris-Est Créteil)
+**Presenter:** Felipe Rocha (MSME - Université Paris-Est Créteil)
 
 Conservation laws are fundamental to physical modelling in electromagnetism, solid mechanics, and fluid dynamics. While the associated PDEs are universal, they require constitutive models -- relating flux-gradient pairs (e.g., stress-strain) -- to close the system. However, such models are not unique and often introduce assumptions that may bias predictions.
 Data-Driven Computational Mechanics (DDCM) [1] offers a paradigm shift: instead of assuming a constitutive law, it directly integrates discrete material data into the solution process. By reformulating the classical PDE problem as a mixed-integer minimisation, DDCM identifies mechanical states that satisfy equilibrium and kinematic compatibility while remaining closest to a dataset of stress-strain pairs. By operating directly on raw data, DDCM provides an alternative modeling route to both classical constitutive modeling and ML-based surrogates [2]. One interesting application of this approach lies in the intersection of experimental and computational mechanics, allowing stress field identification without explicit postulating a parametric constitutive model, the so-called Data-Driven Identification (DDI) method [3]. 
@@ -674,7 +702,7 @@ This study investigates the use of topology optimization to automatically identi
 
 **Submission type:** Presentation
 
-**Presenter:** Quentin SCHMID (RMIT Europe)
+**Presenter:** Quentin Schmid (RMIT Europe)
 
 Laser Powder Bed Fusion (L-PBF) involves highly localised, transient heat transfer with non-linear material behaviour and phase change, making high-fidelity simulations expensive when exploring many process parameters. This work builds a flexible thermal solver workflow in FEniCSx and uses it as a data source for a graph-based surrogate, with a strong focus on implementation details.
 
@@ -1615,7 +1643,7 @@ heatshape is a cloud-based simulation software for welding, metal additive manuf
 
 **Submission type:** Software Demonstration
 
-**Presenter:** Felipe ROCHA (Université Paris-Est Créteil - MSME)
+**Presenter:** Felipe Rocha (Université Paris-Est Créteil - MSME)
 
 The FE2 approach [4] consists of solving a multilevel nonlinear finite element problem and is typically applied to problems with clear scale separation, where microscopic heterogeneities are much smaller than the structural scale. Resolving these heterogeneities directly at the structural level would require prohibitively fine meshes. Computational homogenisation provides consistent coupling between scales [5] (e.g. coarse-scale stress is the average of the microscale stress field). However, FE2 remains computationally expensive and memory intensive, which limits its practical use.
 This tutorial presents the synergic use of two libraries: i) ddfenicsx [1], which integrates Data-Driven Computational Mechanics (DDCM) [6] while preserving a familiar UFL-based workflow (see the ddfenicsx presentation abstract for details); and ii) micmacsfenics [2], an FE2 implementation featuring (i) nested FEM solvers for local problems at each coarse-scale Gauss point, (ii) efficient computation of consistent homogenised tangents (no finite differences), and (iii) support for common non-local microscale kinematical constraints (e.g. periodic, zero-average, etc).
@@ -1643,7 +1671,7 @@ Attendees will run: i) a single-scale hyperelastic problem; ii) a heterogeneous 
 
 **Submission type:** Software Demonstration
 
-**Presenter:** Hamza ELMA (Indenpendent)
+**Presenter:** Hamza Elma (Indenpendent)
 
 The increasing complexity of numerical simulations in computational mechanics calls for more structured and efficient computational workflows. Traditional notebook-based approaches remain largely linear, making iterative tasks such as mesh refinement studies and parameter sweeps computationally expensive and difficult to manage.
 

@@ -2,7 +2,7 @@
 title: 'From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx'
 authors:
   - name:
-      literal: 'Felipe ROCHA'
+      literal: 'Felipe Rocha'
     affiliations:
       - 'Université Paris-Est Créteil - MSME'
     email: 'felipe.figueredo-rocha@u-pec.fr'
@@ -15,7 +15,7 @@ exports:
 
 **Submission type:** Software Demonstration
 
-**Presenter:** Felipe ROCHA (Université Paris-Est Créteil - MSME)
+**Presenter:** Felipe Rocha (Université Paris-Est Créteil - MSME)
 
 The FE2 approach [4] consists of solving a multilevel nonlinear finite element problem and is typically applied to problems with clear scale separation, where microscopic heterogeneities are much smaller than the structural scale. Resolving these heterogeneities directly at the structural level would require prohibitively fine meshes. Computational homogenisation provides consistent coupling between scales [5] (e.g. coarse-scale stress is the average of the microscale stress field). However, FE2 remains computationally expensive and memory intensive, which limits its practical use.
 This tutorial presents the synergic use of two libraries: i) ddfenicsx [1], which integrates Data-Driven Computational Mechanics (DDCM) [6] while preserving a familiar UFL-based workflow (see the ddfenicsx presentation abstract for details); and ii) micmacsfenics [2], an FE2 implementation featuring (i) nested FEM solvers for local problems at each coarse-scale Gauss point, (ii) efficient computation of consistent homogenised tangents (no finite differences), and (iii) support for common non-local microscale kinematical constraints (e.g. periodic, zero-average, etc).

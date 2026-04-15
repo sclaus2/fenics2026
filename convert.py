@@ -211,6 +211,22 @@ def escape_table(value: str) -> str:
     return value.replace("|", "\\|")
 
 
+def escape_latex(value: str) -> str:
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+        "~": r"\textasciitilde{}",
+        "^": r"\textasciicircum{}",
+    }
+    return "".join(replacements.get(char, char) for char in value)
+
+
 def normalise_header(value: str) -> str:
     normalised = unicodedata.normalize("NFKC", value.replace("\r\n", "\n").replace("\r", "\n"))
     collapsed = re.sub(r"\s+", " ", normalised).strip()
@@ -648,51 +664,90 @@ def render_sections(submissions: list[Submission]) -> str:
 
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
-    for submission_type in ordered_types:
+    for index, submission_type in enumerate(ordered_types):
         items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
-        lines = [f"## {section_title} ({len(items)})"]
+        latex_lines: list[str] = []
+        if index > 0:
+            latex_lines.extend([r"\clearpage", ""])
+        latex_lines.append(rf"\section*{{{escape_latex(section_title)} ({len(items)})}}")
         if submission_type == "Software Demonstration":
-            lines.extend(
+            latex_lines.extend(["", r"\noindent These abstracts belong to the live software demonstration session.\par"])
+        latex_lines.extend(
+            [
+                "",
+                r"\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}",
+                r"\textbf{Title} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endfirsthead",
+                r"\textbf{Title} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endhead",
+            ]
+        )
+        for item in items:
+            latex_lines.extend(
                 [
-                    "",
-                    "These abstracts belong to the live software demonstration session.",
+                    rf"\href{{abstracts/{item.slug}.md}}{{{escape_latex(item.title)}}} & {escape_latex(item.presenter)} \\",
                 ]
             )
-        lines.extend(["", "| Title | Presenter |", "| :--- | :--- |"])
-        for item in items:
-            lines.append(
-                f"| [{escape_table(item.title)}](abstracts/{item.slug}.md) | {escape_table(item.presenter)} |"
-            )
-        sections.append("\n".join(lines))
+        latex_lines.append(r"\end{longtable}")
+        sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
     return "\n\n".join(sections)
 
 
 def render_combined_sections(submissions: list[Submission]) -> str:
+    target_map = {
+        submission.slug: f"abs:{index}"
+        for index, submission in enumerate(sorted(submissions, key=sort_key), start=1)
+    }
     grouped: defaultdict[str, list[Submission]] = defaultdict(list)
     for submission in submissions:
         grouped[submission.submission_type].append(submission)
 
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
-    for submission_type in ordered_types:
+    for index, submission_type in enumerate(ordered_types):
         items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
-        lines = [f"## {section_title} ({len(items)})"]
+        latex_lines: list[str] = []
+        if index > 0:
+            latex_lines.extend([r"\clearpage", ""])
+        latex_lines.append(rf"\section*{{{escape_latex(section_title)} ({len(items)})}}")
         if submission_type == "Software Demonstration":
-            lines.extend(["", "These abstracts belong to the live software demonstration session."])
-        lines.extend(["", "| Title | Presenter |", "| :--- | :--- |"])
+            latex_lines.extend(["", r"\noindent These abstracts belong to the live software demonstration session.\par"])
+        latex_lines.extend(
+            [
+                "",
+                r"\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}",
+                r"\textbf{Title} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endfirsthead",
+                r"\textbf{Title} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endhead",
+            ]
+        )
         for item in items:
-            lines.append(f"| [{escape_table(item.title)}](#abstract-{item.slug}) | {escape_table(item.presenter)} |")
-        sections.append("\n".join(lines))
+            latex_lines.extend(
+                [
+                    rf"\hyperref[{target_map[item.slug]}]{{{escape_latex(item.title)}}} & {escape_latex(item.presenter)} \\",
+                ]
+            )
+        latex_lines.append(r"\end{longtable}")
+        sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
     return "\n\n".join(sections)
 
 
 def render_combined_abstracts(submissions: list[Submission]) -> str:
+    target_map = {
+        submission.slug: f"abs:{index}"
+        for index, submission in enumerate(sorted(submissions, key=sort_key), start=1)
+    }
     grouped: defaultdict[str, list[Submission]] = defaultdict(list)
     for submission in submissions:
         grouped[submission.submission_type].append(submission)
@@ -711,7 +766,9 @@ def render_combined_abstracts(submissions: list[Submission]) -> str:
             lines.extend(
                 [
                     "",
-                    f"(abstract-{item.slug})=",
+                    "```{raw} latex",
+                    rf"\phantomsection\label{{{target_map[item.slug]}}}",
+                    "```",
                     f"### {item.title}",
                     "",
                     body["metadata"],

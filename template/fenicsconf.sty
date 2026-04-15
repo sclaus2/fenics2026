@@ -221,7 +221,7 @@
     }
     \begin{tabular}[t]{c}\rule{\z@}{24\p@}\begin{minipage}[tc]{0.95\textwidth}\centering\@author\end{minipage}\end{tabular}%
     \vskip 0.2in
-    \center{\@date}
+    \ifx\@date\@empty\else\center{\@date}\fi
     \begin{flushright}
       \setlength{\tabcolsep}{1pt}
     \end{flushright}

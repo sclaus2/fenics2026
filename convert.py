@@ -42,6 +42,30 @@ TEXT_REPLACEMENTS = str.maketrans(
     }
 )
 NAME_PREFIXES = ("dr", "dr.", "prof", "prof.", "professor")
+SURNAME_PARTICLES = {
+    "al",
+    "ap",
+    "ben",
+    "bin",
+    "da",
+    "de",
+    "del",
+    "della",
+    "der",
+    "di",
+    "dos",
+    "du",
+    "ibn",
+    "la",
+    "le",
+    "mac",
+    "mc",
+    "st",
+    "st.",
+    "van",
+    "von",
+    "y",
+}
 SUBMISSION_TYPE_FIELD = (
     "Is the submission relating to a poster, a software demonstration or a presentation?\n\n"
     "Participants can demonstrate their FEniCS-based software to small groups using their laptops. "
@@ -314,6 +338,34 @@ def name_tokens(value: str) -> list[str]:
     normalised = unicodedata.normalize("NFKD", clean_author_name(value).casefold())
     ascii_value = normalised.encode("ascii", "ignore").decode("ascii")
     return re.findall(r"[a-z]+", ascii_value)
+
+
+def sortable_name_text(value: str) -> str:
+    tokens = name_tokens(value)
+    return " ".join(tokens) if tokens else clean_author_name(value).casefold()
+
+
+def presenter_sort_key(presenter: str) -> tuple[str, str, str]:
+    cleaned = clean_author_name(presenter)
+    if not cleaned:
+        return ("", "", "")
+
+    parts = cleaned.split()
+    surname_parts = [parts[-1]]
+    index = len(parts) - 2
+    while index >= 0 and parts[index].casefold().rstrip(".") in SURNAME_PARTICLES:
+        surname_parts.insert(0, parts[index])
+        index -= 1
+
+    surname_length = len(surname_parts)
+    given_parts = parts[:-surname_length]
+    surname = " ".join(surname_parts)
+    given = " ".join(given_parts)
+    return (
+        sortable_name_text(surname),
+        sortable_name_text(given),
+        sortable_name_text(cleaned),
+    )
 
 
 def tokens_compatible(shorter: Sequence[str], longer: Sequence[str]) -> bool:
@@ -649,11 +701,11 @@ def build_submission(row: dict[str, str], used_slugs: set[str]) -> Submission:
     )
 
 
-def sort_key(submission: Submission) -> tuple[int, str, str]:
+def sort_key(submission: Submission) -> tuple[int, str, str, str, str]:
     return (
         SUBMISSION_ORDER.get(submission.submission_type, len(SUBMISSION_ORDER)),
+        *presenter_sort_key(submission.presenter),
         submission.title.casefold(),
-        submission.presenter.casefold(),
     )
 
 
@@ -665,7 +717,7 @@ def render_sections(submissions: list[Submission]) -> str:
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
     for index, submission_type in enumerate(ordered_types):
-        items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
+        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
@@ -700,8 +752,8 @@ def render_sections(submissions: list[Submission]) -> str:
 
 def render_combined_sections(submissions: list[Submission]) -> str:
     target_map = {
-        submission.slug: f"abs:{index}"
-        for index, submission in enumerate(sorted(submissions, key=sort_key), start=1)
+        submission.slug: f"abstract-{submission.slug}"
+        for submission in sorted(submissions, key=sort_key)
     }
     grouped: defaultdict[str, list[Submission]] = defaultdict(list)
     for submission in submissions:
@@ -710,7 +762,7 @@ def render_combined_sections(submissions: list[Submission]) -> str:
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
     for index, submission_type in enumerate(ordered_types):
-        items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
+        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
@@ -745,8 +797,8 @@ def render_combined_sections(submissions: list[Submission]) -> str:
 
 def render_combined_abstracts(submissions: list[Submission]) -> str:
     target_map = {
-        submission.slug: f"abs:{index}"
-        for index, submission in enumerate(sorted(submissions, key=sort_key), start=1)
+        submission.slug: f"abstract-{submission.slug}"
+        for submission in sorted(submissions, key=sort_key)
     }
     grouped: defaultdict[str, list[Submission]] = defaultdict(list)
     for submission in submissions:
@@ -755,7 +807,7 @@ def render_combined_abstracts(submissions: list[Submission]) -> str:
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
     for submission_type in ordered_types:
-        items = sorted(grouped[submission_type], key=lambda item: (item.title.casefold(), item.presenter.casefold()))
+        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
@@ -766,9 +818,7 @@ def render_combined_abstracts(submissions: list[Submission]) -> str:
             lines.extend(
                 [
                     "",
-                    "```{raw} latex",
-                    rf"\phantomsection\label{{{target_map[item.slug]}}}",
-                    "```",
+                    f"({target_map[item.slug]})=",
                     f"### {item.title}",
                     "",
                     body["metadata"],

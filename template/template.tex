@@ -49,8 +49,12 @@ pdfkeywords={[-doc.tags-]}
 }
 
 
+[# if doc.title == "FEniCS Conference 2026 Book of Abstracts" #]
 \newdate{articleDate}{[-doc.date.day-]}{[-doc.date.month-]}{[-doc.date.year-]}
 \date{\displaydate{articleDate}}
+[# else #]
+\date{}
+[# endif #]
 
 \begin{document}
 \maketitle

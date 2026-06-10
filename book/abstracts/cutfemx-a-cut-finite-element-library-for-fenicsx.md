@@ -15,7 +15,7 @@ exports:
 
 **Submission type:** Presentation
 
-**Presenter:** Susanne Claus (ONERA)
+**Presenter:** Susanne Claus (ONERA, DTIS)
 
 CutFEMx is an extension to FEniCSx for cut finite element methods, released under the MIT license and available at https://github.com/sclaus2/CutFEMx. It extends DOLFINx with support for unfitted discretisations based on level set geometries, enabling the solution of partial differential equations on complex and evolving domains without meshing.
 

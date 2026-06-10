@@ -340,7 +340,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "-o",
         "--output",
         type=Path,
-        default=here / "book" / "_build" / "exports" / "fenics2026-book-of-abstracts.pdf",
+        default=here / "fenics2026-book-of-abstracts.pdf",
     )
     parser.add_argument(
         "--no-author-index",

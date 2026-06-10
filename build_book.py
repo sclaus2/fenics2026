@@ -425,7 +425,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--output",
         type=Path,
-        default=here / "book" / "_build" / "exports" / "fenics2026-book-of-abstracts-programme-indexed.pdf",
+        default=here / "fenics2026-book-of-abstracts.pdf",
         help="Path for the merged PDF.",
     )
     parser.add_argument(

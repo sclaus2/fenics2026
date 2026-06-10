@@ -90,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: book-of-abstracts-pdf
-          path: book/_build/exports/fenics2026-book-of-abstracts-programme-indexed.pdf
+          path: fenics2026-book-of-abstracts.pdf
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

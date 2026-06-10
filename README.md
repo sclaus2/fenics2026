@@ -57,7 +57,7 @@ This does three things:
 
 1. Reads `book/abstracts/*.md`
 2. Regenerates `book/README.md` and `book/abstracts/manifest.json`, ordered and grouped by `programme.md`
-3. Builds per-abstract PDFs and merges them into `book/_build/exports/fenics2026-book-of-abstracts-programme-indexed.pdf`
+3. Builds per-abstract PDFs and merges them into `fenics2026-book-of-abstracts.pdf` in the repository root
 
 To refresh only the programme/front matter and manifest:
 
@@ -78,7 +78,7 @@ This still regenerates `book/README.md` and `book/abstracts/manifest.json`, then
 You can override the programme or output path when needed:
 
 ```bash
-python3 build_book.py --programme programme.md --output book/_build/exports/book-of-abstracts-v1.pdf
+python3 build_book.py --programme programme.md --output book-of-abstracts-v1.pdf
 ```
 
 The compatibility wrapper still works for the second step:

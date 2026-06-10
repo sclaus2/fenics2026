@@ -27,6 +27,20 @@ from convert import (
 )
 
 here = Path(__file__).parent
+EXPORT_STEM_LIMIT = 50
+FULL_REBUILD_PATHS = {
+    ".github/workflows/build_docs.yml",
+    ".github/workflows/deploy_docs.yml",
+    "book/myst.yml",
+    "build_book.py",
+    "convert.py",
+    "merge-abstracts.py",
+    "pyproject.toml",
+}
+FULL_REBUILD_PREFIXES = (
+    "book/assets/",
+    "template/",
+)
 
 
 def timestamp() -> str:
@@ -95,9 +109,10 @@ def load_manifest_slugs(book_dir: Path) -> list[str]:
     return [item["slug"] for item in manifest if item.get("slug")]
 
 
-def build_myst_serial(myst_command: list[str], book_dir: Path) -> None:
-    slugs = load_manifest_slugs(book_dir)
-    targets = ["README.md", *[f"abstracts/{slug}.md" for slug in slugs]]
+def build_myst_serial(myst_command: list[str], book_dir: Path, targets: Sequence[str] | None = None) -> None:
+    if targets is None:
+        slugs = load_manifest_slugs(book_dir)
+        targets = ["README.md", *[f"abstracts/{slug}.md" for slug in slugs]]
     log(f"Serial MyST export targets: {len(targets)} files")
     for index, target in enumerate(targets, start=1):
         run_command(
@@ -256,6 +271,119 @@ def load_markdown_submissions(book_dir: Path) -> list[Submission]:
     return [load_markdown_submission(path) for path in sorted(abstract_dir.glob("*.md"))]
 
 
+def build_export_name_map(abstract_dir: Path) -> dict[str, str]:
+    counters: dict[str, int] = {}
+    mapping: dict[str, str] = {}
+
+    for markdown in sorted(abstract_dir.glob("*.md"), key=lambda path: path.name):
+        base = markdown.stem[:EXPORT_STEM_LIMIT]
+        count = counters.get(base, 0)
+        counters[base] = count + 1
+        export_stem = base if count == 0 else f"{base}-{count}"
+        mapping[markdown.stem] = f"{export_stem}.pdf"
+
+    return mapping
+
+
+def normalise_repo_path(value: str | Path) -> str:
+    path = Path(value)
+    if path.is_absolute():
+        try:
+            path = path.resolve().relative_to(here.resolve())
+        except ValueError:
+            return path.as_posix()
+    return path.as_posix().removeprefix("./")
+
+
+def git_output_lines(command: list[str]) -> list[str] | None:
+    try:
+        result = subprocess.run(
+            command,
+            cwd=here,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except subprocess.CalledProcessError as error:
+        message = error.stderr.strip() or error.stdout.strip() or str(error)
+        log(f"Could not run `{' '.join(command)}`: {message}")
+        return None
+    return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+
+def collect_changed_paths(base_ref: str | None, explicit_paths: Sequence[str]) -> list[str] | None:
+    if explicit_paths:
+        return sorted({normalise_repo_path(path) for path in explicit_paths if str(path).strip()})
+
+    paths: set[str] = set()
+    if base_ref:
+        changed = git_output_lines(["git", "diff", "--name-only", f"{base_ref}...HEAD"])
+        if changed is None:
+            changed = git_output_lines(["git", "diff", "--name-only", base_ref, "HEAD"])
+        if changed is None:
+            return None
+        paths.update(normalise_repo_path(path) for path in changed)
+
+    for command in (["git", "diff", "--name-only"], ["git", "diff", "--name-only", "--cached"]):
+        changed = git_output_lines(command)
+        if changed is not None:
+            paths.update(normalise_repo_path(path) for path in changed)
+
+    untracked = git_output_lines(["git", "ls-files", "--others", "--exclude-standard", "book/abstracts/*.md"])
+    if untracked is not None:
+        paths.update(normalise_repo_path(path) for path in untracked)
+
+    return sorted(paths)
+
+
+def is_abstract_markdown(path: str) -> bool:
+    return path.startswith("book/abstracts/") and path.endswith(".md")
+
+
+def needs_full_rebuild(changed_paths: Sequence[str]) -> bool:
+    for path in changed_paths:
+        if path in FULL_REBUILD_PATHS or any(path.startswith(prefix) for prefix in FULL_REBUILD_PREFIXES):
+            log(f"Full rebuild required because `{path}` changed")
+            return True
+    return False
+
+
+def add_target(targets: list[str], target: str) -> None:
+    if target not in targets:
+        targets.append(target)
+
+
+def collect_partial_targets(book_dir: Path, submissions: Sequence[Submission], changed_paths: Sequence[str]) -> list[str]:
+    targets: list[str] = []
+    slugs = {submission.slug for submission in submissions}
+    export_name_map = build_export_name_map(book_dir / "abstracts")
+    export_dir = book_dir / "_build" / "exports"
+
+    source_changes_affect_front_matter = "programme.md" in changed_paths or any(
+        is_abstract_markdown(path) for path in changed_paths
+    )
+    if source_changes_affect_front_matter or not (export_dir / "readme.pdf").is_file():
+        add_target(targets, "README.md")
+
+    for path in changed_paths:
+        if not is_abstract_markdown(path):
+            continue
+        slug = Path(path).stem
+        if slug in slugs and (book_dir / "abstracts" / f"{slug}.md").is_file():
+            add_target(targets, f"abstracts/{slug}.md")
+
+    for submission in submissions:
+        export_name = export_name_map.get(submission.slug)
+        if export_name is None:
+            add_target(targets, f"abstracts/{submission.slug}.md")
+            continue
+        if not (export_dir / export_name).is_file():
+            add_target(targets, f"abstracts/{submission.slug}.md")
+
+    return targets
+
+
 def write_manifest(submissions: list[Submission], book_dir: Path) -> None:
     manifest_path = book_dir / "abstracts" / "manifest.json"
     manifest_path.write_text(json.dumps([asdict(submission) for submission in submissions], indent=2), encoding="utf-8")
@@ -317,6 +445,31 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="Use MyST's bulk PDF exporter instead of the default serial exporter.",
     )
     parser.add_argument(
+        "--changed-only",
+        action="store_true",
+        help=(
+            "Reuse existing PDFs in book/_build/exports and rebuild only changed abstract PDFs, "
+            "missing PDFs, and the generated front matter. Falls back to a full rebuild when "
+            "templates or build scripts changed."
+        ),
+    )
+    parser.add_argument(
+        "--base-ref",
+        default=None,
+        help="Git ref or SHA used with --changed-only to detect changed source files.",
+    )
+    parser.add_argument(
+        "--changed-file",
+        action="append",
+        default=[],
+        help="Explicit changed source path for --changed-only. Can be passed multiple times.",
+    )
+    parser.add_argument(
+        "--force-full",
+        action="store_true",
+        help="Ignore --changed-only and rebuild every PDF.",
+    )
+    parser.add_argument(
         "--markdown-only",
         action="store_true",
         help="Only regenerate README.md and abstracts/manifest.json from the current markdown files.",
@@ -326,7 +479,19 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--book-author", default=DEFAULT_BOOK_AUTHOR)
     args = parser.parse_args(argv)
 
-    prepare_programme_book(
+    changed_paths: list[str] | None = None
+    if args.changed_only and not args.force_full:
+        changed_paths = collect_changed_paths(args.base_ref, args.changed_file)
+        if changed_paths is None:
+            log("Changed paths could not be determined; using a full rebuild")
+        elif changed_paths:
+            log("Changed source paths:")
+            for path in changed_paths:
+                log(f" - {path}")
+        else:
+            log("No changed source paths detected")
+
+    submissions = prepare_programme_book(
         book_dir=args.book_dir,
         programme=args.programme,
         book_title=args.book_title,
@@ -345,14 +510,29 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
     merge_script = here / "merge-abstracts.py"
     build_dir = args.book_dir / "_build"
+    use_partial_rebuild = (
+        args.changed_only
+        and not args.force_full
+        and changed_paths is not None
+        and not needs_full_rebuild(changed_paths)
+    )
 
-    if build_dir.exists():
-        log(f"Removing existing build directory: {build_dir}")
-        shutil.rmtree(build_dir)
-
-    if args.bulk_myst:
-        run_command([*myst_command, "build", "--pdf"], cwd=args.book_dir, label="build MyST PDFs")
+    if use_partial_rebuild:
+        partial_targets = collect_partial_targets(args.book_dir, submissions, changed_paths)
+        if partial_targets:
+            if args.bulk_myst:
+                log("Ignoring --bulk-myst for partial rebuild targets")
+            build_myst_serial(myst_command, args.book_dir, partial_targets)
+        else:
+            log("All required per-page PDFs are already present; skipping MyST PDF export")
     else:
+        if build_dir.exists():
+            log(f"Removing existing build directory: {build_dir}")
+            shutil.rmtree(build_dir)
+
+    if args.bulk_myst and not use_partial_rebuild:
+        run_command([*myst_command, "build", "--pdf"], cwd=args.book_dir, label="build MyST PDFs")
+    elif not use_partial_rebuild:
         build_myst_serial(myst_command, args.book_dir)
 
     run_command(

@@ -67,6 +67,14 @@ python3 build_book.py --markdown-only
 
 By default, `build_book.py` uses the serial MyST exporter because it gives useful per-file progress and avoids hangs in MyST's bulk exporter. To try MyST's bulk exporter explicitly, pass `--bulk-myst`.
 
+For a faster rebuild when `book/_build/exports` already contains PDFs from a previous build, rebuild only changed or missing PDF exports:
+
+```bash
+python3 build_book.py --changed-only --base-ref origin/main
+```
+
+This still regenerates `book/README.md` and `book/abstracts/manifest.json`, then merges the final book in programme order. It rebuilds the front-matter PDF when `programme.md` or an abstract markdown file changed, rebuilds changed or missing abstract PDFs, and falls back to a full rebuild when templates or build scripts changed. GitHub Actions uses this mode with a cached `book/_build/exports` directory.
+
 You can override the programme or output path when needed:
 
 ```bash
@@ -88,3 +96,4 @@ python3 rebuild_book_from_programme.py
 - `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated programme/front-page order.
 - If you want a different merged PDF filename, pass `--output` to `build_book.py`.
 - `build_book.py` first tries the `myst` executable and then falls back to `python -m mystmd_py` in the current environment.
+- Partial rebuilds depend on cached per-page PDFs in `book/_build/exports`; without that cache, `--changed-only` rebuilds the missing exports.

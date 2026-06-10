@@ -6,6 +6,7 @@ on:
     paths:
       - programme.md
       - book/abstracts/**/*.md
+      - book/assets/**
       - book/myst.yml
       - template/**
       - build_book.py
@@ -34,6 +35,8 @@ env:
 jobs:
   build-docs:
     uses: ./.github/workflows/build_docs.yml
+    with:
+      base_ref: ${{ github.event.before }}
 
   deploy:
     needs: [build-docs]

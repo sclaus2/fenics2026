@@ -3,13 +3,23 @@ name: Build docs
 
 on:
     workflow_dispatch:
+      inputs:
+        base_ref:
+          description: Git ref or SHA to compare against for partial PDF rebuilds
+          required: false
+          type: string
     workflow_call:
+      inputs:
+        base_ref:
+          required: false
+          type: string
     pull_request:
       branches:
         - main
       paths:
         - programme.md
         - book/abstracts/**/*.md
+        - book/assets/**
         - book/myst.yml
         - template/**
         - build_book.py
@@ -34,6 +44,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore PDF export cache
+        id: pdf-cache
+        uses: actions/cache@v4
+        with:
+          path: book/_build/exports
+          key: ${{ runner.os }}-abstract-pdfs-${{ hashFiles('book/myst.yml', 'book/assets/**', 'template/**', 'pyproject.toml', 'build_book.py', 'convert.py', 'merge-abstracts.py') }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-abstract-pdfs-${{ hashFiles('book/myst.yml', 'book/assets/**', 'template/**', 'pyproject.toml', 'build_book.py', 'convert.py', 'merge-abstracts.py') }}-
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -48,10 +69,28 @@ jobs:
         run: python3 -m pip install .
 
       - name: Build programme PDF
-        run: python3 build_book.py
+        shell: bash
+        run: |
+          BASE_REF="${{ inputs.base_ref }}"
+          if [ -z "$BASE_REF" ]; then
+            BASE_REF="${{ github.event.pull_request.base.sha }}"
+          fi
+          if [ -z "$BASE_REF" ]; then
+            BASE_REF="${{ github.event.before }}"
+          fi
+          if [ -z "$BASE_REF" ] || [ "$BASE_REF" = "0000000000000000000000000000000000000000" ]; then
+            BASE_REF="origin/main"
+          fi
+          python3 build_book.py --changed-only --base-ref "$BASE_REF"
 
       - name: Build HTML
         run: cd book && myst build --html
+
+      - name: Upload book PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-of-abstracts-pdf
+          path: book/_build/exports/fenics2026-book-of-abstracts-programme-indexed.pdf
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

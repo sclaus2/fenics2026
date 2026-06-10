@@ -8,6 +8,8 @@ template/template.pdf
 book/_build
 *.DS_Store
 book/build-*.log
+book/abstract-source-corrections.csv
+book/abstracts/manifest.json
 book/*affiliation-review*.html
 book/*affiliation-review*.csv
 book/.orcid-cache.json

@@ -24,6 +24,7 @@ files:
   - fenicsconf.sty
 packages:
   - datetime
+  - draftwatermark
   - graphicx
   - hyperref
   - natbib

@@ -4,7 +4,7 @@ import argparse
 import json
 import re
 import unicodedata
-from datetime import datetime
+from datetime import date, datetime
 from pathlib import Path
 from typing import Sequence
 from urllib.parse import unquote, urlparse
@@ -36,6 +36,10 @@ INDEX_COLUMN_GAP = 24
 INDEX_TITLE_SIZE = 18
 INDEX_TEXT_SIZE = 9
 INDEX_LEADING = 12
+WATERMARK_GRAY = 0.85
+WATERMARK_FONT_SIZE = 8
+WATERMARK_X = 0.05 * PAGE_WIDTH
+WATERMARK_Y = 0.5 * PAGE_HEIGHT
 
 
 def timestamp() -> str:
@@ -248,6 +252,26 @@ def pdf_text(value: str) -> str:
     return ascii_value.replace("\\", r"\\").replace("(", r"\(").replace(")", r"\)")
 
 
+def watermark_text() -> str:
+    today = date.today()
+    return f"doi:xxx, v3-draft, {today:%B} {today.day}, {today:%Y}"
+
+
+def add_author_index_watermark(commands: list[str]) -> None:
+    commands.extend(
+        [
+            "q",
+            f"{WATERMARK_GRAY:.2f} g",
+            (
+                f"BT /F1 {WATERMARK_FONT_SIZE} Tf "
+                f"0 1 -1 0 {WATERMARK_X:.2f} {WATERMARK_Y:.2f} Tm "
+                f"({pdf_text(watermark_text())}) Tj ET"
+            ),
+            "Q",
+        ]
+    )
+
+
 def add_text_line(commands: list[str], x: float, y: float, text: str, size: int = INDEX_TEXT_SIZE) -> None:
     commands.append(f"BT /F1 {size} Tf {x:.2f} {y:.2f} Td ({pdf_text(text)}) Tj ET")
 
@@ -267,7 +291,9 @@ def add_author_index(writer: PdfWriter, manifest: list[dict], page_starts: dict[
     for page_offset in range(0, len(entries), rows_per_page):
         page_entries = entries[page_offset : page_offset + rows_per_page]
         page = PageObject.create_blank_page(width=PAGE_WIDTH, height=PAGE_HEIGHT)
-        commands = ["q", "0 0 0 rg"]
+        commands: list[str] = []
+        add_author_index_watermark(commands)
+        commands.extend(["q", "0 0 0 rg"])
         if page_offset == 0:
             add_text_line(commands, INDEX_MARGIN_X, PAGE_HEIGHT - INDEX_MARGIN_TOP, "Author Index", INDEX_TITLE_SIZE)
         y_start = PAGE_HEIGHT - INDEX_MARGIN_TOP - 30

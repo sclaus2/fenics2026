@@ -14,6 +14,11 @@ SUBMISSION_TYPE_FIELD = (
     "participant can choose to submit a presentation or a poster and a software demonstration - "
     "please submit the form twice."
 )
+RECORDING_CONSENT_FIELD = (
+    "Do you agree to your presentation being recorded and for the recording to be made available on a "
+    "video hosting platform after the conference?"
+)
+VISA_LETTER_FIELD = "Do you need a signed letter of acceptance (for VISA or other purposes)?"
 
 
 def authors(fake: Faker, n: int) -> str:
@@ -42,13 +47,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         "Affiliation of presenter",
         SUBMISSION_TYPE_FIELD,
         "Are you a PhD candidate or a Postdoctoral researcher?",
-        "Do you need a signed letter of acceptance (for VISA or other purposes)?",
+        VISA_LETTER_FIELD,
         "Name of authors (including presenter, comma-separated list)",
         "Affiliation of co-authors (including presenter, comma-separated list)",
         "Abstract title",
         "Abstract text",
         "Reference list",
-        "Do you agree to your presentation being recorded and for the recording to be made available on a video hosting platform after the conference?",
+        RECORDING_CONSENT_FIELD,
         "Do you accept the terms and conditions?",
     ]
     submission_types = ["Presentation", "Poster", "Software Demonstration"]
@@ -76,9 +81,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "Are you a PhD candidate or a Postdoctoral researcher?": fake.random_element(
                         ["PhD candidate", "Postdoctoral researcher", "No"]
                     ),
-                    "Do you need a signed letter of acceptance (for VISA or other purposes)?": fake.random_element(
-                        ["Yes", "No"]
-                    ),
+                    VISA_LETTER_FIELD: fake.random_element(["Yes", "No"]),
                     "Name of authors (including presenter, comma-separated list)": ", ".join(coauthor_names),
                     "Affiliation of co-authors (including presenter, comma-separated list)": ", ".join(
                         coauthor_affiliations
@@ -86,9 +89,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                     "Abstract title": fake.sentence(nb_words=8).rstrip("."),
                     "Abstract text": fake.paragraph(nb_sentences=8),
                     "Reference list": fake.paragraph(nb_sentences=2) if fake.random_int(0, 1) else "",
-                    "Do you agree to your presentation being recorded and for the recording to be made available on a video hosting platform after the conference?": fake.random_element(
-                        ["Yes", "No"]
-                    ),
+                    RECORDING_CONSENT_FIELD: fake.random_element(["Yes", "No"]),
                     "Do you accept the terms and conditions?": "Yes",
                 }
             )

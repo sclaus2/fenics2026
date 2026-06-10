@@ -386,7 +386,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         log(f"Resolved built abstract PDFs: {len(abstract_items)}")
     else:
         export_name_map = {}
-        abstract_items = [({"slug": pdf.stem, "title": pdf.stem, "submission_type": "Abstracts"}, pdf) for pdf in default_pdf_order(input_folder)]
+        abstract_items = [
+            (
+                {"slug": pdf.stem, "title": pdf.stem, "submission_type": "Abstracts"},
+                pdf,
+            )
+            for pdf in default_pdf_order(input_folder)
+        ]
         log(f"Using default PDF order with {len(abstract_items)} PDFs")
 
     output_file.parent.mkdir(parents=True, exist_ok=True)

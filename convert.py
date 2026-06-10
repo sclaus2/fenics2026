@@ -133,6 +133,7 @@ README_TEMPLATE = dedent(
     """
 )
 
+
 def quote_yaml(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
 
@@ -525,7 +526,11 @@ def build_authors(
 
     for name, markers in author_entries:
         existing_index = next(
-            (index for index, (existing_name, _) in enumerate(ordered_entries) if same_person_name(existing_name, name)),
+            (
+                index
+                for index, (existing_name, _) in enumerate(ordered_entries)
+                if same_person_name(existing_name, name)
+            ),
             None,
         )
         if existing_index is not None:
@@ -610,7 +615,9 @@ class Submission:
     references: str
 
     def to_markdown(self) -> str:
-        authors_block = "authors:\n" + "\n".join(f"  {line}" for author in self.authors for line in author.to_myst().splitlines())
+        authors_block = "authors:\n" + "\n".join(
+            f"  {line}" for author in self.authors for line in author.to_myst().splitlines()
+        )
 
         body = self.to_body_markdown()
 
@@ -635,7 +642,9 @@ class Submission:
 
         references = ""
         if self.references:
-            ref_text = "\n\n".join(part for part in sanitise_references_text(self.references).split("\n") if part.strip())
+            ref_text = "\n\n".join(
+                part for part in sanitise_references_text(self.references).split("\n") if part.strip()
+            )
             references = f"\n# References\n{ref_text}\n"
 
         return {
@@ -879,11 +888,7 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
         if is_untimed_poster_demo_section:
             if session == "Poster and software demonstration blitz":
                 section_title = "Posters"
-                entries = [
-                    entry
-                    for entry in entries
-                    if slug_to_submission[entry.slug].submission_type == "Poster"
-                ]
+                entries = [entry for entry in entries if slug_to_submission[entry.slug].submission_type == "Poster"]
             else:
                 section_title = "Software demonstrations"
                 entries = [
@@ -910,9 +915,8 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
             )
             for entry in entries:
                 submission = slug_to_submission[entry.slug]
-                latex_lines.append(
-                    rf"\href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}} & {escape_latex(submission.presenter)} \\"
-                )
+                contribution = rf"\href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}}"
+                latex_lines.append(rf"{contribution} & {escape_latex(submission.presenter)} \\")
             latex_lines.append(r"\end{longtable}")
             sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
             continue
@@ -932,13 +936,15 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
         )
         for entry in entries:
             submission = slug_to_submission[entry.slug]
+            contribution = rf"\href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}}"
             latex_lines.append(
-                rf"{escape_latex(entry.time)} & \href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}} & {escape_latex(submission.presenter)} \\"
+                rf"{escape_latex(entry.time)} & {contribution} & {escape_latex(submission.presenter)} \\"
             )
         latex_lines.append(r"\end{longtable}")
         sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
 
-    unmatched = [submission for submission in submissions if not any(entry.slug == submission.slug for entry in programme_entries)]
+    matched_slugs = {entry.slug for entry in programme_entries}
+    unmatched = [submission for submission in submissions if submission.slug not in matched_slugs]
     if unmatched:
         sections.append(render_sections(unmatched))
 
@@ -996,7 +1002,10 @@ def render_sections(submissions: list[Submission]) -> str:
     sections = []
     ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
     for index, submission_type in enumerate(ordered_types):
-        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
+        items = sorted(
+            grouped[submission_type],
+            key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()),
+        )
         section_title = f"{submission_type}s"
         if submission_type == "Software Demonstration":
             section_title = "Software Demonstration Session"
@@ -1005,7 +1014,12 @@ def render_sections(submissions: list[Submission]) -> str:
             latex_lines.extend([r"\clearpage", ""])
         latex_lines.append(rf"\section*{{{escape_latex(section_title)} ({len(items)})}}")
         if submission_type == "Software Demonstration":
-            latex_lines.extend(["", r"\noindent These abstracts belong to the live software demonstration session.\par"])
+            latex_lines.extend(
+                [
+                    "",
+                    r"\noindent These abstracts belong to the live software demonstration session.\par",
+                ]
+            )
         latex_lines.extend(
             [
                 "",
@@ -1019,9 +1033,10 @@ def render_sections(submissions: list[Submission]) -> str:
             ]
         )
         for item in items:
+            contribution = rf"\href{{abstracts/{item.slug}.md}}{{{escape_latex(item.title)}}}"
             latex_lines.extend(
                 [
-                    rf"\href{{abstracts/{item.slug}.md}}{{{escape_latex(item.title)}}} & {escape_latex(item.presenter)} \\",
+                    rf"{contribution} & {escape_latex(item.presenter)} \\",
                 ]
             )
         latex_lines.append(r"\end{longtable}")
@@ -1074,9 +1089,7 @@ def load_rows(path: Path) -> list[dict[str, str]]:
         data: list[dict[str, str]] = []
         for values in rows[1:]:
             row = {
-                header: "" if value is None else str(value).strip()
-                for header, value in zip(headers, values)
-                if header
+                header: "" if value is None else str(value).strip() for header, value in zip(headers, values) if header
             }
             data.append(row)
         return data

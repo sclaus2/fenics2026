@@ -354,7 +354,11 @@ def add_target(targets: list[str], target: str) -> None:
         targets.append(target)
 
 
-def collect_partial_targets(book_dir: Path, submissions: Sequence[Submission], changed_paths: Sequence[str]) -> list[str]:
+def collect_partial_targets(
+    book_dir: Path,
+    submissions: Sequence[Submission],
+    changed_paths: Sequence[str],
+) -> list[str]:
     targets: list[str] = []
     slugs = {submission.slug for submission in submissions}
     export_name_map = build_export_name_map(book_dir / "abstracts")

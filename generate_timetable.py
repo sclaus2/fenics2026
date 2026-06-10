@@ -175,7 +175,7 @@ def main():
         time_slot = day_session_to_time(day, int(session))
 
         for _, item in group.iterrows():
-            title = f'[{item["Abstract title"]}](abstracts/{item["Filename"]}.md)'
+            title = f"[{item['Abstract title']}](abstracts/{item['Filename']}.md)"
             presenter = item["Name of presenter"]
             # phd = item["Are you a PhD candidate or a Postdoctoral researcher?"]
             # breakpoint()
@@ -188,7 +188,7 @@ def main():
 
     data = []
     for _, item in df_poster.iterrows():
-        title = f'[{item["Abstract title"]}](abstracts/{item["Filename"]}.md)'
+        title = f"[{item['Abstract title']}](abstracts/{item['Filename']}.md)"
         presenter = item["Name of presenter"]
         data.append({"Title": title, "Presenter": presenter})
 

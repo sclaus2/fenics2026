@@ -5,7 +5,11 @@ abstracts.csv
 *.xlsx
 *.xlsm
 template/template.pdf
-book/_build
+book/_build/*
+!book/_build/exports/
+book/_build/exports/*
+!book/_build/exports/*.pdf
+book/_build/exports/fenics2026-book-of-abstracts*.pdf
 *.DS_Store
 book/build-*.log
 book/abstract-source-corrections.csv

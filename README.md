@@ -75,6 +75,8 @@ python3 build_book.py --changed-only --base-ref origin/main
 
 This still regenerates `book/README.md` and `book/abstracts/manifest.json`, then merges the final book in programme order. It rebuilds the front-matter PDF when `programme.md` or an abstract markdown file changed, rebuilds changed or missing abstract PDFs, and falls back to a full rebuild when templates or build scripts changed. GitHub Actions uses this mode with a cached `book/_build/exports` directory.
 
+The committed PDF files in `book/_build/exports` are seed artifacts for CI cold starts. They are not participant-editable sources; edits should still be made in `programme.md` or `book/abstracts/*.md`, and CI will rebuild the affected PDF exports before merging the final book.
+
 You can override the programme or output path when needed:
 
 ```bash
@@ -96,4 +98,4 @@ python3 rebuild_book_from_programme.py
 - `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated programme/front-page order.
 - If you want a different merged PDF filename, pass `--output` to `build_book.py`.
 - `build_book.py` first tries the `myst` executable and then falls back to `python -m mystmd_py` in the current environment.
-- Partial rebuilds depend on cached per-page PDFs in `book/_build/exports`; without that cache, `--changed-only` rebuilds the missing exports.
+- Partial rebuilds use the committed seed PDFs and the GitHub Actions cache in `book/_build/exports`; without either, `--changed-only` rebuilds the missing exports.

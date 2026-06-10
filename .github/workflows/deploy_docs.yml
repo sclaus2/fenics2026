@@ -6,6 +6,7 @@ on:
     paths:
       - programme.md
       - book/abstracts/**/*.md
+      - book/_build/exports/*.pdf
       - book/assets/**
       - book/myst.yml
       - template/**

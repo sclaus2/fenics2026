@@ -56,48 +56,47 @@ Total abstracts: **67**
 
 ```{raw} latex
 
-\subsection*{Poster and software demonstration blitz}
-\begin{longtable}{p{0.16\textwidth}p{0.56\textwidth}p{0.22\textwidth}}
-\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\
+\subsection*{Posters}
+\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}
+\textbf{Contribution} & \textbf{Presenter} \\
 \hline
 \endfirsthead
-\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\
+\textbf{Contribution} & \textbf{Presenter} \\
 \hline
 \endhead
-17:15 - 17:30 & \href{abstracts/developing-numerical-tools-to-improve-the-diagnosis-of-peripheral-artery-disease.md}{Developing numerical tools to improve the diagnosis of peripheral artery disease} & Luke J Barratt \\
-17:15 - 17:30 & \href{abstracts/shape-optimization-using-phifem.md}{Shape optimization using PhiFEM} & Raphaël Bulle \\
-17:15 - 17:30 & \href{abstracts/impact-modelling-and-optimisation-of-endless-composite-filament-wound-armour-plates.md}{IMPACT - Modelling and optimisation of endless composite filament wound armour plates} & Paul T. Kühner \\
-17:15 - 17:30 & \href{abstracts/what-s-new-in-dolfiny-high-level-convenience-wrappers-for-dolfinx.md}{What's new in dolfiny - high-level convenience wrappers for DOLFINx} & Andreas Zilian \\
-17:15 - 17:30 & \href{abstracts/adaptive-edge-element-method-for-a-quasilinear-problem-in-electromagnetism-with-strong-convergence-for-gauss-law.md}{Adaptive edge element method for a quasilinear problem in electromagnetism with strong convergence for Gauss' law} & Sanyang Liu \\
-17:15 - 17:30 & \href{abstracts/flow-distortion-generation-using-topology-optimization.md}{Flow distortion generation using topology optimization} & Langlet Nathan \\
-17:15 - 17:30 & \href{abstracts/effects-of-pre-existing-defects-on-helium-bubble-nucleation-and-growth-in-tungsten.md}{Effects of Pre-existing Defects on Helium Bubble Nucleation and Growth in Tungsten} & Emna Frikha \\
-17:15 - 17:30 & \href{abstracts/finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx.md}{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
-17:15 - 17:30 & \href{abstracts/gpu-kernels-in-dolfinx.md}{GPU kernels in DOLFINx} & Chris Richardson \\
-17:15 - 17:30 & \href{abstracts/numerical-simulation-of-asphalt-solar-collector-systems.md}{Numerical simulation of asphalt solar collector systems} & Lucia Escudero Sartages \\
-17:15 - 17:30 & \href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
-17:15 - 17:30 & \href{abstracts/towards-natural-language-driven-computational-mechanics-a-general-llm-integrated-platform-built-on-fenics.md}{Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS} & Guangjin Mou \\
+\href{abstracts/developing-numerical-tools-to-improve-the-diagnosis-of-peripheral-artery-disease.md}{Developing numerical tools to improve the diagnosis of peripheral artery disease} & Luke J Barratt \\
+\href{abstracts/shape-optimization-using-phifem.md}{Shape optimization using PhiFEM} & Raphaël Bulle \\
+\href{abstracts/impact-modelling-and-optimisation-of-endless-composite-filament-wound-armour-plates.md}{IMPACT - Modelling and optimisation of endless composite filament wound armour plates} & Paul T. Kühner \\
+\href{abstracts/what-s-new-in-dolfiny-high-level-convenience-wrappers-for-dolfinx.md}{What's new in dolfiny - high-level convenience wrappers for DOLFINx} & Andreas Zilian \\
+\href{abstracts/adaptive-edge-element-method-for-a-quasilinear-problem-in-electromagnetism-with-strong-convergence-for-gauss-law.md}{Adaptive edge element method for a quasilinear problem in electromagnetism with strong convergence for Gauss' law} & Sanyang Liu \\
+\href{abstracts/flow-distortion-generation-using-topology-optimization.md}{Flow distortion generation using topology optimization} & Langlet Nathan \\
+\href{abstracts/effects-of-pre-existing-defects-on-helium-bubble-nucleation-and-growth-in-tungsten.md}{Effects of Pre-existing Defects on Helium Bubble Nucleation and Growth in Tungsten} & Emna Frikha \\
+\href{abstracts/finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx.md}{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
+\href{abstracts/gpu-kernels-in-dolfinx.md}{GPU kernels in DOLFINx} & Chris Richardson \\
+\href{abstracts/numerical-simulation-of-asphalt-solar-collector-systems.md}{Numerical simulation of asphalt solar collector systems} & Lucia Escudero Sartages \\
+\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
 \end{longtable}
 ```
 
 ```{raw} latex
 
 \subsection*{Software demonstrations}
-\begin{longtable}{p{0.16\textwidth}p{0.56\textwidth}p{0.22\textwidth}}
-\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\
+\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}
+\textbf{Contribution} & \textbf{Presenter} \\
 \hline
 \endfirsthead
-\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\
+\textbf{Contribution} & \textbf{Presenter} \\
 \hline
 \endhead
-17:30 - 18:30 & \href{abstracts/cutfemx-a-cut-finite-element-library-for-fenicsx-2.md}{CutFEMx: a cut finite element library for FEniCSx} & Susanne Claus \\
-17:30 - 18:30 & \href{abstracts/software-demonstration-gpu.md}{Software demonstration (GPU)} & Chris Richardson \\
-17:30 - 18:30 & \href{abstracts/towards-natural-language-driven-computational-mechanics-a-general-llm-integrated-platform-built-on-fenics.md}{Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS} & Guangjin Mou \\
-17:30 - 18:30 & \href{abstracts/numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain-2.md}{Numerical investigation of urban heat island within variable porous urban domain} & Luis Gerardo Gutierrez Ibarra \\
-17:30 - 18:30 & \href{abstracts/live-demonstration-of-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation.md}{Live Demonstration of Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation} & Giovanni Zullo \\
-17:30 - 18:30 & \href{abstracts/live-demonstration-of-an-open-source-vibroacoustic-gui-built-on-fenicsx.md}{Live Demonstration of an Open-Source Vibroacoustic GUI Built on FEniCSx} & Antonio Baiano Svizzero \\
-17:30 - 18:30 & \href{abstracts/fenicsx-in-metal-additive-manufacturing-2.md}{FEniCSx in Metal Additive Manufacturing} & Anton Evdokimov \\
-17:30 - 18:30 & \href{abstracts/from-micro-to-macro-unsupervised-fe2-acceleration-using-ddfenicsx-and-micmacsfenicsx.md}{From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx} & Felipe Rocha \\
-17:30 - 18:30 & \href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
+\href{abstracts/cutfemx-a-cut-finite-element-library-for-fenicsx-2.md}{CutFEMx: a cut finite element library for FEniCSx} & Susanne Claus \\
+\href{abstracts/software-demonstration-gpu.md}{Software demonstration (GPU)} & Chris Richardson \\
+\href{abstracts/towards-natural-language-driven-computational-mechanics-a-general-llm-integrated-platform-built-on-fenics.md}{Towards natural language-driven computational mechanics: A general LLM-integrated platform built on FEniCS} & Guangjin Mou \\
+\href{abstracts/numerical-investigation-of-urban-heat-island-within-variable-porous-urban-domain-2.md}{Numerical investigation of urban heat island within variable porous urban domain} & Luis Gerardo Gutierrez Ibarra \\
+\href{abstracts/live-demonstration-of-z3st-a-fenicsx-framework-for-multiscale-thermo-mechanical-analysis-with-automatic-differentiation.md}{Live Demonstration of Z3ST: A FEniCSx Framework for Multiscale Thermo-Mechanical Analysis with Automatic Differentiation} & Giovanni Zullo \\
+\href{abstracts/live-demonstration-of-an-open-source-vibroacoustic-gui-built-on-fenicsx.md}{Live Demonstration of an Open-Source Vibroacoustic GUI Built on FEniCSx} & Antonio Baiano Svizzero \\
+\href{abstracts/fenicsx-in-metal-additive-manufacturing-2.md}{FEniCSx in Metal Additive Manufacturing} & Anton Evdokimov \\
+\href{abstracts/from-micro-to-macro-unsupervised-fe2-acceleration-using-ddfenicsx-and-micmacsfenicsx.md}{From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx} & Felipe Rocha \\
+\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
 \end{longtable}
 ```
 

@@ -870,6 +870,53 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
             if sections:
                 latex_lines.extend([r"\clearpage", ""])
             latex_lines.append(rf"\section*{{{escape_latex(current_day)}}}")
+
+        entries = grouped[(day, session)]
+        is_untimed_poster_demo_section = session in {
+            "Poster and software demonstration blitz",
+            "Software demonstrations",
+        }
+        if is_untimed_poster_demo_section:
+            if session == "Poster and software demonstration blitz":
+                section_title = "Posters"
+                entries = [
+                    entry
+                    for entry in entries
+                    if slug_to_submission[entry.slug].submission_type == "Poster"
+                ]
+            else:
+                section_title = "Software demonstrations"
+                entries = [
+                    entry
+                    for entry in entries
+                    if slug_to_submission[entry.slug].submission_type == "Software Demonstration"
+                ]
+
+            if not entries:
+                continue
+
+            latex_lines.extend(
+                [
+                    "",
+                    rf"\subsection*{{{escape_latex(section_title)}}}",
+                    r"\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}",
+                    r"\textbf{Contribution} & \textbf{Presenter} \\",
+                    r"\hline",
+                    r"\endfirsthead",
+                    r"\textbf{Contribution} & \textbf{Presenter} \\",
+                    r"\hline",
+                    r"\endhead",
+                ]
+            )
+            for entry in entries:
+                submission = slug_to_submission[entry.slug]
+                latex_lines.append(
+                    rf"\href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}} & {escape_latex(submission.presenter)} \\"
+                )
+            latex_lines.append(r"\end{longtable}")
+            sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
+            continue
+
         latex_lines.extend(
             [
                 "",
@@ -883,7 +930,7 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
                 r"\endhead",
             ]
         )
-        for entry in grouped[(day, session)]:
+        for entry in entries:
             submission = slug_to_submission[entry.slug]
             latex_lines.append(
                 rf"{escape_latex(entry.time)} & \href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}} & {escape_latex(submission.presenter)} \\"

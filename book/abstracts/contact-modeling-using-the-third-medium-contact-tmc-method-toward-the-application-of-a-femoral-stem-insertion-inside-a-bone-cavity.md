@@ -43,5 +43,3 @@ Finally, a parametric study will be performed, and the results will be contraste
 [5] Wriggers, P., Korelc, J. & Junker, Ph., (2025). A Third Medium Approach for Contact Using first and Second Order finite Elements. Computer Methods in Applied Mechanics and Engineering, 436, 117740. DOI: 10.1016/j.cma.2025.117740
 
 [6] Wriggers, P., Schröder, J., Schwarz, A., (2013). A finite element method for contact using a third medium. Computational Mechanics, 52(4), 837-847. DOI: 10.1007/s00466-013-0848-5
-
-

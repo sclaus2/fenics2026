@@ -32,5 +32,3 @@ Bobes-Jesús, V., Pascual-Muñoz, P., Castro-Fresno, D., & Rodríguez-Hernández
 Qin, Y., & Hiller, J. E. (2014). Understanding pavement-surface energy balance and its implications on cool pavement development. Energy and Buildings, 85, 389-399. DOI: 10.1016/j.enbuild.2014.09.076
 
 Dokken, J. S., Johansson, A., Massing, A. & Funke, S.W. (2020). A multimesh finite element method for the Navier-Stokes equations based on projection methods. Computer Methods in Applied Mechanics and Engineering, 368, 113129. DOI: 10.1016/j.cma.2020.113129
-
-

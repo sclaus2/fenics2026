@@ -18,5 +18,3 @@ exports:
 **Presenter:** Antonio Baiano Svizzero (Undabit)
 
 We demonstrate a fully open-source desktop application for vibroacoustic simulation built on top of FEniCSx. The software provides a graphical user interface, developed with PyQt6 and PyVista, that guides the user through the complete simulation workflow: importing a finite element mesh (including models originally created in Nastran format), defining materials and boundary conditions, assembling and solving the coupled fluid-structure problem, and visualising the results interactively.
-
-

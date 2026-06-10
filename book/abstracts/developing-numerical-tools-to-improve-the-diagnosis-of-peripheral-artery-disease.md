@@ -53,5 +53,3 @@ By linking vascular anatomy and function, plaque severity, and muscle metabolism
 [7] Karshafian, R., Burns, P. N., & Henkelman, M. R. (2003). Transit time kinetics in ordered and disordered vascular trees. Physics in medicine and biology, 48(19), 3225-3237.
 
 [8] Lai, N., Camesasca, M., Saidel, G.M. et al. (2007) Linking Pulmonary Oxygen Uptake, Muscle Oxygen Utilization and Cellular Metabolism during Exercise. Ann Biomed Eng 35, 956-969
-
-

@@ -36,5 +36,3 @@ In this talk, we focus on a new application of ddfenicsx to DDI using full-field
 [6] Rocha, F., Quinelato, T., & Stainier, L. (2024). Some experiences in mixed finite element formulations for (model-free) data-driven computational mechanics. In Proceedings of the 16ème Colloque National en Calcul de Structures (CSMA 2024). CNRS; CSMA. https://hal.science/hal-04611046
 
 [7] He, Q., & Chen, J. S. (2020). A physics-constrained data-driven approach based on locally convex reconstruction for noisy database. Computer Methods in Applied Mechanics and Engineering, 363, 112791. DOI: 10.1016/j.cma.2019.112791
-
-

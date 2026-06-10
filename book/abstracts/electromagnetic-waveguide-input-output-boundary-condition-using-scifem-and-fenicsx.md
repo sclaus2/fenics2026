@@ -23,5 +23,3 @@ The ability to simulate the introduction and absorption of electromagnetic power
 [1] Henrik Finsberg, & Jørgen Schartum Dokken. (2024). scientificcomputing/scifem: v0.2.2 (Version v0.2.2) [Computer software]. scientificcomputing/scifem: v0.2.2
 
 [2] G. W. Slade, "Solving the Time-Harmonic Maxwell Equations in 3-D Using the FEniCSx Finite Element Package", Available at ResearchGate: https://www.researchgate.net/publication/367450648_Solving_the_Time-Harmonic_Maxwell_Equations_in_3-D_Using_the_FEniCSx_Finite_Element_Package_-_2023_Update
-
-

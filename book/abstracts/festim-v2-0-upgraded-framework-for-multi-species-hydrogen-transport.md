@@ -47,5 +47,3 @@ A short live demonstration will highlight the user workflow, from problem defini
 
 # References
 10.1016/j.ijhydene.2026.153987
-
-

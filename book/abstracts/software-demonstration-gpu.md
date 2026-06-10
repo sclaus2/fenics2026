@@ -26,5 +26,3 @@ exports:
 **Presenter:** Chris Richardson (University of Cambridge)
 
 Some online demonstration of GPU code, see through the terminal. Just a chance to try out some things which are on the poster.
-
-

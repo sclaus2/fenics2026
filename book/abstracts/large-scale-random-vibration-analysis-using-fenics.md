@@ -35,5 +35,3 @@ Large-scale engineering structures, such as bridges, high-rise buildings, and of
 [1] Saurabh, S., Gupta, A., Chowdhury, R., & Podugu, P. (2024). Robust topology optimization for transient dynamic response minimization. Computer Methods in Applied Mechanics and Engineering, 426, 117009.
 
 [1] Saurabh, S., Gupta, A., Chowdhury, R., & Duddu, R. (2025). Robust topology optimization for transient dynamic response minimization. Reliability Engineering & System Safety, 264, 111440.
-
-

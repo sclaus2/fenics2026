@@ -42,5 +42,3 @@ The glymphatic theory describes the extra-vascular transport and clearance of so
 Sigurdsson, et al., A spect-based method for dynamic imaging of the glymphatic system in
 
 rats. J. Cereb. Blood Flow & Metab. 43, 1153-1165 (2023) PMID: 36809165.
-
-

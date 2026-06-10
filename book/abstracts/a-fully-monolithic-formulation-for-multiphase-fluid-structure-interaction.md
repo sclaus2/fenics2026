@@ -33,5 +33,3 @@ Computational modeling of fluid-structure interaction as well as multiphase flui
 [2] Valizadeh, N., Zhuang, X., and Rabczuk, T. (2025). A monolithic finite element method for phase-field modeling of fully Eulerian fluid-structure interaction. Computer Methods in Applied Mechanics and Engineerings, 435:117618. DOI: 10.1016/j.cma.2024.117618
 
 [3] Zheng, X. and Karniadakis, G. E. (2016). A phase-field/ALE method for simulating fluid-structure interactions in two-phase flow. Computer Methods in Applied Mechanics and Engineering, 309:19-40. DOI: 10.1016/j.cma.2016.04.035
-
-

@@ -31,5 +31,3 @@ Murphy, M. C., Huston, J., 3rd, Jack, C. R., Jr, Glaser, K. J., Manduca, A., Fel
 Olsson, C., Skorpil, M., Svenningsson, P., & Moreno, R. (2025). Effects of Parkinson's disease on mechanical and microstructural properties of the brain. NeuroImage. Clinical, 48, 103857. DOI: 10.1016/j.nicl.2025.103857
 
 Pepin, K. M., Welle, C. L., Guglielmo, F. F., Dillman, J. R., & Venkatesh, S. K. (2022). Magnetic resonance elastography of the liver: everything you need to know to get started. Abdominal radiology (New York), 47(1), 94-114. DOI: 10.1007/s00261-021-03324-0
-
-

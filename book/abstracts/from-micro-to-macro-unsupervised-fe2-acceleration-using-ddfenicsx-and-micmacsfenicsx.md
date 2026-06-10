@@ -36,5 +36,3 @@ Attendees will run: i) a single-scale hyperelastic problem; ii) a heterogeneous 
 [6] Kirchdoerfer, T., & Ortiz, M. (2016). Data-driven computational mechanics. Computer Methods in Applied Mechanics and Engineering, 304, 81-101. DOI: 10.1016/j.cma.2016.02.001
 
 [7] Zlatic, M., Rocha, F., Stainier, L., & Canadija, M. (2024). Data-driven methods for computational mechanics: A fair comparison between neural networks based and model-free approaches. Computer Methods in Applied Mechanics and Engineering, 431, 117289. DOI: 10.1016/j.cma.2024.117289
-
-

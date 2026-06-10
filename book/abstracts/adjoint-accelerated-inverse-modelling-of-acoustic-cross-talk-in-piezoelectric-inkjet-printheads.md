@@ -23,5 +23,3 @@ We develop an adjoint-accelerated inverse modelling framework to generate accura
 [1] Adjoint-based optimization of open-loop control for microfluidics of an inkjet printhead (Javier Lorente-Macías; Matthew P. Juniper), The Journal of the Acoustical Society of America.
 
 [2] Fundamental Fluid Dynamics Challenges in Inkjet Printing (Detlef Lohse), Annual Review of Fluid Mechanics.
-
-

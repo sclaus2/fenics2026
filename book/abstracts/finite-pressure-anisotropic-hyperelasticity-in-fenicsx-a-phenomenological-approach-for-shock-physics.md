@@ -41,5 +41,3 @@ Validation is carried out on cubic copper, tetragonal PETN, orthorhombic
 alpha-RDX. Polycrystal homogenisation on 500-grain
 meshes generated with NEPER accurately reproduces the pressure dependence of
 the macroscopic shear modulus.
-
-

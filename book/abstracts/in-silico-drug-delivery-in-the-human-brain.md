@@ -37,5 +37,3 @@ An inherent challenge lies in the processing and analysis of raw MRI data [1], a
 [3] PyVista, https://github.com/pyvista/pyvista
 
 [4] Marius Causemann et al. (2025) In-silico molecular enrichment and clearance of the human intracranial space. bioRxiv preprint 2025.01.30.635680, version 1
-
-

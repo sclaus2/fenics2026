@@ -21,5 +21,3 @@ In this presentation, we introduce the open source post-processing toolkit ParaV
 
 # References
 [0] Ahrens, J., Geveci, B., & Law, C. (2005). Paraview: An end-user tool for large data visualization. The visualization handbook, 717(8).
-
-

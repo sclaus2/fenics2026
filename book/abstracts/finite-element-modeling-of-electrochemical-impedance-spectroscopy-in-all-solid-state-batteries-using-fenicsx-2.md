@@ -43,5 +43,3 @@ The central feature of the implementation is the post-processing of the frequenc
 [2] Orazem, M. E., & Tribollet, B. (2020). A tutorial on electrochemical impedance spectroscopy. ChemTexts, 6(2), 12. DOI: 10.1007/s40828-020-0110-7
 
 [3] Bazant, M. Z., Thornton, K., & Ajdari, A. (2004). Diffuse-charge dynamics in electrochemical systems. Physical Review E, 70(2), 021506. DOI: 10.1103/PhysRevE.70.021506
-
-

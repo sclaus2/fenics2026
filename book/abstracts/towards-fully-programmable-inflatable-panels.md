@@ -34,5 +34,3 @@ The design and analysis of these structures are driven by a computational framew
 This high-fidelity numerical pipeline allows us to efficiently explore a vast design space of cavity geometries, that we then compare with experimental data.
 
 This work paves the way for the inverse design of inflatable structures with fully programmable intermediate configurations and mechanical properties.
-
-

@@ -29,5 +29,3 @@ study examines convergence rates on a grain-by-grain basis, focusing
 on the convergence of grain-averaged quantities. We utilize conductive
 heat transfer and linear elasticity as model problems to investigate
 the relationship between relative errors and grain size.
-
-

@@ -49,5 +49,3 @@ Frydrych, K. (2023). Modelling irradiation effects in metallic materials using t
 Latyshev, A., et al. (2025). Expressing general constitutive models in FEniCSx using external operators and algorithmic automatic differentiation. Journal of Theoretical, Computational and Applied Mechanics. DOI: 10.46298/jtcam.14449
 
 Scroggs, M. W., Dokken, J. S., Richardson, C. N., & Wells, G. N. (2022). Construction of arbitrary order finite element degree-of-freedom maps on polygonal and polyhedral cell meshes. ACM Transactions on Mathematical Software, 48(2), Article 18. DOI: 10.1145/3524456
-
-

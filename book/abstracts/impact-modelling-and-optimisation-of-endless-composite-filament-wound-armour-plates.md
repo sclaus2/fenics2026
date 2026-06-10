@@ -29,5 +29,3 @@ Sparse, wound carbon-reinforced structures are interesting for their high stiffn
 
 # References
 1. Kühner, P. T., Habera, M., Zilian, A. (18 March 2026). Modelling of sparse lightweight composite structures using a geometrically discontinuous approach. GAMM 2026, Stuttgart, Germany.
-
-

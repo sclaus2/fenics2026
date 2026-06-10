@@ -49,5 +49,3 @@ The implementations rely on FEMExternalOperators and JAX for local solution sche
 - Latyshev, A., Bleyer, J., Maurini, C., & Hale, J. (2025, October 8). Expressing general constitutive models in FEniCSx using external operators and algorithmic automatic differentiation. Journal of Theoretical, Computational and Applied Mechanics. Centre pour la Communication Scientifique Directe (CCSD). DOI: 10.46298/jtcam.14449
 
 - Liu, T., Cui, J., Kantert, A., Tabib, M., Kopic, N., Valsecchi, M., Kumar, S. K., Fish, J., & Simon, J.-W. (submitted). Thermomechanically coupled visco-hyperelastic-plastic model with self-heating for thermoplastics.
-
-

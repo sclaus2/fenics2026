@@ -1148,7 +1148,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         submissions.append(build_submission(row, used_slugs))
 
     for submission in submissions:
-        (output_dir / f"{submission.slug}.md").write_text(submission.to_markdown(), encoding="utf-8")
+        markdown = submission.to_markdown().rstrip() + "\n"
+        (output_dir / f"{submission.slug}.md").write_text(markdown, encoding="utf-8")
 
     print(f"Wrote {len(submissions)} abstracts to {output_dir}")
     print("Run `python3 build_book.py` to regenerate the programme order, manifest, and PDF from markdown.")

@@ -35,5 +35,3 @@ Our group has developed a computational framework based on sparse regression, de
 Flaschel, M., Kumar, S., & De Lorenzis, L. (2021). Unsupervised discovery of interpretable hyperelastic constitutive laws. Computer Methods in Applied Mechanics and Engineering, 381, 113852. DOI: 10.1016/j.cma.2021.113852.
 
 Flaschel, M., Kumar, S., & De Lorenzis, L. (2023). Automated discovery of generalized standard material models with EUCLID. Computer Methods in Applied Mechanics and Engineering, 405, 115867. DOI: 10.1016/j.cma.2022.115867.
-
-

@@ -32,5 +32,3 @@ In this work, we present a general language-driven computational mechanics platf
 Unlike existing approaches that are tightly coupled to specific numerical frameworks, the proposed platform exploits the symbolic variational formulation of FEniCS to support a wide range of problems in computational mechanics, including heat conduction, linear and nonlinear elasticity, and multi-physics simulations. The LLM operates as an orchestration layer that interprets user intent, constructs problem definitions, selects appropriate tools, and manages execution workflows, while explicit instruction design ensures reliability and prevents uncontrolled behavior.
 
 The proposed framework transforms traditional finite element workflows into an interactive, language-driven process, significantly lowering the barrier to complex PDE modeling. This work demonstrates the feasibility of a new paradigm in computational mechanics, where natural language serves as a high-level interface for general-purpose simulation and design.
-
-

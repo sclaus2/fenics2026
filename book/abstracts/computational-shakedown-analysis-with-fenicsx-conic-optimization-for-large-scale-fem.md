@@ -41,5 +41,3 @@ François, A., Abdelkader, H., An, L. T. H., Said, M., & Tao, P. D. (2007). Appl
 Simon, J.-W., & Weichert, D. (2011). Numerical lower bound shakedown analysis of engineering structures. Computer Methods in Applied Mechanics and Engineering, 200(41-44), 2828-2839. DOI: 10.1016/j.cma.2011.05.006;
 
 Simon, J.-W., & Weichert, D. (2011). Shakedown analysis with multidimensional loading spaces. Computational Mechanics, 49(4), 477-485. DOI: 10.1007/s00466-011-0656-8;
-
-

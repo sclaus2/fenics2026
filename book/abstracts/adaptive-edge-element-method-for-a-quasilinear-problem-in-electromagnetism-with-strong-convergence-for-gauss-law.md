@@ -33,5 +33,3 @@ This paper is concerned with adaptive edge element methods based on a regularize
 [2] Duan, H., Li, S., Tan, R. C., & Zheng, W. (2012). A delta-regularization finite element method for a double curl problem with divergence-free constraint. SIAM Journal on Numerical Analysis, 50(6), 3208-3230. DOI: 10.1137/110850578
 
 [3] Reitzinger, S. and Schöberl, J. (2002), An algebraic multigrid method for finite element discretizations with edge elements. Numer. Linear Algebra Appl., 9: 223-238. DOI: 10.1002/nla.271
-
-

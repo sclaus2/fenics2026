@@ -33,5 +33,3 @@ To identify the active absorption sites, we formulate the inverse problem as a P
 Storås, Tryggve Holck, et al. "T2-Weighted T1 Mapping and Automated Segmentation of CSF: Assessment of Solute Gradients in the Healthy Brain." Journal of Magnetic Resonance Imaging (2025).
 
 Riseth, Jørgen N., et al. "Human brain MRI data of intrathecally injected tracer evolution over 72 hours for data-integrated simulations." Scientific Data (2026).
-
-

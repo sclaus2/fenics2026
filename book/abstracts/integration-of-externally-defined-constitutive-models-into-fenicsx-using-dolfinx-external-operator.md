@@ -66,5 +66,3 @@ Bradbury, J., Frostig, R., Hawkins, P., Johnson, M. J., Katariya, Y., Leary, C.,
 Helfer, T., Michel, B., Proix, J.-M., Sercombe, J., Casella, M., & Salvo, M. (2024). Invariant-based implementation of the Mohr-Coulomb elasto-plastic model in OpenGeoSys using MFront (Version 4.2.1) [Computer software]. https://thelfer.github.io/tfel/web/MohrCoulomb.html
 
 Latyshev, A., Bleyer, J., Maurini, C., & Hale, J. (2025). Expressing general constitutive models in FEniCSx using external operators and algorithmic automatic differentiation. Journal of Theoretical, Computational and Applied Mechanics. DOI: 10.46298/jtcam.14449
-
-

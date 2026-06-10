@@ -41,5 +41,3 @@ Dolstra, E. (2006). The Purely Functional Software Deployment Model (Doctoral di
 Dolstra, E., Löh, A., & Pierron, N. (2010). NixOS: a purely functional Linux distribution. Journal of Functional Programming, 20(5-6), 577-615. DOI: 10.1017/s0956796810000195
 
 Malka, J., Zacchiroli, S., & Zimmermann, T. (2025, April). Does Functional Package Management Enable Reproducible Builds at Scale? Yes. 2025 IEEE/ACM 22nd International Conference on Mining Software Repositories (MSR), 775-787. DOI: 10.1109/msr66628.2025.00115
-
-

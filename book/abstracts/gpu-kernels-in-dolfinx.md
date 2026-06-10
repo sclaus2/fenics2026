@@ -32,5 +32,3 @@ There is also some work on Python wrappers for GPU data, that allow interoperabi
 
 # References
 DOI: 10.1016/j.parco.2023.103051, https://scientificcomputing.github.io/fenics2024/gpu-acceleration, DOI: 10.1016/j.procs.2025.08.235
-
-

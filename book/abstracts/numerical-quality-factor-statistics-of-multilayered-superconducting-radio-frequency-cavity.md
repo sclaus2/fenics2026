@@ -49,5 +49,3 @@ by statistical methods.
 [3] Kubo, T. (2017). Multilayer coating for higher accelerating fields in superconducting radio-frequency cavities: a review of theoretical aspects. Superconductor Science & Technology, 30(2), 023001. DOI: 10.1088/1361-6668/30/2/023001
 
 [4] Koh, K. J., & Cirak, F. (2023). Stochastic PDE representation of random fields for large-scale Gaussian process regression and statistical finite element analysis. Computer Methods in Applied Mechanics and Engineering, 417(116358), 116358. DOI: 10.1016/j.cma.2023.116358
-
-

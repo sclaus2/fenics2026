@@ -41,5 +41,3 @@ Current results demonstrate perfect agreement with established benchmarks in lin
 Hale JS, Brunetti M, Bordas SP, Maurini C. Simple and extensible plate and shell finite element models through automatic code generation tools. Computers & Structures. 2018 Oct 15;209:163-81.
 
 Latyshev A, Bleyer J, Maurini C, Hale J. Expressing general constitutive models in FEniCSx using external operators and algorithmic automatic differentiation. Journal of Theoretical, Computational and Applied Mechanics. 2025 Sep 22.
-
-

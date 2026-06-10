@@ -31,5 +31,3 @@ Keywords: TiNiest Tensor, transition elements, prism, pyramid, de Rham, conforma
 
 # References
 Cockburn, B., Fu, G. (2017). A systematic construction of finite element commuting exact sequences. SIAM Journal on Numerical Analysis, 55(4), 1650-1688.
-
-

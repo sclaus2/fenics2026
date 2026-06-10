@@ -37,5 +37,3 @@ Thermal fluctuations play a fundamental role in fluid dynamics, from Brownian mo
 
 # References
 Gourzoulidis, D., Gallo, M., Elkantassi, S., Kay, T., and Kalliadasis, S. A finite-element method for fluctuating Navier--Stokes equations. To be submitted.
-
-

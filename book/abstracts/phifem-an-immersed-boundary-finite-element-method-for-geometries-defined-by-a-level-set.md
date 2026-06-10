@@ -53,5 +53,3 @@ Tool Using Simple Meshes for Problems in Structure Mechanics and Heat Transfer. 
 [6] M.Duprez, V. Lleras, A. Lozinski, K. Vuillemot. φ-FEM for the heat equation: optimal convergence on unfitted meshes in space, Comptes Rendus. Mathématique, Tome 361, 1699:1710, 2023.
 
 [7] M. Duprez, A. Lozinski. φ-FEM: a finite element method on domains defined by level-sets. SIAM Journal on Numerical Analysis, 58(2):1008-28, 2020.
-
-

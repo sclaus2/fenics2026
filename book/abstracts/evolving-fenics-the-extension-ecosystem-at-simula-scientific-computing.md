@@ -22,5 +22,3 @@ exports:
 **Presenter:** Jørgen S. Dokken (Simula Research Laboratory)
 
 The FEniCS project provides the foundational algorithms for finite element computations, which in turn has organically cultivated a rich ecosystem of software extensions. This talk will highlight several key extensions developed and maintained by Simula Research Laboratory. Specifically, I will introduce SciFem, a utility toolbox for DOLFINx; io4dolfinx, a modern IO-library; and FEniCSx_ii, a library designed for non-local operators. The presentation will conclude with a look ahead at frameworks currently under active prototyping, including DXA (dolfinx-adjoint), FEniCSx-Jax and networks_fenicsx.
-
-

@@ -58,5 +58,3 @@ Finally, we share critical lessons learned from developing and maintaining this 
 [8] fenicsx-ldrb, https://github.com/finsberg/fenicsx-ldrb
 
 [9] circulation, https://github.com/ComputationalPhysiology/circulation
-
-

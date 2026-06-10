@@ -29,5 +29,3 @@ Finally, an extra numerical analysis of the use of the distributed two-scale met
 
 # References
 Salzman, A. & Moës, N. (2023) A two-scale solver for linear elasticity problems in the context of parallel message passing. Computer Methods in Applied Mechanics and Engineering. DOI: 10.1016/j.cma.2023.115914
-
-

@@ -35,5 +35,3 @@ Dolfiny is a collection of convenience wrappers and extended functionality for D
 3. Zilian, A., Habera, M. (20 June 2025). Dimensional analysis in UFL. FEniCS 2025, Groningen, Netherlands.
 
 4. Kühner, P. T., Habera, M., Zilian, A. (18 June 2025). PETSc TAO support for optimisation problems with FEniCSx. FEniCS 2025, Groningen, Netherlands.
-
-

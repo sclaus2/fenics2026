@@ -75,5 +75,3 @@ Casel, M., Oberleithner, K., Zhang, F., Zirwes, T., Bockhorn, H., Trimis, D., & 
 Demange, S., Yuan, Z., Jekosch, S., Hanifi, A., Cavalieri, A. V. G., Sarradj, E., Kaiser, T. L., & Oberleithner, K. (2024). Resolvent model for aeroacoustics of trailing edge noise. Theoretical and Computational Fluid Dynamics. DOI: 10.1007/s00162-024-00688-z
 
 Hernandez, V., Roman, J. E., & Vidal, V. (2005). SLEPc: A scalable and flexible toolkit for the solution of eigenvalue problems. ACM Transactions on Mathematical Software, 31(3), 351-362. DOI: 10.1145/1089014.1089019
-
-

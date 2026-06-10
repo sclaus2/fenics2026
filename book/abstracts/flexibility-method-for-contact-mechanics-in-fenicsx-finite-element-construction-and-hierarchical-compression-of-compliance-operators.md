@@ -47,5 +47,3 @@ We also investigate several strategies to construct the compliance operator, inc
 [4] Cottle, R. W., Pang, J.-S., & Stone, R. E. (1992). *The linear complementarity problem*. SIAM. DOI: 10.1137/1.9780898719000.fm
 
 [5] Hackbusch, W. (2015). *Hierarchical matrices: Algorithms and analysis*. Springer. DOI: 10.1007/978-3-662-47324-5
-
-

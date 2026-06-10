@@ -29,5 +29,3 @@ More broadly, with this approach I illustrate how variational solvers can be com
 
 # References
 A. A. León Baldelli and P. Cesana. Variational solvers for irreversible evolutionary systems. Journal of Open Source Software, 9(104), 2024.
-
-

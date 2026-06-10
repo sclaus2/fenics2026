@@ -37,5 +37,3 @@ http://digitalmath.tech/fenics2026-JohanJansson/
 For references and more details, see:
 
 http://digitalmath.tech/fenics2026-JohanJansson/
-
-

@@ -61,5 +61,3 @@ Vanderwee, K., Clark, M., Dealey, C., Gunningberg, L., & Defloor, T. (2007). Pre
 Fromy, B., Abraham, P., & Saumet, J. L. (1998). Non-nociceptive capsaicin-sensitive nerve terminal stimulation allows for an original vasodilatory reflex in the human skin. Brain research, 811(1-2), 166-168. DOI: 10.1016/s0006-8993(98)00973-1
 
 Lavigne, T., Urcun, S., Fromy, B., Josset-Lamaugarny, A., Lagache, A., Suarez-Afanador, C. A., Bordas, S. P. A., Rohan, P. Y., & Sciumè, G. (2025). Hierarchical Poromechanical Approach to Investigate the Impact of Mechanical Loading on Human Skin Micro-Circulation. International journal for numerical methods in biomedical engineering, 41(7), e70066. DOI: 10.1002/cnm.70066
-
-

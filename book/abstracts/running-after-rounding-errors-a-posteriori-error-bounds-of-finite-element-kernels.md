@@ -37,5 +37,3 @@ We present the implementation of REA for the FEniCS Form Compiler (FFCx), based 
 As an example, we demonstrate REA for detecting catastrophic cancellation in the assembly of a Neo-Hookean hyperelastic model in the small deformation regime. We also show that REA offers small performance overhead compared to higher- or multi-precision kernel evaluation (e.g., `std::float128` or `mpfr_t`). Applications of this work include: robust reduced-precision computations in embedded systems, numerical debugging of new, possibly ill-conditioned or unstable PDE formulations, and guiding the design of mixed-precision kernels.
 
 The functionality is available for arbitrary UFL forms supported by FFCx and is implemented in the [`dolfiny` framework](https://github.com/fenics-dolfiny/dolfiny).
-
-

@@ -40,5 +40,3 @@ The model allows us to track the spatial and temporal distributions of helium co
 [3] Pappalardo, F. et al., Journal of Physics D: Applied Physics 59 (2026) 085203.
 
 [4] Balay, S. et al., Argonne National Laboratory (2024).
-
-

@@ -44,5 +44,3 @@ FESTIM has been developed with extensibility and interoperability in mind, makin
 Applications include tritium migration in breeding blankets, plasma-facing components, and coupled liquid-solid domains such as heat exchangers or tritium extraction systems. In each case, external tools provide FESTIM with local source terms and operational conditions, enabling accurate evaluation of tritium transport. Validation of these multi-physics workflows has begun through collaborative projects, such as LIBRA (MIT), but further experimental validation remains a critical need for modelling tritium-facing components.
 
 This framework supports design iteration, analysis of experimental setups, and extrapolation to reactor scale, accelerating the development of fuel-cycle components. The Python-based architecture of FESTIM also facilitates automated, scriptable workflows, making it well-suited for integration into iterative component optimisation loops. With permissive licensing and a growing user community, FESTIM is well-positioned as a flexible code for integrated multi-physics tritium transport modelling.
-
-

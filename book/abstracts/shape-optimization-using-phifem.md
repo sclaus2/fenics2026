@@ -70,5 +70,3 @@ We investigate the benefits of using φ-FEM instead of a standard non-conforming
 [10] Duprez, Michel, Vanessa Lleras, and Alexei Lozinski. 2023. "A New φ-FEM Approach for Problems with Natural Boundary Conditions." Numerical Methods for Partial Differential Equations 39(1):281-303. DOI: 10.1002/num.22878.
 
 [11] Bulle, Raphael, Michel Duprez, and Killian Vuillemot. 2025. "phiFEM: A Convenience Package for Using phiFEM with FEniCSx." DOI: 10.6084/M9.FIGSHARE.30373546.
-
-

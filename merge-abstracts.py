@@ -254,7 +254,7 @@ def pdf_text(value: str) -> str:
 
 def watermark_text() -> str:
     today = date.today()
-    return f"doi:xxx, v3-draft, {today:%B} {today.day}, {today:%Y}"
+    return f"doi:xxx, v1-draft, {today:%B} {today.day}, {today:%Y}"
 
 
 def add_author_index_watermark(commands: list[str]) -> None:

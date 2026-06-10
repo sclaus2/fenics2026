@@ -100,8 +100,26 @@ jobs:
           name: book-of-abstracts-pdf
           path: fenics2026-book-of-abstracts.pdf
 
-      - name: Build HTML
-        run: cd book && myst build --html --ci
+      - name: Build Pages artifact
+        run: |
+          mkdir -p book/_build/html
+          cp fenics2026-book-of-abstracts.pdf book/_build/html/fenics2026-book-of-abstracts.pdf
+          cat > book/_build/html/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <title>FEniCS 2026 Book of Abstracts</title>
+            </head>
+            <body>
+              <main>
+                <h1>FEniCS 2026 Book of Abstracts</h1>
+                <p><a href="fenics2026-book-of-abstracts.pdf">Download the current PDF</a></p>
+              </main>
+            </body>
+          </html>
+          HTML
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

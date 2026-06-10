@@ -9,7 +9,6 @@ project:
   # github:
   resources:
     - README.md
-    - all_abstracts.md
     - abstracts
   bibliography: []
   venue:

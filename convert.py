@@ -3,11 +3,10 @@ from __future__ import annotations
 import argparse
 import csv
 import difflib
-import json
 import re
 import unicodedata
 from collections import defaultdict
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from pathlib import Path
 from textwrap import dedent
 from typing import Sequence
@@ -15,8 +14,9 @@ from typing import Sequence
 here = Path(__file__).parent
 
 DEFAULT_BOOK_TITLE = "FEniCS Conference 2026 Book of Abstracts"
-DEFAULT_BOOK_SUBTITLE = "Generated from conference abstract submissions"
+DEFAULT_BOOK_SUBTITLE = "Paris, 17-19 June 2026"
 DEFAULT_BOOK_AUTHOR = "FEniCS Conference 2026 Organizing Committee"
+DEFAULT_PROGRAMME_PATH = here / "programme.md" if (here / "programme.md").is_file() else here.parent / "programme.md"
 PLACEHOLDER_VALUES = {"na", "n/a", "none", "null", "nan", "-"}
 TEXT_REPLACEMENTS = str.maketrans(
     {
@@ -132,33 +132,6 @@ README_TEMPLATE = dedent(
     {sections}
     """
 )
-
-ALL_ABSTRACTS_TEMPLATE = dedent(
-    """\
-    ---
-    title: {book_title_yaml}
-    authors:
-      - name: {book_author}
-    license: CC-BY-4.0
-    exports:
-      - format: pdf
-        template: ../template
-    ---
-
-    # {book_title}
-
-    {book_subtitle}
-
-    Total abstracts: **{num_abstracts}**
-
-    {sections}
-
-    # Abstracts
-
-    {abstracts}
-    """
-)
-
 
 def quote_yaml(value: str) -> str:
     return "'" + value.replace("'", "''") + "'"
@@ -518,6 +491,12 @@ def strip_references_heading(value: str) -> str:
 def sanitise_references_text(value: str) -> str:
     text = strip_references_heading(value)
     text = re.sub(
+        r"https?://www\.biorxiv\.org/content/10\.1101/([0-9.]+)v([0-9]+)",
+        lambda match: f"bioRxiv preprint {match.group(1)}, version {match.group(2)}",
+        text,
+        flags=re.IGNORECASE,
+    )
+    text = re.sub(
         r"https?://(?:dx\.)?doi\.org/([^\s)]+)",
         lambda match: f"DOI: {match.group(1)}",
         text,
@@ -666,6 +645,259 @@ class Submission:
         }
 
 
+@dataclass
+class ProgrammeEntry:
+    day: str
+    session: str
+    time: str
+    presenter: str
+    title: str
+    submission_type: str
+    slug: str | None = None
+
+
+def split_markdown_table_row(line: str) -> list[str]:
+    stripped = line.strip()
+    if not stripped.startswith("|"):
+        return []
+    return [normalise_space(part.replace("<br>", " ").replace("<br/>", " ")) for part in stripped.strip("|").split("|")]
+
+
+def parse_programme_bullet(line: str) -> tuple[str, str] | None:
+    if not line.startswith("- "):
+        return None
+    value = normalise_space(line[2:])
+    parts = split_outside_brackets(value, ",")
+    if len(parts) < 2:
+        return None
+    return parts[0], normalise_space(value[len(parts[0]) + 1 :])
+
+
+def parse_programme(path: Path) -> list[ProgrammeEntry]:
+    if not path.is_file():
+        return []
+
+    entries: list[ProgrammeEntry] = []
+    day = ""
+    session = ""
+    mode: str | None = None
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("### "):
+            day = stripped.removeprefix("### ").strip()
+            mode = None
+            continue
+
+        bold_match = re.fullmatch(r"\*\*(.+?)\*\*", stripped)
+        if bold_match:
+            heading = bold_match.group(1).strip()
+            if heading.startswith("Session "):
+                session = heading
+                mode = "session"
+            elif heading.startswith("Poster and software-only"):
+                session = "Poster and software demonstration blitz"
+                mode = "poster-blitz"
+            else:
+                mode = None
+            continue
+
+        if stripped.startswith("Poster") and "one-minute blitz presenters" in stripped:
+            session = "Poster and software demonstration blitz"
+            mode = "poster-blitz"
+            continue
+
+        if stripped == "Software demonstrations:":
+            session = "Software demonstrations"
+            mode = "software"
+            continue
+
+        if mode == "session" and stripped.startswith("|"):
+            cells = split_markdown_table_row(stripped)
+            if len(cells) < 3 or cells[0].casefold() == "time" or set(cells[0]) <= {"-"}:
+                continue
+            if cells[1].casefold().startswith("poster and software") and "blitz" in cells[2].casefold():
+                continue
+            entries.append(
+                ProgrammeEntry(
+                    day=day,
+                    session=session,
+                    time=cells[0],
+                    presenter=cells[1],
+                    title=cells[2],
+                    submission_type="Presentation",
+                )
+            )
+            continue
+
+        if mode in {"poster-blitz", "software"} and stripped.startswith("- "):
+            parsed = parse_programme_bullet(stripped)
+            if parsed is None:
+                continue
+            presenter, title = parsed
+            entries.append(
+                ProgrammeEntry(
+                    day=day or "Wednesday - 17 June",
+                    session=session,
+                    time="17:15 - 17:30" if mode == "poster-blitz" else "17:30 - 18:30",
+                    presenter=presenter,
+                    title=title,
+                    submission_type="Software Demonstration" if mode == "software" else "Poster",
+                )
+            )
+
+    return entries
+
+
+def match_key(value: str) -> str:
+    normalised = unicodedata.normalize("NFKD", normalise_text(value).casefold())
+    ascii_value = normalised.encode("ascii", "ignore").decode("ascii")
+    return re.sub(r"[^a-z0-9]+", " ", ascii_value).strip()
+
+
+def submission_matches_programme(
+    submission: Submission,
+    entry: ProgrammeEntry,
+    allow_software_blitz: bool = True,
+) -> bool:
+    type_matches = submission.submission_type == entry.submission_type or (
+        allow_software_blitz
+        and entry.submission_type == "Poster"
+        and entry.session == "Poster and software demonstration blitz"
+        and submission.submission_type == "Software Demonstration"
+    )
+    if not type_matches:
+        return False
+
+    title_key = match_key(submission.title)
+    entry_title_key = match_key(entry.title)
+    if title_key == entry_title_key:
+        return True
+
+    title_similarity = difflib.SequenceMatcher(a=title_key, b=entry_title_key).ratio()
+    return title_similarity >= 0.92 and (
+        same_person_name(submission.presenter, entry.presenter)
+        or title_key.startswith(entry_title_key)
+        or entry_title_key.startswith(title_key)
+    )
+
+
+def find_programme_match_index(
+    submissions: list[Submission],
+    entry: ProgrammeEntry,
+    allow_software_blitz: bool,
+) -> int | None:
+    return next(
+        (
+            index
+            for index, submission in enumerate(submissions)
+            if submission_matches_programme(
+                submission,
+                entry,
+                allow_software_blitz=allow_software_blitz,
+            )
+        ),
+        None,
+    )
+
+
+def find_programme_match(
+    submissions: list[Submission],
+    entry: ProgrammeEntry,
+    allow_software_blitz: bool,
+) -> Submission | None:
+    return next(
+        (
+            submission
+            for submission in submissions
+            if submission_matches_programme(
+                submission,
+                entry,
+                allow_software_blitz=allow_software_blitz,
+            )
+        ),
+        None,
+    )
+
+
+def apply_programme_order(submissions: list[Submission], programme_entries: list[ProgrammeEntry]) -> list[Submission]:
+    if not programme_entries:
+        return sorted(submissions, key=sort_key)
+
+    remaining = list(submissions)
+    ordered: list[Submission] = []
+    for entry in programme_entries:
+        match_index = find_programme_match_index(remaining, entry, allow_software_blitz=False)
+        if match_index is None:
+            match_index = find_programme_match_index(remaining, entry, allow_software_blitz=True)
+        if match_index is None:
+            duplicate = find_programme_match(ordered, entry, allow_software_blitz=False)
+            if duplicate is None:
+                duplicate = find_programme_match(ordered, entry, allow_software_blitz=True)
+            if duplicate is not None:
+                entry.slug = duplicate.slug
+            continue
+        submission = remaining.pop(match_index)
+        entry.slug = submission.slug
+        ordered.append(submission)
+
+    ordered.extend(sorted(remaining, key=sort_key))
+    return ordered
+
+
+def render_programme_sections(programme_entries: list[ProgrammeEntry], submissions: list[Submission]) -> str:
+    if not programme_entries:
+        return render_sections(submissions)
+
+    slug_to_submission = {submission.slug: submission for submission in submissions}
+    sections: list[str] = []
+    grouped: dict[tuple[str, str], list[ProgrammeEntry]] = {}
+    session_order: list[tuple[str, str]] = []
+    for entry in programme_entries:
+        if entry.slug is None:
+            continue
+        key = (entry.day, entry.session)
+        if key not in grouped:
+            grouped[key] = []
+            session_order.append(key)
+        grouped[key].append(entry)
+
+    current_day = ""
+    for day, session in session_order:
+        latex_lines: list[str] = []
+        if day != current_day:
+            current_day = day
+            if sections:
+                latex_lines.extend([r"\clearpage", ""])
+            latex_lines.append(rf"\section*{{{escape_latex(current_day)}}}")
+        latex_lines.extend(
+            [
+                "",
+                rf"\subsection*{{{escape_latex(session)}}}",
+                r"\begin{longtable}{p{0.16\textwidth}p{0.56\textwidth}p{0.22\textwidth}}",
+                r"\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endfirsthead",
+                r"\textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\",
+                r"\hline",
+                r"\endhead",
+            ]
+        )
+        for entry in grouped[(day, session)]:
+            submission = slug_to_submission[entry.slug]
+            latex_lines.append(
+                rf"{escape_latex(entry.time)} & \href{{abstracts/{submission.slug}.md}}{{{escape_latex(submission.title)}}} & {escape_latex(submission.presenter)} \\"
+            )
+        latex_lines.append(r"\end{longtable}")
+        sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
+
+    unmatched = [submission for submission in submissions if not any(entry.slug == submission.slug for entry in programme_entries)]
+    if unmatched:
+        sections.append(render_sections(unmatched))
+
+    return "\n\n".join(sections)
+
+
 def build_submission(row: dict[str, str], used_slugs: set[str]) -> Submission:
     title = find_value(row, "title")
     presenter = find_value(row, "presenter_name")
@@ -750,96 +982,16 @@ def render_sections(submissions: list[Submission]) -> str:
     return "\n\n".join(sections)
 
 
-def render_combined_sections(submissions: list[Submission]) -> str:
-    target_map = {
-        submission.slug: f"abstract-{submission.slug}"
-        for submission in sorted(submissions, key=sort_key)
-    }
-    grouped: defaultdict[str, list[Submission]] = defaultdict(list)
-    for submission in submissions:
-        grouped[submission.submission_type].append(submission)
-
-    sections = []
-    ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
-    for index, submission_type in enumerate(ordered_types):
-        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
-        section_title = f"{submission_type}s"
-        if submission_type == "Software Demonstration":
-            section_title = "Software Demonstration Session"
-        latex_lines: list[str] = []
-        if index > 0:
-            latex_lines.extend([r"\clearpage", ""])
-        latex_lines.append(rf"\section*{{{escape_latex(section_title)} ({len(items)})}}")
-        if submission_type == "Software Demonstration":
-            latex_lines.extend(["", r"\noindent These abstracts belong to the live software demonstration session.\par"])
-        latex_lines.extend(
-            [
-                "",
-                r"\begin{longtable}{p{0.74\textwidth}p{0.22\textwidth}}",
-                r"\textbf{Title} & \textbf{Presenter} \\",
-                r"\hline",
-                r"\endfirsthead",
-                r"\textbf{Title} & \textbf{Presenter} \\",
-                r"\hline",
-                r"\endhead",
-            ]
-        )
-        for item in items:
-            latex_lines.extend(
-                [
-                    rf"\hyperref[{target_map[item.slug]}]{{{escape_latex(item.title)}}} & {escape_latex(item.presenter)} \\",
-                ]
-            )
-        latex_lines.append(r"\end{longtable}")
-        sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
-    return "\n\n".join(sections)
-
-
-def render_combined_abstracts(submissions: list[Submission]) -> str:
-    target_map = {
-        submission.slug: f"abstract-{submission.slug}"
-        for submission in sorted(submissions, key=sort_key)
-    }
-    grouped: defaultdict[str, list[Submission]] = defaultdict(list)
-    for submission in submissions:
-        grouped[submission.submission_type].append(submission)
-
-    sections = []
-    ordered_types = sorted(grouped, key=lambda item: SUBMISSION_ORDER.get(item, len(SUBMISSION_ORDER)))
-    for submission_type in ordered_types:
-        items = sorted(grouped[submission_type], key=lambda item: (*presenter_sort_key(item.presenter), item.title.casefold()))
-        section_title = f"{submission_type}s"
-        if submission_type == "Software Demonstration":
-            section_title = "Software Demonstration Session"
-        lines = [f"## {section_title}"]
-        for item in items:
-            body = item.to_body_markdown()
-            references = body["references"].replace("\n# References\n", "\n#### References\n")
-            lines.extend(
-                [
-                    "",
-                    f"({target_map[item.slug]})=",
-                    f"### {item.title}",
-                    "",
-                    body["metadata"],
-                    "",
-                    body["text"],
-                    references,
-                ]
-            )
-        sections.append("\n".join(lines))
-    return "\n\n".join(sections)
-
-
 def write_book_pages(
     submissions: list[Submission],
     book_dir: Path,
     book_title: str,
     book_subtitle: str,
     book_author: str,
+    programme_entries: list[ProgrammeEntry] | None = None,
 ) -> None:
     book_dir.mkdir(parents=True, exist_ok=True)
-    sections = render_sections(submissions)
+    sections = render_programme_sections(programme_entries or [], submissions)
     (book_dir / "README.md").write_text(
         README_TEMPLATE.format(
             book_title_yaml=quote_yaml(book_title),
@@ -848,18 +1000,6 @@ def write_book_pages(
             book_author=quote_yaml(book_author),
             num_abstracts=len(submissions),
             sections=sections,
-        ),
-        encoding="utf-8",
-    )
-    (book_dir / "all_abstracts.md").write_text(
-        ALL_ABSTRACTS_TEMPLATE.format(
-            book_title_yaml=quote_yaml(book_title),
-            book_title=book_title,
-            book_subtitle=book_subtitle,
-            book_author=quote_yaml(book_author),
-            num_abstracts=len(submissions),
-            sections=render_combined_sections(submissions),
-            abstracts=render_combined_abstracts(submissions),
         ),
         encoding="utf-8",
     )
@@ -899,7 +1039,9 @@ def load_rows(path: Path) -> list[dict[str, str]]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Convert conference abstract CSV/XLSX exports into MyST markdown.")
+    parser = argparse.ArgumentParser(
+        description="Import a conference abstract CSV/XLSX export into individual MyST markdown files."
+    )
     parser.add_argument("path", type=Path, help="CSV or XLSX export from the conference abstract submission form.")
     parser.add_argument(
         "-o",
@@ -912,16 +1054,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--book-dir",
         type=Path,
         default=here / "book",
-        help="Book directory where README.md and all_abstracts.md will be generated.",
+        help="Book directory. Defaults to fenics2026/book; abstracts go into book/abstracts.",
     )
     parser.add_argument(
         "--keep-existing",
         action="store_true",
         help="Keep existing markdown files in the abstract output directory instead of clearing it first.",
     )
-    parser.add_argument("--book-title", default=DEFAULT_BOOK_TITLE)
-    parser.add_argument("--book-subtitle", default=DEFAULT_BOOK_SUBTITLE)
-    parser.add_argument("--book-author", default=DEFAULT_BOOK_AUTHOR)
     args = parser.parse_args(argv)
 
     csv_path = args.path
@@ -948,17 +1087,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             continue
         submissions.append(build_submission(row, used_slugs))
 
-    submissions.sort(key=sort_key)
-
     for submission in submissions:
         (output_dir / f"{submission.slug}.md").write_text(submission.to_markdown(), encoding="utf-8")
 
-    manifest = [asdict(submission) for submission in submissions]
-    (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-    write_book_pages(submissions, args.book_dir, args.book_title, args.book_subtitle, args.book_author)
-
     print(f"Wrote {len(submissions)} abstracts to {output_dir}")
-    print(f"Wrote generated book pages to {args.book_dir}")
+    print("Run `python3 build_book.py` to regenerate the programme order, manifest, and PDF from markdown.")
     return 0
 
 

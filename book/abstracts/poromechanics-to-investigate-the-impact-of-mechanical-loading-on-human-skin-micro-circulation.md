@@ -1,5 +1,5 @@
 ---
-title: 'POROMECHANICS TO INVESTIGATE THE IMPACT OF MECHANICAL LOADING ON HUMAN SKIN MICRO-CIRCULATION'
+title: 'Poromechanics to Investigate the Impact of Mechanical Loading on Human Skin Micro-Circulation'
 authors:
   - name:
       literal: 'Thomas Lavigne'
@@ -51,7 +51,7 @@ exports:
 
 Human skin functions as a complex multi-scale and multi-phase system where moving fluids significantly influence mechanical and biological responses. Effective management of skin injuries, such as pressure ulcers (PU), requires a deep understanding of this structural composition and mechanical behavior, particularly given that between 9% and 20% of hospitalized patients in Europe are affected (Vanderwee et al., 2007). This research introduces a hierarchical two-compartment poromechanical model that accounts for fluid distribution within the interstitium and blood micro-circulation. The model is grounded in a hierarchical porous media framework (Lavigne et al., 2025) that conceptualizes the interstitium as a biphasic system, distinguishing between the characteristic timescales of cells and interstitial fluid.
 
-Experimental evaluation was performed using Laser Doppler Flowmetry (LDF) on 11 healthy volunteers. Controlled loads were applied directly to the skin via a specialized pivotmeter device (Fromy et al., 1998) to investigate ischaemic and hyperaemic responses. All numerical simulations were conducted using the open-source software FEniCSx v0.9.0. 
+Experimental evaluation was performed using Laser Doppler Flowmetry (LDF) on 11 healthy volunteers. Controlled loads were applied directly to the skin via a specialized pivotmeter device (Fromy et al., 1998) to investigate ischaemic and hyperaemic responses. All numerical simulations were conducted using the open-source software FEniCSx v0.9.0.
 
 Results demonstrated that while absolute LDF values vary between individuals, relative responses to load-induced ischaemia and post-occlusive reactive hyperaemia (PORH) are comparable across sexes when normalized to basal blood flow. Sensitivity analysis identified Young's modulus and the vessel permeability exponent as dominant parameters governing the micro-circulatory response. This work successfully demonstrates the model's qualitative ability to replicate in vivo hemodynamic responses.
 

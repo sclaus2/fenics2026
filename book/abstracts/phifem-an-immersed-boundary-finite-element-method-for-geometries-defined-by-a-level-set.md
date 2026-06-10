@@ -1,5 +1,5 @@
 ---
-title: 'PhiFEM : a immersed boundary finite element method for geometries defined by a level-set'
+title: 'PhiFEM: an immersed boundary finite element method for geometries defined by a level-set'
 authors:
   - name:
       literal: 'Raphaël Bulle'

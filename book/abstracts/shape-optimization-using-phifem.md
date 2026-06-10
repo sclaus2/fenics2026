@@ -33,7 +33,7 @@ exports:
 
 ---
 
-**Submission type:** Presentation
+**Submission type:** Poster
 
 **Presenter:** Raphaël Bulle (Inria de l'Université de Lorraine)
 

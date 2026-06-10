@@ -1,9 +1,9 @@
 # FEniCS Conference 2026 Book of Abstracts
 
-This repository is based on Simula's scripts for FEniCS 2024. This repository contains the scripts and MyST template used to turn the FEniCS 2026 abstract submission export into:
+This repository is based on Simula's scripts for FEniCS 2024. It contains the scripts and MyST template used to maintain the FEniCS 2026 book of abstracts:
 
 - one Markdown file per abstract in [`book/abstracts`](book/abstracts)
-- a generated landing page in [`book/README.md`](book/README.md)
+- a generated programme/front-matter page in [`book/README.md`](book/README.md)
 - one PDF per abstract via MyST
 - one merged PDF book of abstracts
 
@@ -22,51 +22,69 @@ python3 -m pip install .
 ```
 
 
-## Build The Full Book
+## Two-Step Workflow
 
-From inside `fenics2026`, run:
+The abstract markdown files are the reviewable source after the first import. Participants can open pull requests against their own file in [`book/abstracts`](book/abstracts), and maintainers can rebuild the programme/front matter and PDF from the committed markdown without touching the spreadsheet.
+
+Spreadsheet exports are local maintainer inputs only. Do not commit `.xls`, `.xlsx`, or `.xlsm` files; GitHub Actions builds from the committed `programme.md` and `book/abstracts/*.md` files.
+
+### 1. Import Abstracts From The Spreadsheet
+
+First create the canonical programme source workbook from the corrected submission export:
 
 ```bash
-python3 build_book.py <SOURCEFILE>
+cd fenics2026
+python3 filter_programme_source.py
+```
+
+This writes `../AbstractProgrammeFEniCS2026.xlsx`, containing only unique abstracts referenced by `programme.md`. Then run the import only when you intentionally want to regenerate the individual abstract files from that workbook:
+
+```bash
+python3 convert.py ../AbstractProgrammeFEniCS2026.xlsx
+```
+
+By default, this clears and rewrites `book/abstracts/*.md`. Do not run it after participant PR edits unless you intend to re-import from the spreadsheet and review the resulting diff.
+
+### 2. Rebuild From Markdown And Programme
+
+Run this after changes to `programme.md` or any file in `book/abstracts`:
+
+```bash
+python3 build_book.py
 ```
 
 This does three things:
 
-1. Regenerates `book/abstracts/*.md`, `book/abstracts/manifest.json`, `book/README.md`, and `book/all_abstracts.md`
-2. Runs `myst build --pdf` inside `book`
-3. Merges the individual abstract PDFs into `book/_build/exports/fenics2026-book-of-abstracts.pdf`
+1. Reads `book/abstracts/*.md`
+2. Regenerates `book/README.md` and `book/abstracts/manifest.json`, ordered and grouped by `programme.md`
+3. Builds per-abstract PDFs and merges them into `book/_build/exports/fenics2026-book-of-abstracts-programme-indexed.pdf`
 
-This default path preserves the existing abstract layout: each abstract is typeset on its own page with the template-driven title, authors, affiliations, and logo.
-
-## Run The Steps Manually
-
-If you want to run the pipeline step by step:
+To refresh only the programme/front matter and manifest:
 
 ```bash
-python3 convert.py <SOURCEFILE>
-cd book
-myst build --pdf
-cd ..
-python3 merge-abstracts.py
+python3 build_book.py --markdown-only
 ```
 
-To build the optional single combined document instead, run:
+By default, `build_book.py` uses the serial MyST exporter because it gives useful per-file progress and avoids hangs in MyST's bulk exporter. To try MyST's bulk exporter explicitly, pass `--bulk-myst`.
+
+You can override the programme or output path when needed:
 
 ```bash
-python3 build_book.py <SOURCEFILE> --final-mode single
+python3 build_book.py --programme programme.md --output book/_build/exports/book-of-abstracts-v1.pdf
+```
+
+The compatibility wrapper still works for the second step:
+
+```bash
+python3 rebuild_book_from_programme.py
 ```
 
 ## Notes
 
-- `convert.py` clears the existing `book/abstracts/*.md` files by default before regenerating the 2026 set.
+- `convert.py` is an import step only; it does not build PDFs or write the programme order.
+- GitHub Actions does not need any spreadsheet files. It runs `python3 build_book.py` against `programme.md` and `book/abstracts/*.md`.
 - Placeholder submissions with title/text like `NA` are skipped automatically.
-- `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated front-page order.
-- `--final-mode single` builds from `book/all_abstracts.md`, but that mode does not preserve the same per-abstract title-page styling as the merged default.
+- `build_book.py` reads the current markdown files, then writes `book/README.md` and `book/abstracts/manifest.json`.
+- `merge-abstracts.py` uses `book/abstracts/manifest.json` so the merged PDF follows the generated programme/front-page order.
 - If you want a different merged PDF filename, pass `--output` to `build_book.py`.
 - `build_book.py` first tries the `myst` executable and then falls back to `python -m mystmd_py` in the current environment.
-
-Example:
-
-```bash
-python3 build_book.py  <SOURCEFILE> --output book/_build/exports/book-of-abstracts-v1.pdf
-```

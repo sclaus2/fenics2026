@@ -1,9 +1,17 @@
 Abstract Submission for FEniCS 24.csv
 Abstract Submission for FEniCS 24.csv.zip
 abstracts.csv
+*.xls
+*.xlsx
+*.xlsm
 template/template.pdf
 book/_build
 *.DS_Store
+book/build-*.log
+book/*affiliation-review*.html
+book/*affiliation-review*.csv
+book/.orcid-cache.json
+fenics2026-book-of-abstracts*.pdf
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,node

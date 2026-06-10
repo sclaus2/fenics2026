@@ -28,6 +28,6 @@ This talk gives the state of the art of this ongoing work. It discusses the vari
 Finally, an extra numerical analysis of the use of the distributed two-scale method as a preconditioner illustrates the interest of coding in the FEniCSx ecosystem, which offers a high level of flexibility for prototyping in research.
 
 # References
-Salzman, A. & Moës, N. (2023)  A two-scale solver for linear elasticity problems in the context of parallel message passing. Computer Methods in Applied Mechanics and Engineering.  DOI: 10.1016/j.cma.2023.115914
+Salzman, A. & Moës, N. (2023) A two-scale solver for linear elasticity problems in the context of parallel message passing. Computer Methods in Applied Mechanics and Engineering. DOI: 10.1016/j.cma.2023.115914
 
 

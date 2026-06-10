@@ -19,7 +19,7 @@ exports:
 
 Irreversible variational models for fracture and damage are challenging for numerical simulation: the problem is non-convex, constrained, and may admit multiple admissible paths. The predictive power of simulations depends not only on the model itself, but on how equilibria are identified, tracked, and selected.
 
-In this talk, I present a modular computational framework for the simulation of irreversible evolutionary systems, built on FEniCSx and integrating three nonlinear variational solvers addressing complementary aspects of the problem:  constrained equilibrium, loss of uniqueness of evolution paths, and a rigorous criterion to assess the stability of computed states.
+In this talk, I present a modular computational framework for the simulation of irreversible evolutionary systems, built on FEniCSx and integrating three nonlinear variational solvers addressing complementary aspects of the problem: constrained equilibrium, loss of uniqueness of evolution paths, and a rigorous criterion to assess the stability of computed states.
 
 Rather than treating these components independently, I focus on their orchestration. At each load increment, the system is first brought to constrained equilibrium, then interrogated for bifurcation, and finally tested for stability. This structured interaction between first- and second-order information provides a strategy way to navigate the multiplicity of solutions and to track physically meaningful evolution paths.
 

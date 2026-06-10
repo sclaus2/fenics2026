@@ -30,9 +30,9 @@ Dolfiny is a collection of convenience wrappers and extended functionality for D
 # References
 1. Zilian, A., Habera, M. (23 March 2021). dolfiny: Convenience wrappers for DOLFINx. FEniCS 2021, Cambridge, United Kingdom.
 
-2. Habera, M., Zilian, A. (18 June 2025). Physical units in UFL. FEniCS 2025, Groningen, Netherlands. 
+2. Habera, M., Zilian, A. (18 June 2025). Physical units in UFL. FEniCS 2025, Groningen, Netherlands.
 
-3. Zilian, A., Habera, M. (20 June 2025). Dimensional analysis in UFL. FEniCS 2025, Groningen, Netherlands. 
+3. Zilian, A., Habera, M. (20 June 2025). Dimensional analysis in UFL. FEniCS 2025, Groningen, Netherlands.
 
 4. Kühner, P. T., Habera, M., Zilian, A. (18 June 2025). PETSc TAO support for optimisation problems with FEniCSx. FEniCS 2025, Groningen, Netherlands.
 

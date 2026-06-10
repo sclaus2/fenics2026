@@ -30,7 +30,7 @@ This paper is concerned with adaptive edge element methods based on a regularize
 # References
 [1] Ciarlet, P., Wu, H., & Zou, J. (2014). Edge Element Methods for Maxwell's Equations with Strong Convergence for Gauss' Laws. SIAM Journal on Numerical Analysis, 52(2), 779-807. DOI: 10.1137/120899856
 
-[2] Duan, H., Li, S., Tan, R. C., & Zheng, W. (2012). A delta-regularization finite element method for a double curl problem with divergence-free constraint. SIAM Journal on Numerical Analysis, 50(6), 3208-3230. DOI: 10.1137/110850578 
+[2] Duan, H., Li, S., Tan, R. C., & Zheng, W. (2012). A delta-regularization finite element method for a double curl problem with divergence-free constraint. SIAM Journal on Numerical Analysis, 50(6), 3208-3230. DOI: 10.1137/110850578
 
 [3] Reitzinger, S. and Schöberl, J. (2002), An algebraic multigrid method for finite element discretizations with edge elements. Numer. Linear Algebra Appl., 9: 223-238. DOI: 10.1002/nla.271
 

@@ -3,6 +3,17 @@ name: Github Pages
 on:
   push:
     branches: [main]  # Only run on push to main
+    paths:
+      - programme.md
+      - book/abstracts/**/*.md
+      - book/myst.yml
+      - template/**
+      - build_book.py
+      - convert.py
+      - merge-abstracts.py
+      - pyproject.toml
+      - .github/workflows/build_docs.yml
+      - .github/workflows/deploy_docs.yml
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:

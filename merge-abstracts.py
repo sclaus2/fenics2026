@@ -3,12 +3,22 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import unicodedata
+from datetime import datetime
 from pathlib import Path
 from typing import Sequence
 from urllib.parse import unquote, urlparse
 
-from pypdf import PdfReader, PdfWriter
-from pypdf.generic import ArrayObject, FloatObject, NameObject, NumberObject, RectangleObject
+from pypdf import PageObject, PdfReader, PdfWriter
+from pypdf.generic import (
+    ArrayObject,
+    DecodedStreamObject,
+    DictionaryObject,
+    FloatObject,
+    NameObject,
+    NumberObject,
+    RectangleObject,
+)
 
 here = Path(__file__).parent
 EXPORT_STEM_LIMIT = 50
@@ -17,6 +27,23 @@ SUBMISSION_ORDER = {
     "Poster": 1,
     "Software Demonstration": 2,
 }
+PAGE_WIDTH = 612
+PAGE_HEIGHT = 792
+INDEX_MARGIN_X = 54
+INDEX_MARGIN_TOP = 64
+INDEX_MARGIN_BOTTOM = 54
+INDEX_COLUMN_GAP = 24
+INDEX_TITLE_SIZE = 18
+INDEX_TEXT_SIZE = 9
+INDEX_LEADING = 12
+
+
+def timestamp() -> str:
+    return datetime.now().strftime("%H:%M:%S")
+
+
+def log(message: str) -> None:
+    print(f"[{timestamp()}] {message}", flush=True)
 
 
 def load_manifest(path: Path) -> list[dict]:
@@ -44,8 +71,7 @@ def default_pdf_order(input_folder: Path) -> list[Path]:
         (
             pdf
             for pdf in input_folder.glob("*.pdf")
-            if pdf.stem
-            not in {"readme", "README", "all-abstracts", "all_abstracts", "fenics2026-book-of-abstracts"}
+            if pdf.stem not in {"readme", "README", "fenics2026-book-of-abstracts"}
         ),
         key=lambda pdf: pdf.stem,
     )
@@ -102,6 +128,7 @@ def rewrite_readme_links(
     page_starts: dict[str, int],
     export_name_map: dict[str, str],
 ) -> None:
+    log(f"Rewriting front-matter links for {len(page_starts)} abstracts")
     alias_to_slug: dict[str, str] = {}
     for slug, export_name in export_name_map.items():
         for alias in build_target_aliases(slug, export_name):
@@ -155,6 +182,7 @@ def rewrite_readme_links(
 def add_outline(writer: PdfWriter, manifest: list[dict], page_starts: dict[str, int]) -> None:
     if not manifest:
         return
+    log("Adding PDF outline")
 
     try:
         writer.page_mode = "/UseOutlines"
@@ -179,6 +207,109 @@ def add_outline(writer: PdfWriter, manifest: list[dict], page_starts: dict[str, 
             writer.add_outline_item(item["title"], page_number=page_starts[item["slug"]], parent=parent)
 
 
+def normalise_author_sort_name(name: str) -> tuple[str, str]:
+    ascii_name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode("ascii")
+    tokens = re.findall(r"[A-Za-z0-9]+", ascii_name.casefold())
+    if not tokens:
+        return ("", "")
+    particles = {"da", "de", "del", "der", "di", "dos", "du", "la", "le", "van", "von"}
+    surname_tokens = [tokens[-1]]
+    index = len(tokens) - 2
+    while index >= 0 and tokens[index] in particles:
+        surname_tokens.insert(0, tokens[index])
+        index -= 1
+    return (" ".join(surname_tokens), " ".join(tokens[: index + 1]))
+
+
+def collect_author_index(manifest: list[dict], page_starts: dict[str, int]) -> list[tuple[str, list[int]]]:
+    pages_by_author: dict[str, set[int]] = {}
+    display_names: dict[str, str] = {}
+    for item in manifest:
+        slug = item.get("slug")
+        if slug not in page_starts:
+            continue
+        page_number = page_starts[slug] + 1
+        for author in item.get("authors", []):
+            name = str(author.get("name", "")).strip()
+            if not name:
+                continue
+            key = re.sub(r"\s+", " ", name).casefold()
+            display_names.setdefault(key, re.sub(r"\s+", " ", name))
+            pages_by_author.setdefault(key, set()).add(page_number)
+
+    return sorted(
+        ((display_names[key], sorted(pages)) for key, pages in pages_by_author.items()),
+        key=lambda entry: (*normalise_author_sort_name(entry[0]), entry[0].casefold()),
+    )
+
+
+def pdf_text(value: str) -> str:
+    ascii_value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    return ascii_value.replace("\\", r"\\").replace("(", r"\(").replace(")", r"\)")
+
+
+def add_text_line(commands: list[str], x: float, y: float, text: str, size: int = INDEX_TEXT_SIZE) -> None:
+    commands.append(f"BT /F1 {size} Tf {x:.2f} {y:.2f} Td ({pdf_text(text)}) Tj ET")
+
+
+def add_author_index(writer: PdfWriter, manifest: list[dict], page_starts: dict[str, int]) -> int | None:
+    entries = collect_author_index(manifest, page_starts)
+    if not entries:
+        log("No author index entries found")
+        return None
+
+    log(f"Appending author index with {len(entries)} authors")
+    first_index_page = len(writer.pages)
+    column_width = (PAGE_WIDTH - 2 * INDEX_MARGIN_X - INDEX_COLUMN_GAP) / 2
+    rows_per_column = int((PAGE_HEIGHT - INDEX_MARGIN_TOP - INDEX_MARGIN_BOTTOM - 28) / INDEX_LEADING)
+    rows_per_page = rows_per_column * 2
+
+    for page_offset in range(0, len(entries), rows_per_page):
+        page_entries = entries[page_offset : page_offset + rows_per_page]
+        page = PageObject.create_blank_page(width=PAGE_WIDTH, height=PAGE_HEIGHT)
+        commands = ["q", "0 0 0 rg"]
+        if page_offset == 0:
+            add_text_line(commands, INDEX_MARGIN_X, PAGE_HEIGHT - INDEX_MARGIN_TOP, "Author Index", INDEX_TITLE_SIZE)
+        y_start = PAGE_HEIGHT - INDEX_MARGIN_TOP - 30
+        for index, (author, pages) in enumerate(page_entries):
+            column = index // rows_per_column
+            row = index % rows_per_column
+            x = INDEX_MARGIN_X + column * (column_width + INDEX_COLUMN_GAP)
+            y = y_start - row * INDEX_LEADING
+            page_text = ", ".join(str(page) for page in pages)
+            entry_text = f"{author}  {page_text}"
+            if len(entry_text) > 76:
+                entry_text = entry_text[:73] + "..."
+            add_text_line(commands, x, y, entry_text)
+        commands.append("Q")
+
+        stream = DecodedStreamObject()
+        stream.set_data("\n".join(commands).encode("latin-1", errors="replace"))
+        page[NameObject("/Contents")] = writer._add_object(stream)
+        page[NameObject("/Resources")] = DictionaryObject(
+            {
+                NameObject("/Font"): DictionaryObject(
+                    {
+                        NameObject("/F1"): DictionaryObject(
+                            {
+                                NameObject("/Type"): NameObject("/Font"),
+                                NameObject("/Subtype"): NameObject("/Type1"),
+                                NameObject("/BaseFont"): NameObject("/Helvetica"),
+                            }
+                        )
+                    }
+                )
+            }
+        )
+        writer.add_page(page)
+
+    try:
+        writer.add_outline_item("Author Index", page_number=first_index_page, bold=True)
+    except Exception:
+        pass
+    return first_index_page
+
+
 def apply_page_labels(writer: PdfWriter) -> None:
     try:
         page_count = len(writer.pages)
@@ -196,7 +327,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--manifest",
         type=Path,
         default=here / "book" / "abstracts" / "manifest.json",
-        help="Manifest generated by convert.py used to preserve abstract ordering.",
+        help="Manifest generated by build_book.py used to preserve abstract ordering.",
     )
     parser.add_argument(
         "-a",
@@ -211,6 +342,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         type=Path,
         default=here / "book" / "_build" / "exports" / "fenics2026-book-of-abstracts.pdf",
     )
+    parser.add_argument(
+        "--no-author-index",
+        action="store_true",
+        help="Do not append the generated author index.",
+    )
     args = parser.parse_args(argv)
 
     input_folder = args.input
@@ -218,6 +354,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     if not input_folder.exists():
         print(f"{input_folder} does not exist")
         return 1
+    log(f"Using PDF export directory: {input_folder}")
 
     readme_pdf = input_folder / "readme.pdf"
     if not readme_pdf.is_file():
@@ -226,6 +363,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 1
 
     manifest = load_manifest(args.manifest)
+    log(f"Loaded manifest entries: {len(manifest)}")
     if manifest:
         export_name_map = build_export_name_map(args.abstract_dir)
         abstract_items: list[tuple[dict, Path]] = []
@@ -245,9 +383,11 @@ def main(argv: Sequence[str] | None = None) -> int:
             print("Skipping abstracts without built PDFs:")
             for path in missing_files:
                 print(f" - {path.name}")
+        log(f"Resolved built abstract PDFs: {len(abstract_items)}")
     else:
         export_name_map = {}
         abstract_items = [({"slug": pdf.stem, "title": pdf.stem, "submission_type": "Abstracts"}, pdf) for pdf in default_pdf_order(input_folder)]
+        log(f"Using default PDF order with {len(abstract_items)} PDFs")
 
     output_file.parent.mkdir(parents=True, exist_ok=True)
     merger = PdfWriter()
@@ -257,7 +397,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     merger.append(readme_pdf, import_outline=False)
     current_page = readme_pages
-    for item, pdf in abstract_items:
+    log(f"Appended front matter: {readme_pages} pages")
+    for index, (item, pdf) in enumerate(abstract_items, start=1):
+        log(f"Appending abstract {index}/{len(abstract_items)}: {pdf.name}")
         page_starts[item["slug"]] = current_page
         merger.append(pdf, import_outline=False)
         current_page += len(PdfReader(str(pdf)).pages)
@@ -265,11 +407,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     if export_name_map:
         rewrite_readme_links(merger, readme_pages, page_starts, export_name_map)
     add_outline(merger, manifest, page_starts)
+    if manifest and not args.no_author_index:
+        add_author_index(merger, manifest, page_starts)
     apply_page_labels(merger)
 
+    log(f"Writing merged PDF: {output_file}")
     merger.write(output_file)
     merger.close()
-    print(f"Saved to: {output_file}")
+    log(f"Saved to: {output_file}")
     return 0
 
 

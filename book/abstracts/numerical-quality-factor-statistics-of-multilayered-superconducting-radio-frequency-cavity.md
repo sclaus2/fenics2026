@@ -25,20 +25,20 @@ exports:
 
 **Presenter:** Aaron Gobeyn (Technical University Darmstadt)
 
-Bulk niobium (Nb) is currently the standard material for superconducting radio-frequency (SRF) cavities for particle accelerator 
-applications. It has been observed that the benefits of using a superconducting material occur in only a thin layer [1]. This 
-makes a proposal made by Gurevich [2] attractive for investigation, namely, coating the SRF cavity with alternating superconducting 
-and insulating layers, referred to as superconductor-insulator-superconductor (SIS) structures. The thin coating shields the 
-bulk interior from accelerating fields, allowing for higher operating fields than is even theoretically possible with Nb. Depositing 
-such a coating on a complex geometry, such as a TESLA cavity, is likely to yield inhomogeneous coatings with potentially measurable 
-impact on quantities of interest, such as the quality factor. We attempt to estimate these impacts through finite element (FE) simulations. 
+Bulk niobium (Nb) is currently the standard material for superconducting radio-frequency (SRF) cavities for particle accelerator
+applications. It has been observed that the benefits of using a superconducting material occur in only a thin layer [1]. This
+makes a proposal made by Gurevich [2] attractive for investigation, namely, coating the SRF cavity with alternating superconducting
+and insulating layers, referred to as superconductor-insulator-superconductor (SIS) structures. The thin coating shields the
+bulk interior from accelerating fields, allowing for higher operating fields than is even theoretically possible with Nb. Depositing
+such a coating on a complex geometry, such as a TESLA cavity, is likely to yield inhomogeneous coatings with potentially measurable
+impact on quantities of interest, such as the quality factor. We attempt to estimate these impacts through finite element (FE) simulations.
 
-In our work, we model the SIS multilayer by reducing it to a surface impedance using a first-order Leontovich boundary condition [3]. This 
-surface impedance appears in the boundary condition of the complex eigenvalue problem for the eigenmodes of the SRF cavity, which we 
-solve via the FE method. We further treat the coating thickness as a Gaussian random field, obtained by solving a 2D FE problem on the 
-boundary [4], which yields a spatially inhomogeneous surface impedance. By sampling Gaussian random fields we generate a normal 
-distribution for the quality factor. We perform these simulations for a single-cell TESLA cavity and repeat them for different 
-correlation lengths in the Matérn kernel of the Gaussian random field. We then compare the distributions of the quality factors 
+In our work, we model the SIS multilayer by reducing it to a surface impedance using a first-order Leontovich boundary condition [3]. This
+surface impedance appears in the boundary condition of the complex eigenvalue problem for the eigenmodes of the SRF cavity, which we
+solve via the FE method. We further treat the coating thickness as a Gaussian random field, obtained by solving a 2D FE problem on the
+boundary [4], which yields a spatially inhomogeneous surface impedance. By sampling Gaussian random fields we generate a normal
+distribution for the quality factor. We perform these simulations for a single-cell TESLA cavity and repeat them for different
+correlation lengths in the Matérn kernel of the Gaussian random field. We then compare the distributions of the quality factors
 by statistical methods.
 
 # References

@@ -4,12 +4,12 @@ authors:
   - name:
       literal: 'Jørgen S. Dokken'
     affiliations:
-      - 'Simula Research Laboratory, Simula Research Laboratory, Basque Center for Applied Mathematics'
+      - 'Simula Research Laboratory'
     email: 'dokken@simula.no'
   - name:
       literal: 'Henrik N.T. Finsberg'
     affiliations:
-      - 'Simula Research Laboratory, Simula Research Laboratory, Basque Center for Applied Mathematics'
+      - 'Simula Research Laboratory'
 license: CC-BY-4.0
 exports:
   - format: pdf

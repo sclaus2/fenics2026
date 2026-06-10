@@ -5,7 +5,6 @@ authors:
       literal: 'Sophie J. Knechtel'
     affiliations:
       - 'Technische Universität Berlin'
-    email: 's.knechtel@tu-berlin.de'
   - name:
       literal: 'Simon Demange'
     affiliations:
@@ -34,6 +33,7 @@ authors:
       literal: 'Marina Matthaiou'
     affiliations:
       - 'Technische Universität Berlin'
+    email: 's.knechtel@tu-berlin.de'
   - name:
       literal: 'Kilian Oberleithner'
     affiliations:
@@ -51,7 +51,7 @@ exports:
 
 **Submission type:** Presentation
 
-**Presenter:** Sophie Julie Knechtel (Technische Universität Berlin)
+**Presenter:** Marina Matthaiou (Technische Universität Berlin)
 
 We present FELiCS (http://felics.eu), an open-source Python package for the linearized analysis of multi-physics flows within the FEniCS ecosystem.
 

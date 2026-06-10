@@ -21,7 +21,7 @@ exports:
 
 **Presenter:** Marius Causemann (Simula Research Laboratory)
 
-The clearance of metabolic waste products and the distribution of therapeutic agents within the central nervous system are critically dependent on the circulation of cerebrospinal fluid (CSF). However, the precise anatomical locations of CSF production and absorption in the human brain remain subjects of ongoing investigation. 
+The clearance of metabolic waste products and the distribution of therapeutic agents within the central nervous system are critically dependent on the circulation of cerebrospinal fluid (CSF). However, the precise anatomical locations of CSF production and absorption in the human brain remain subjects of ongoing investigation.
 
 Recent clinical research [Storås et al. 2025] and open tracer evolution datasets [Riseth et al. 2026] utilized high-resolution T1 mapping (R1) to demonstrate significant regional solute gradients in the CSF of healthy brains, where R1 in the subarachnoid space (SAS) correlates strongly with intrinsic protein concentration. These findings suggest that quantitative R1 maps can serve as a reliable, non-invasive proxy for protein distribution within the human intracranial space.
 

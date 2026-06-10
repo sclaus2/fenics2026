@@ -1,5 +1,5 @@
 ---
-title: 'L-PBF Processes via FEniCS: A Finite Element Framework for  Heat Modelling  and Accelerated Predictive Workflows'
+title: 'L-PBF Processes via FEniCS: A Finite Element Framework for Heat Modelling and Accelerated Predictive Workflows'
 authors:
   - name:
       literal: 'José Ángel Bejarano Vázquez'

@@ -17,7 +17,7 @@ exports:
 
 **Presenter:** Johan Jansson (KTH Royal Institute of Technology)
 
-Today we see large-scale threats to the scientific basis of modern society, which often contain elements of attacks on the concept of truth. We develop the Digital Math framwork - where FEniCS is a key component - to form a robust general scientific basis for research and
+Today we see large-scale threats to the scientific basis of modern society, which often contain elements of attacks on the concept of truth. We develop the Digital Math framework - where FEniCS is a key component - to form a robust general scientific basis for research and
 education, and a counter to the threats to science by guaranteeing reproducibility and falsifiability.
 
 All of natural science and engineering is formulated as mathematical equations - models, and the Digital Math framework provides powerful and at the same time simple and reproducible methods and tools for predicting/solving the models, and pedagogical frameworks for learning the methods and models. Key components are the FEniCS framework for automated computational modeling and the DigiMat motivational educational framework.

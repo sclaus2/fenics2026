@@ -34,7 +34,7 @@ Finally, a parametric study will be performed, and the results will be contraste
 # References
 [1] Bleyer, J. (2025). dolfinx_materials: A Python package for advanced material modelling, DOI: 10.5281/zenodo.13882183
 
-[2] Bluhm, G. L., Sigmund, O. & Poulios, K. (2021). Internal contact modeling for finite strain topology optimization. Computational Mechanics, 67, 1099-1114. DOI: 10.1007/s00466-021-01974-x 
+[2] Bluhm, G. L., Sigmund, O. & Poulios, K. (2021). Internal contact modeling for finite strain topology optimization. Computational Mechanics, 67, 1099-1114. DOI: 10.1007/s00466-021-01974-x
 
 [3] Chouly, F., Hild, P. & Renard, Y. (2023). Finite Element Approximation of Contact and Friction in Elasticity (Birkhäuser Cham, AMMA, 48, ACM). DOI: 10.1007/978-3-031-31423-0
 

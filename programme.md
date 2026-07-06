@@ -1,15 +1,19 @@
 ---
-title: FEniCS 2026<br/>Programme
+title: FEniCS 2026 <br/>Programme
 image: assets/img/fenics2026/universityofchicagoparis.jpg
 image-zoom: fill
 permalink: /fenics-2026/programme/
 ---
 
-# FEniCS 2026 - Programme v1 (8/6/2026)
+# FEniCS 2026 - Conference programme v3 (18/06/2026)
 
 ### Wednesday - 17 June
 
-**Morning - Advanced tutorial sessions** (optional)
+**Morning - Advanced Tutorial Session** (optional)
+
+_Attendees of this session are invited to follow the instructions on the website: [FEniCS 2026 – Advanced Tutorial Session](https://a-latyshev.github.io/fenics26-tutorials/#how-to-use) to preinstall the latest version of DOLFINx (v0.11.0) together with the required dependencies._
+
+Chair: Andrey Latyshev
 
 | 8:45 - 9:20 | Arrival/Registration of tutorial session participants |
 | 9:20 - 10:10 | Tutorial session 1 with Jørgen S. Dokken:<br/>An exploration of advanced features in DOLFINx through the shifted boundary method            |
@@ -30,6 +34,8 @@ permalink: /fenics-2026/programme/
 
 **Session 1: Software packages with later demonstrations**
 
+Chair: Cécile Daversin Catty
+
 | Time | Presenter | Contribution |
 | --- | --- | --- |
 | 13:30 - 13:45 | Susanne Claus | CutFEMx: A Cut Finite Element Library for FEniCSx |
@@ -42,6 +48,8 @@ permalink: /fenics-2026/programme/
 | 15:15 - 15:30 | Michel Duprez | PhiFEM : an immersed boundary finite element method for geometries defined by a level-set |
 
 **Session 2: Kernels, HPC deployment, and the wider FEniCS ecosystem**
+
+Chair: Chris Richardson
 
 | Time | Presenter | Contribution |
 | --- | --- | --- |
@@ -92,22 +100,26 @@ Software demonstrations:
 
 | 14:00 - 15:30 | Session 5: Solid mechanics, contact, and material response |
 | 15:30 - 16:00 | Coffee break |
-| 16:00 - 17:30 | Session 6: Solver workflows, inverse modelling, and FEniCS ecosystem |
-| 17:30 - 20:00 | Free time |
-| 20:00 | **Conference dinner at [Le Train Blue](https://maps.app.goo.gl/eQ7E7nFbz6DGsnkk9)**  |
+| 16:00 - 17:15 | Session 6: Solver workflows, inverse modelling, and FEniCS ecosystem |
+| 17:15 - 20:00 | Free time |
+| 20:00 | **Conference dinner at [Bofinger](https://maps.app.goo.gl/hrFa7TY8JzN3whfD6)**  |
 
 **Session 3: Multiphysics**
+
+Chair: Johan Jansson
 
 | Time | Presenter | Contribution |
 | --- | --- | --- |
 | 9:00 - 9:15 | Marina Matthaiou | FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications |
 | 9:15 - 9:30 | Théo Bermond | Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx |
-| 9:30 - 9:45 | James Dark | Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM |
-| 9:45 - 10:00 | Remi Delaporte-Mathurin | FESTIM v2.0: Upgraded framework for multi-species hydrogen transport |
+| 9:30 - 9:45 | Remi Delaporte-Mathurin | FESTIM v2.0: Upgraded framework for multi-species hydrogen transport |
+| 9:45 - 10:00 | James Dark | Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM |
 | 10:00 - 10:15 | Aaron Gobeyn | Numerical quality factor statistics of multilayered superconducting radio-frequency cavity |
 | 10:15 - 10:30 | Marc Hirschvogel | A fully monolithic formulation for multiphase fluid-structure interaction |
 
 **Session 4: Biomedical modelling and applications**
+
+Chair: Jørgen S. Dokken
 
 | Time | Presenter | Contribution |
 | --- | --- | --- |
@@ -120,6 +132,8 @@ Software demonstrations:
 
 **Session 5: Solid mechanics, contact, and material response**
 
+Chair: Jérémy Bleyer
+
 | Time | Presenter | Contribution |
 | --- | --- | --- |
 | 14:00 - 14:15 | Saeid Ghouli | Material model discovery with FEMU in FEniCSx |
@@ -131,14 +145,15 @@ Software demonstrations:
 
 **Session 6: Solver workflows, inverse modelling, and FEniCS ecosystem**
 
+Chair: Rémi Delaporte-Mathurin
+
 | Time | Presenter | Contribution |
 | --- | --- | --- |
-| 16:00 - 16:15 | Andrés A León Baldelli | Variational Solvers for Irreversible Evolutionary Systems: Orchestration |
-| 16:15 - 16:30 | Johnny Vogels | Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes |
-| 16:30 - 16:45 | Alexis Salzman | An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc |
-| 16:45 - 17:00 | Javier Lorente-Macías | Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads |
-| 17:00 - 17:15 | Louis Gombert | FEniCS Post-processing with ParaView |
-| 17:15 - 17:30 | Johan Jansson | The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program |
+| 16:00 - 16:15 | Johnny Vogels | Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes |
+| 16:15 - 16:30 | Alexis Salzman | An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc |
+| 16:30 - 16:45 | Javier Lorente-Macías | Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads |
+| 16:45 - 17:00 | Louis Gombert | FEniCS Post-processing with ParaView |
+| 17:00 - 17:15 | Johan Jansson | The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program |
 
 ### Friday - 19 June
 
@@ -146,10 +161,13 @@ Software demonstrations:
 
 | 9:15 - 10:30 | Session 7: Inverse problems, waves, and flow/transport |
 | 10:30 - 11:00 | Coffee break |
-| 11:00 - 12:15 | Session 8: Engineering applications in structures, propulsion, and manufacturing |
+| 11:00 - 12:00 | Session 8: Engineering applications in structures, propulsion, and manufacturing |
+| 12:00 - 12:15 | Prize jury deliberation |
 | 12:15 | **Closing ceremony and awards**  |
 
 **Session 7: Inverse problems, waves, and flow/transport**
+
+Chair: Ridgway Scott
 
 | Time | Presenter | Contribution |
 | --- | --- | --- |
@@ -161,10 +179,17 @@ Software demonstrations:
 
 **Session 8: Engineering applications in structures, propulsion, and manufacturing**
 
+Chair: Corrado Maurini
+
 | Time | Presenter | Contribution |
 | --- | --- | --- |
 | 11:00 - 11:15 | Johannes Neumann | Finite-Element Modeling of Complex Inelasticity Using FEniCSx: Paper and Thermoplastics |
-| 11:15 - 11:30 | Shubham Saurabh | Large scale random vibration analysis using FEniCS |
-| 11:30 - 11:45 | Daria Mesbah | femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure |
-| 11:45 - 12:00 | Arshad Fasiludeen | Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion |
-| 12:00 - 12:15 | José Ángel Bejarano Vázquez | L-PBF Processes via FEniCS: A Finite Element Framework for Heat Modelling and Accelerated Predictive Workflows |
+| 11:15 - 11:30 | Daria Mesbah | femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure |
+| 11:30 - 11:45 | Arshad Fasiludeen | Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion |
+| 11:45 - 12:00 | José Ángel Bejarano Vázquez | L-PBF Processes via FEniCS: A Finite Element Framework for Heat Modelling and Accelerated Predictive Workflows |
+
+**Closing session and prize awards**
+
+| Time | Presenter | Contribution |
+| --- | --- | --- |
+| 12:15 - 12:30 | Organising Committee | Closing session and prize awards |

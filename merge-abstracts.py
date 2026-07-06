@@ -40,8 +40,8 @@ WATERMARK_GRAY = 0.85
 WATERMARK_FONT_SIZE = 8
 WATERMARK_X = 0.05 * PAGE_WIDTH
 WATERMARK_Y = 0.5 * PAGE_HEIGHT
-DEFAULT_WATERMARK_DOI = "10.5281/zenodo.20632492"
-DEFAULT_WATERMARK_VERSION = "v2"
+DEFAULT_WATERMARK_DOI = "10.5281/zenodo.21225878"
+DEFAULT_WATERMARK_VERSION = "v3"
 
 
 def timestamp() -> str:
@@ -385,7 +385,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument(
         "--watermark-doi",
         default=DEFAULT_WATERMARK_DOI,
-        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.21225878.",
     )
     parser.add_argument(
         "--watermark-version",

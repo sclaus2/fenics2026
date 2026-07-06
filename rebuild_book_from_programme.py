@@ -62,12 +62,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     parser.add_argument(
         "--watermark-doi",
-        default="10.5281/zenodo.20632492",
-        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+        default="10.5281/zenodo.21225878",
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.21225878.",
     )
     parser.add_argument(
         "--watermark-version",
-        default="v2",
+        default="v3",
         help="Version text used in the author-index watermark.",
     )
     args = parser.parse_args(argv)

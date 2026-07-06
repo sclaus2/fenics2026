@@ -96,8 +96,8 @@ jobs:
             --changed-only \
             --base-ref "$BASE_REF" \
             --programme programme.md \
-            --watermark-doi 10.5281/zenodo.20632492 \
-            --watermark-version v2
+            --watermark-doi 10.5281/zenodo.21225878 \
+            --watermark-version v3
 
       - name: Upload book PDF
         uses: actions/upload-artifact@v4

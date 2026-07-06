@@ -28,6 +28,8 @@ from convert import (
 
 here = Path(__file__).parent
 EXPORT_STEM_LIMIT = 50
+DEFAULT_WATERMARK_DOI = "10.5281/zenodo.21225878"
+DEFAULT_WATERMARK_VERSION = "v3"
 FULL_REBUILD_PATHS = {
     ".github/workflows/build_docs.yml",
     ".github/workflows/deploy_docs.yml",
@@ -49,6 +51,21 @@ def timestamp() -> str:
 
 def log(message: str) -> None:
     print(f"[{timestamp()}] {message}", flush=True)
+
+
+def watermark_doi_text(doi: str) -> str:
+    return doi if doi.casefold().startswith("doi:") else f"doi:{doi}"
+
+
+def write_template_watermark(template_path: Path, doi: str, version: str) -> None:
+    watermark = rf"\SetWatermarkText{{{watermark_doi_text(doi)}, {version}, \today}}"
+    text = template_path.read_text(encoding="utf-8")
+    updated, count = re.subn(r"\\SetWatermarkText\{[^}]*\}", lambda _: watermark, text, count=1)
+    if count != 1:
+        raise ValueError(f"Could not find a single \\SetWatermarkText entry in {template_path}")
+    if updated != text:
+        template_path.write_text(updated, encoding="utf-8")
+        log(f"Updated template watermark: {watermark}")
 
 
 def run_command(command: list[str], cwd: Path, label: str) -> None:
@@ -483,15 +500,17 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--book-author", default=DEFAULT_BOOK_AUTHOR)
     parser.add_argument(
         "--watermark-doi",
-        default="10.5281/zenodo.20632492",
-        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+        default=DEFAULT_WATERMARK_DOI,
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.21225878.",
     )
     parser.add_argument(
         "--watermark-version",
-        default="v2",
+        default=DEFAULT_WATERMARK_VERSION,
         help="Version text used in the author-index watermark.",
     )
     args = parser.parse_args(argv)
+
+    write_template_watermark(here / "template" / "template.tex", args.watermark_doi, args.watermark_version)
 
     changed_paths: list[str] | None = None
     if args.changed_only and not args.force_full:

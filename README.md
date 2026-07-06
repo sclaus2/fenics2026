@@ -88,8 +88,8 @@ To update only the programme ordering/front matter and the merged PDF watermark 
 ```bash
 python3 build_book.py \
   --programme programme.md \
-  --watermark-doi 10.5281/zenodo.20632492 \
-  --watermark-version v2
+  --watermark-doi 10.5281/zenodo.21225878 \
+  --watermark-version v3
 ```
 
 Use `--programme ../programme.md` if the latest programme file is the one in the repository parent directory.

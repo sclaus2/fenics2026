@@ -1,27 +1,28 @@
 ---
-title: 'Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator'
+title: 'Integration of Externally Defined Constitutive Models into FEniCSx Using dolfinx-external-operator'
 authors:
   - name:
       literal: 'Andrey Latyshev'
     affiliations:
-      - 'University of Luxembourg, Institut Jean Le Rond d''Alembert, Sorbonne Université, Simula Research Laboratory, Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
+      - 'University of Luxembourg'
+      - 'Institut Jean Le Rond d''Alembert, Sorbonne Université'
     email: 'andrey.latyshev@uni.lu'
   - name:
       literal: 'Jørgen S. Dokken'
     affiliations:
-      - 'University of Luxembourg, Institut Jean Le Rond d''Alembert, Sorbonne Université, Simula Research Laboratory, Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
+      - 'Simula Research Laboratory'
   - name:
       literal: 'Jérémy Bleyer'
     affiliations:
-      - 'University of Luxembourg, Institut Jean Le Rond d''Alembert, Sorbonne Université, Simula Research Laboratory, Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
+      - 'Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
   - name:
       literal: 'Corrado Maurini'
     affiliations:
-      - 'University of Luxembourg, Institut Jean Le Rond d''Alembert, Sorbonne Université, Simula Research Laboratory, Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
+      - 'Institut Jean Le Rond d''Alembert, Sorbonne Université'
   - name:
       literal: 'Jack S. Hale'
     affiliations:
-      - 'University of Luxembourg, Institut Jean Le Rond d''Alembert, Sorbonne Université, Simula Research Laboratory, Laboratoire Navier, École des Ponts ParisTech, Université Gustave Eiffel'
+      - 'University of Luxembourg'
 license: CC-BY-4.0
 exports:
   - format: pdf

@@ -60,6 +60,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="Use MyST's bulk PDF exporter instead of the default serial exporter.",
     )
+    parser.add_argument(
+        "--watermark-doi",
+        default="10.5281/zenodo.20632492",
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+    )
+    parser.add_argument(
+        "--watermark-version",
+        default="v2",
+        help="Version text used in the author-index watermark.",
+    )
     args = parser.parse_args(argv)
 
     if not args.programme.is_file():
@@ -75,6 +85,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         str(args.programme),
         "--output",
         str(args.output),
+        "--watermark-doi",
+        args.watermark_doi,
+        "--watermark-version",
+        args.watermark_version,
     ]
     if args.markdown_only:
         command.append("--markdown-only")

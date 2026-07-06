@@ -83,6 +83,17 @@ You can override the programme or output path when needed:
 python3 build_book.py --programme programme.md --output book-of-abstracts-v1.pdf
 ```
 
+To update only the programme ordering/front matter and the merged PDF watermark while keeping the individual abstract Markdown files from PRs untouched, do not run `convert.py`. Run the build from the existing markdown instead:
+
+```bash
+python3 build_book.py \
+  --programme programme.md \
+  --watermark-doi 10.5281/zenodo.20632492 \
+  --watermark-version v2
+```
+
+Use `--programme ../programme.md` if the latest programme file is the one in the repository parent directory.
+
 The compatibility wrapper still works for the second step:
 
 ```bash

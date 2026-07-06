@@ -850,7 +850,6 @@ def apply_programme_order(submissions: list[Submission], programme_entries: list
         entry.slug = submission.slug
         ordered.append(submission)
 
-    ordered.extend(sorted(remaining, key=sort_key))
     return ordered
 
 
@@ -876,7 +875,7 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
         latex_lines: list[str] = []
         if day != current_day:
             current_day = day
-            if sections:
+            if sections and current_day != "Friday - 19 June":
                 latex_lines.extend([r"\clearpage", ""])
             latex_lines.append(rf"\section*{{{escape_latex(current_day)}}}")
 
@@ -941,12 +940,9 @@ def render_programme_sections(programme_entries: list[ProgrammeEntry], submissio
                 rf"{escape_latex(entry.time)} & {contribution} & {escape_latex(submission.presenter)} \\"
             )
         latex_lines.append(r"\end{longtable}")
+        if session.startswith("Session 5:"):
+            latex_lines.extend(["", r"\clearpage"])
         sections.append("\n".join(["```{raw} latex", *latex_lines, "```"]))
-
-    matched_slugs = {entry.slug for entry in programme_entries}
-    unmatched = [submission for submission in submissions if submission.slug not in matched_slugs]
-    if unmatched:
-        sections.append(render_sections(unmatched))
 
     return "\n\n".join(sections)
 

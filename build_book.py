@@ -481,6 +481,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--book-title", default=DEFAULT_BOOK_TITLE)
     parser.add_argument("--book-subtitle", default=DEFAULT_BOOK_SUBTITLE)
     parser.add_argument("--book-author", default=DEFAULT_BOOK_AUTHOR)
+    parser.add_argument(
+        "--watermark-doi",
+        default="10.5281/zenodo.20632492",
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+    )
+    parser.add_argument(
+        "--watermark-version",
+        default="v2",
+        help="Version text used in the author-index watermark.",
+    )
     args = parser.parse_args(argv)
 
     changed_paths: list[str] | None = None
@@ -549,6 +559,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             str(args.book_dir / "abstracts"),
             "--output",
             str(args.output),
+            "--watermark-doi",
+            args.watermark_doi,
+            "--watermark-version",
+            args.watermark_version,
         ],
         cwd=here,
         label="merge PDFs and append author index",

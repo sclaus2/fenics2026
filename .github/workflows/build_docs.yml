@@ -92,7 +92,12 @@ jobs:
           if [ -z "$BASE_REF" ] || [ "$BASE_REF" = "0000000000000000000000000000000000000000" ]; then
             BASE_REF="origin/main"
           fi
-          python build_book.py --changed-only --base-ref "$BASE_REF"
+          python build_book.py \
+            --changed-only \
+            --base-ref "$BASE_REF" \
+            --programme programme.md \
+            --watermark-doi 10.5281/zenodo.20632492 \
+            --watermark-version v2
 
       - name: Upload book PDF
         uses: actions/upload-artifact@v4

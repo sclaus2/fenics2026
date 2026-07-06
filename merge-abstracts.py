@@ -40,6 +40,8 @@ WATERMARK_GRAY = 0.85
 WATERMARK_FONT_SIZE = 8
 WATERMARK_X = 0.05 * PAGE_WIDTH
 WATERMARK_Y = 0.5 * PAGE_HEIGHT
+DEFAULT_WATERMARK_DOI = "10.5281/zenodo.20632492"
+DEFAULT_WATERMARK_VERSION = "v2"
 
 
 def timestamp() -> str:
@@ -252,12 +254,13 @@ def pdf_text(value: str) -> str:
     return ascii_value.replace("\\", r"\\").replace("(", r"\(").replace(")", r"\)")
 
 
-def watermark_text() -> str:
+def watermark_text(doi: str, version: str) -> str:
     today = date.today()
-    return f"doi:xxx, v1-draft, {today:%B} {today.day}, {today:%Y}"
+    doi_text = doi if doi.casefold().startswith("doi:") else f"doi:{doi}"
+    return f"{doi_text}, {version}, {today:%B} {today.day}, {today:%Y}"
 
 
-def add_author_index_watermark(commands: list[str]) -> None:
+def add_author_index_watermark(commands: list[str], doi: str, version: str) -> None:
     commands.extend(
         [
             "q",
@@ -265,7 +268,7 @@ def add_author_index_watermark(commands: list[str]) -> None:
             (
                 f"BT /F1 {WATERMARK_FONT_SIZE} Tf "
                 f"0 1 -1 0 {WATERMARK_X:.2f} {WATERMARK_Y:.2f} Tm "
-                f"({pdf_text(watermark_text())}) Tj ET"
+                f"({pdf_text(watermark_text(doi, version))}) Tj ET"
             ),
             "Q",
         ]
@@ -276,7 +279,13 @@ def add_text_line(commands: list[str], x: float, y: float, text: str, size: int 
     commands.append(f"BT /F1 {size} Tf {x:.2f} {y:.2f} Td ({pdf_text(text)}) Tj ET")
 
 
-def add_author_index(writer: PdfWriter, manifest: list[dict], page_starts: dict[str, int]) -> int | None:
+def add_author_index(
+    writer: PdfWriter,
+    manifest: list[dict],
+    page_starts: dict[str, int],
+    watermark_doi: str,
+    watermark_version: str,
+) -> int | None:
     entries = collect_author_index(manifest, page_starts)
     if not entries:
         log("No author index entries found")
@@ -292,7 +301,7 @@ def add_author_index(writer: PdfWriter, manifest: list[dict], page_starts: dict[
         page_entries = entries[page_offset : page_offset + rows_per_page]
         page = PageObject.create_blank_page(width=PAGE_WIDTH, height=PAGE_HEIGHT)
         commands: list[str] = []
-        add_author_index_watermark(commands)
+        add_author_index_watermark(commands, watermark_doi, watermark_version)
         commands.extend(["q", "0 0 0 rg"])
         if page_offset == 0:
             add_text_line(commands, INDEX_MARGIN_X, PAGE_HEIGHT - INDEX_MARGIN_TOP, "Author Index", INDEX_TITLE_SIZE)
@@ -373,6 +382,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         action="store_true",
         help="Do not append the generated author index.",
     )
+    parser.add_argument(
+        "--watermark-doi",
+        default=DEFAULT_WATERMARK_DOI,
+        help="DOI text used in the author-index watermark, e.g. 10.5281/zenodo.20632492.",
+    )
+    parser.add_argument(
+        "--watermark-version",
+        default=DEFAULT_WATERMARK_VERSION,
+        help="Version text used in the author-index watermark.",
+    )
     args = parser.parse_args(argv)
 
     input_folder = args.input
@@ -440,7 +459,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         rewrite_readme_links(merger, readme_pages, page_starts, export_name_map)
     add_outline(merger, manifest, page_starts)
     if manifest and not args.no_author_index:
-        add_author_index(merger, manifest, page_starts)
+        add_author_index(merger, manifest, page_starts, args.watermark_doi, args.watermark_version)
     apply_page_labels(merger)
 
     log(f"Writing merged PDF: {output_file}")

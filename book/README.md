@@ -12,7 +12,7 @@ exports:
 
 Paris, 17-19 June 2026
 
-Total abstracts: **67**
+Total abstracts: **65**
 
 ```{raw} latex
 \section*{Wednesday - 17 June}
@@ -74,7 +74,7 @@ Total abstracts: **67**
 \href{abstracts/finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx.md}{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
 \href{abstracts/gpu-kernels-in-dolfinx.md}{GPU kernels in DOLFINx} & Chris Richardson \\
 \href{abstracts/numerical-simulation-of-asphalt-solar-collector-systems.md}{Numerical simulation of asphalt solar collector systems} & Lucia Escudero Sartages \\
-\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
+\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using dolfinx-external-operator} & Andrey Latyshev \\
 \end{longtable}
 ```
 
@@ -96,7 +96,7 @@ Total abstracts: **67**
 \href{abstracts/live-demonstration-of-an-open-source-vibroacoustic-gui-built-on-fenicsx.md}{Live Demonstration of an Open-Source Vibroacoustic GUI Built on FEniCSx} & Antonio Baiano Svizzero \\
 \href{abstracts/fenicsx-in-metal-additive-manufacturing-2.md}{FEniCSx in Metal Additive Manufacturing} & Anton Evdokimov \\
 \href{abstracts/from-micro-to-macro-unsupervised-fe2-acceleration-using-ddfenicsx-and-micmacsfenicsx.md}{From Micro to Macro: Unsupervised FE2 Acceleration using ddfenicsx and micmacsfenicsx} & Felipe Rocha \\
-\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using DOLFINx-External-Operator} & Andrey Latyshev \\
+\href{abstracts/integration-of-externally-defined-constitutive-models-into-fenicsx-using-dolfinx-external-operator-2.md}{Integration of Externally Defined Constitutive Models into FEniCSx Using dolfinx-external-operator} & Andrey Latyshev \\
 \end{longtable}
 ```
 
@@ -115,8 +115,8 @@ Total abstracts: **67**
 \endhead
 9:00 - 9:15 & \href{abstracts/felics-a-versatile-linearized-flow-solver-for-multi-physics-applications.md}{FELiCS: A Versatile Linearized Flow Solver for Multi-Physics Applications} & Marina Matthaiou \\
 9:15 - 9:30 & \href{abstracts/finite-element-modeling-of-electrochemical-impedance-spectroscopy-in-all-solid-state-batteries-using-fenicsx-2.md}{Finite Element Modeling of Electrochemical Impedance Spectroscopy in All-Solid-State Batteries using FEniCSx} & Théo Bermond \\
-9:30 - 9:45 & \href{abstracts/multi-physics-modelling-of-nuclear-fusion-reactor-components-using-festim.md}{Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM} & James Dark \\
-9:45 - 10:00 & \href{abstracts/festim-v2-0-upgraded-framework-for-multi-species-hydrogen-transport.md}{FESTIM v2.0: Upgraded framework for multi-species hydrogen transport} & Remi Delaporte-Mathurin \\
+9:30 - 9:45 & \href{abstracts/festim-v2-0-upgraded-framework-for-multi-species-hydrogen-transport.md}{FESTIM v2.0: Upgraded framework for multi-species hydrogen transport} & Remi Delaporte-Mathurin \\
+9:45 - 10:00 & \href{abstracts/multi-physics-modelling-of-nuclear-fusion-reactor-components-using-festim.md}{Multi-physics Modelling of Nuclear Fusion Reactor Components using FESTIM} & James Dark \\
 10:00 - 10:15 & \href{abstracts/numerical-quality-factor-statistics-of-multilayered-superconducting-radio-frequency-cavity.md}{Numerical quality factor statistics of multilayered superconducting radio-frequency cavity} & Aaron Gobeyn \\
 10:15 - 10:30 & \href{abstracts/a-fully-monolithic-formulation-for-multiphase-fluid-structure-interaction.md}{A fully monolithic formulation for multiphase fluid-structure interaction} & Marc Hirschvogel \\
 \end{longtable}
@@ -158,6 +158,8 @@ Total abstracts: **67**
 15:00 - 15:15 & \href{abstracts/computational-shakedown-analysis-with-fenicsx-conic-optimization-for-large-scale-fem.md}{Computational Shakedown Analysis with FEniCSx: Conic Optimization for Large-Scale FEM} & Lavakumar Veludandi \\
 15:15 - 15:30 & \href{abstracts/convergence-study-on-polycrystalline-materials.md}{Convergence Study on Polycrystalline Materials} & Donald Boyce \\
 \end{longtable}
+
+\clearpage
 ```
 
 ```{raw} latex
@@ -170,18 +172,15 @@ Total abstracts: **67**
 \textbf{Time} & \textbf{Contribution} & \textbf{Presenter} \\
 \hline
 \endhead
-16:00 - 16:15 & \href{abstracts/variational-solvers-for-irreversible-evolutionary-systems-orchestration.md}{Variational Solvers for Irreversible Evolutionary Systems: Orchestration} & Andrés A León Baldelli \\
-16:15 - 16:30 & \href{abstracts/implementation-of-the-tiniest-tensor-de-rham-subcomplex-on-3d-hybrid-meshes.md}{Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes} & Johnny Vogels \\
-16:30 - 16:45 & \href{abstracts/an-implementation-of-the-distributed-two-scales-method-for-linear-elasticity-problems-based-on-fenicsx-and-petsc.md}{An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc} & Salzman Alexis \\
-16:45 - 17:00 & \href{abstracts/adjoint-accelerated-inverse-modelling-of-acoustic-cross-talk-in-piezoelectric-inkjet-printheads.md}{Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads} & Javier Lorente-Macías \\
-17:00 - 17:15 & \href{abstracts/fenics-post-processing-with-paraview.md}{FEniCS Post-processing with ParaView} & Louis Gombert \\
-17:15 - 17:30 & \href{abstracts/the-digital-math-framework-as-a-robust-and-general-scientific-basis-for-society-advancements-in-the-adaptive-euler-breakthrough-for-aerodynamics-and-digimat-educational-program.md}{The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program} & Johan Jansson \\
+16:00 - 16:15 & \href{abstracts/implementation-of-the-tiniest-tensor-de-rham-subcomplex-on-3d-hybrid-meshes.md}{Implementation of the TiNiest Tensor de Rham subcomplex on 3D Hybrid Meshes} & Johnny Vogels \\
+16:15 - 16:30 & \href{abstracts/an-implementation-of-the-distributed-two-scales-method-for-linear-elasticity-problems-based-on-fenicsx-and-petsc.md}{An implementation of the distributed two scales method for linear elasticity problems based on FEniCSx and PETSc} & Salzman Alexis \\
+16:30 - 16:45 & \href{abstracts/adjoint-accelerated-inverse-modelling-of-acoustic-cross-talk-in-piezoelectric-inkjet-printheads.md}{Adjoint-accelerated inverse modelling of acoustic cross-talk in piezoelectric inkjet printheads} & Javier Lorente-Macías \\
+16:45 - 17:00 & \href{abstracts/fenics-post-processing-with-paraview.md}{FEniCS Post-processing with ParaView} & Louis Gombert \\
+17:00 - 17:15 & \href{abstracts/the-digital-math-framework-as-a-robust-and-general-scientific-basis-for-society-advancements-in-the-adaptive-euler-breakthrough-for-aerodynamics-and-digimat-educational-program.md}{The Digital Math framework as a robust and general scientific basis for society - advancements in the Adaptive Euler breakthrough for aerodynamics and DigiMat educational program} & Johan Jansson \\
 \end{longtable}
 ```
 
 ```{raw} latex
-\clearpage
-
 \section*{Friday - 19 June}
 
 \subsection*{Session 7: Inverse problems, waves, and flow/transport}
@@ -211,9 +210,8 @@ Total abstracts: **67**
 \hline
 \endhead
 11:00 - 11:15 & \href{abstracts/finite-element-modeling-of-complex-inelasticity-using-fenicsx-paper-and-thermoplastics.md}{Finite-Element Modeling of Complex Inelasticity Using FEniCSx: Paper and Thermoplastics} & Johannes Neumann \\
-11:15 - 11:30 & \href{abstracts/large-scale-random-vibration-analysis-using-fenics.md}{Large scale random vibration analysis using FEniCS} & Shubham Saurabh \\
-11:30 - 11:45 & \href{abstracts/femohl-a-fenicsx-based-framework-for-structural-integrity-and-resilience-assessment-of-overhead-power-transmission-infrastructure.md}{femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure} & Daria Mesbah \\
-11:45 - 12:00 & \href{abstracts/multiphysics-eddy-current-simulation-for-efficient-hybrid-electric-aircraft-propulsion.md}{Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion} & Arshad Fasiludeen \\
-12:00 - 12:15 & \href{abstracts/l-pbf-processes-via-fenics-a-finite-element-framework-for-heat-modelling-and-accelerated-predictive-workflows.md}{L-PBF Processes via FEniCS: A Finite Element Framework for Heat Modelling and Accelerated Predictive Workflows} & José Ángel Bejarano Vázquez \\
+11:15 - 11:30 & \href{abstracts/femohl-a-fenicsx-based-framework-for-structural-integrity-and-resilience-assessment-of-overhead-power-transmission-infrastructure.md}{femOHL: A FEniCSx-based Framework for Structural Integrity and Resilience Assessment of Overhead Power Transmission Infrastructure} & Daria Mesbah \\
+11:30 - 11:45 & \href{abstracts/multiphysics-eddy-current-simulation-for-efficient-hybrid-electric-aircraft-propulsion.md}{Multiphysics Eddy-Current Simulation for Efficient Hybrid-Electric Aircraft Propulsion} & Arshad Fasiludeen \\
+11:45 - 12:00 & \href{abstracts/l-pbf-processes-via-fenics-a-finite-element-framework-for-heat-modelling-and-accelerated-predictive-workflows.md}{L-PBF Processes via FEniCS: A Finite Element Framework for Heat Modelling and Accelerated Predictive Workflows} & José Ángel Bejarano Vázquez \\
 \end{longtable}
 ```
